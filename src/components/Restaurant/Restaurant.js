@@ -35,11 +35,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Restaurant = (props) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   return (
     <Card
@@ -51,11 +46,6 @@ const Restaurant = (props) => {
           <Avatar aria-label="recipe" className={classes.avatar}>
             R
           </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
         }
         title="Shrimp and Chorizo Paella"
         subheader="September 14, 2016"
