@@ -1,14 +1,18 @@
-import { Fragment } from "react";
-
 import MealsSummary from "./MealsSummary";
 import AvailableMeals from "./AvailableMeals";
 
 const Meals = (props) => {
   return (
-    <Fragment>
-      <MealsSummary />
-      <AvailableMeals restaurantId={props.restaurantId} />
-    </Fragment>
+    <>
+      <MealsSummary
+        restaurantName={props.restaurantName}
+        description={props.description}
+      />
+      <AvailableMeals
+        restaurantId={props.restaurantId}
+        restaurantName={props.restaurantName}
+      />
+    </>
   );
 };
 

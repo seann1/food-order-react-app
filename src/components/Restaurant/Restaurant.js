@@ -1,14 +1,11 @@
-import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,11 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Restaurant = (props) => {
   const classes = useStyles();
-
   return (
     <Card
       className={classes.root}
-      onClick={() => props.restaurantPick(props.id)}
+      onClick={() =>
+        props.restaurantPick(props.id, props.name, props.description)
+      }
     >
       <CardHeader
         avatar={
@@ -47,8 +45,7 @@ const Restaurant = (props) => {
             R
           </Avatar>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={props.name}
       />
       <CardMedia
         className={classes.media}
@@ -57,9 +54,7 @@ const Restaurant = (props) => {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {props.description}
         </Typography>
       </CardContent>
     </Card>

@@ -5,7 +5,7 @@ import MealItem from "./MealItem/MealItem";
 
 import classes from "./AvailableMeals.module.css";
 
-const AvailableMeals = () => {
+const AvailableMeals = (props) => {
   const [error, setError] = useState(null);
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,6 @@ const AvailableMeals = () => {
         throw new Error("Something went wrong!");
       }
       const data = await response.json();
-
       const mealsArray = [];
       for (const property in data) {
         mealsArray.push({
@@ -29,15 +28,20 @@ const AvailableMeals = () => {
           name: data[property].name,
           description: data[property].description,
           price: data[property].price,
+          restaurantId: data[property].restaurantId,
+          restaurantName: data[property].restaurantName,
         });
       }
-      setMeals(mealsArray);
+      const filteredMealsArray = mealsArray.filter(
+        (meal) => meal.restaurantId === props.restaurantId
+      );
+      setMeals(filteredMealsArray);
       //console.log(mealsArray);
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  }, []);
+  }, [props.restaurantId]);
   useEffect(() => {
     fetchMealsHandler();
   }, [fetchMealsHandler]);
@@ -49,6 +53,8 @@ const AvailableMeals = () => {
       name={meal.name}
       description={meal.description}
       price={meal.price}
+      restaurantId={meal.restaurantId}
+      restaurantName={meal.restaurantName}
     />
   ));
   let content;

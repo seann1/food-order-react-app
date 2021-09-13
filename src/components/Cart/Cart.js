@@ -16,17 +16,22 @@ const Cart = (props) => {
   };
   const cartItemAddHandler = (item) => {
     cartCtx.addItem({ ...item, amount: 1 });
-    // amount: 1
   };
+
+  const sortedCart = cartCtx.items.sort(
+    (a, b) => a.restaurantName - b.restaurantName
+  );
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
-      {cartCtx.items.map((item) => (
+      {sortedCart.map((item) => (
         <CartItem
           key={item.id}
           name={item.name}
           amount={item.amount}
           price={item.price}
+          restaurantId={item.restaurantId}
+          restaurantName={item.restaurantName}
           onRemove={cartItemRemoveHandler.bind(null, item.id)}
           onAdd={cartItemAddHandler.bind(null, item)}
         />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
@@ -6,27 +6,40 @@ import Cart from "./components/Cart/Cart";
 import OrderForm from "./components/OrderForm/OrderForm";
 import Restaurant from "./components/Restaurant/Restaurant";
 import CartProvider from "./store/CartProvider";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
+
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
-
 function App() {
-  const classes = useStyles();
   const [cartIsShown, setCartIsShown] = useState(false);
   const [orderFormIsShown, setOrderFormIsShown] = useState(false);
   const [restaurantId, setRestaurantId] = useState("");
+  const [restaurants, setRestaurants] = useState([]);
+  const [restaurantInfo, setRestaurantInfo] = useState({});
+
+  const fetchRandMHandler = useCallback(async () => {
+    try {
+      const response = await fetch(
+        "https://food-order-app-d078d-default-rtdb.firebaseio.com/restaurants.json"
+      );
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+      const data = await response.json();
+
+      let restaurantsArray = [];
+
+      for (let restaurant in data) {
+        data[restaurant].id = restaurant;
+        restaurantsArray.push(data[restaurant]);
+      }
+
+      setRestaurants(restaurantsArray);
+    } catch (error) {}
+  }, []);
+  useEffect(() => {
+    fetchRandMHandler();
+  }, [fetchRandMHandler]);
 
   const showOrderFormHandler = () => {
     setOrderFormIsShown(true);
@@ -51,9 +64,9 @@ function App() {
     setCartIsShown(false);
   };
 
-  const restaurantChoiceHandler = (id) => {
+  const restaurantChoiceHandler = (id, name, description) => {
     setRestaurantId(id);
-    console.log(restaurantId);
+    setRestaurantInfo({ name: name, description: description });
   };
 
   const clearRestaurantId = () => {
@@ -64,7 +77,12 @@ function App() {
     <CartProvider>
       {/* cart component is the modal */}
       {cartIsShown && (
-        <Cart onClose={hideCartHandler} onOrder={showOrderFormHandler} />
+        <Cart
+          onClose={hideCartHandler}
+          onOrder={showOrderFormHandler}
+          restaurantId={restaurantId}
+          restaurantName={restaurantInfo.name}
+        />
       )}
       {orderFormIsShown && (
         <OrderForm onClose={hideOrderFormHandler} returnToMenu={closeModal} />
@@ -76,47 +94,25 @@ function App() {
       />
       <main>
         {restaurantId ? (
-          <Meals restaurantId={restaurantId} />
+          <Meals
+            restaurantId={restaurantId}
+            restaurantName={restaurantInfo.name}
+            description={restaurantInfo.description}
+          />
         ) : (
           <>
             <Container maxWidth="lg">
-              <Grid
-                container
-                spacing={3}
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Grid item xs={3}>
-                  <Restaurant id={1} restaurantPick={restaurantChoiceHandler} />
-                </Grid>
-                <Grid
-                  item
-                  xs={3}
-                  justifyContent="center"
-                  alignItems="center"
-                  justify="center"
-                >
-                  <Restaurant id={2} restaurantPick={restaurantChoiceHandler} />
-                </Grid>
-                <Grid
-                  item
-                  xs={3}
-                  justifyContent="center"
-                  alignItems="center"
-                  justify="center"
-                >
-                  <Restaurant id={3} restaurantPick={restaurantChoiceHandler} />
-                </Grid>
-                <Grid
-                  item
-                  xs={3}
-                  justifyContent="center"
-                  alignItems="center"
-                  justify="center"
-                >
-                  <Restaurant id={4} restaurantPick={restaurantChoiceHandler} />
-                </Grid>
+              <Grid container spacing={3} direction="row">
+                {restaurants.map((restaurant) => (
+                  <Grid item xs={3}>
+                    <Restaurant
+                      id={restaurant.id}
+                      restaurantPick={restaurantChoiceHandler}
+                      name={restaurant.name}
+                      description={restaurant.description}
+                    />
+                  </Grid>
+                ))}
               </Grid>
             </Container>
           </>
