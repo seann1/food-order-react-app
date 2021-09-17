@@ -42,16 +42,12 @@ const Restaurant = (props) => {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {props.name.split("")[0]}
           </Avatar>
         }
         title={props.name}
       />
-      <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      />
+      <CardMedia className={classes.media} image="" title={props.name} />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {props.description}
