@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { ref, getDownloadURL } from "firebase/storage";
 import storage from "./firebase/base";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
@@ -16,7 +16,6 @@ function App() {
   const [restaurantId, setRestaurantId] = useState("");
   const [restaurants, setRestaurants] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState({});
-  const [imageUrl, setImageUrl] = useState("");
 
   const fetchRandMHandler = useCallback(async () => {
     try {
@@ -28,19 +27,19 @@ function App() {
       }
       const data = await response.json();
 
-      // const photos = await fetch(
-      //   "gs://food-order-app-d078d.appspot.com/restaurants/xico"
-      // );
-      // if (!photos.ok) {
-      //   throw new Error("Something went wrong in photos");
-      // }
-      // const photoData = await photos.json();
-      // console.log(photoData);
-
       let restaurantsArray = [];
 
       for (let restaurant in data) {
         data[restaurant].id = restaurant;
+
+        const pathReference = ref(
+          storage,
+          `restaurants/${data[restaurant].id}/${data[restaurant].id}-1.jpg`
+        );
+        await getDownloadURL(pathReference).then((url) => {
+          data[restaurant].image = url;
+        });
+
         restaurantsArray.push(data[restaurant]);
       }
 
@@ -49,12 +48,6 @@ function App() {
   }, []);
   useEffect(() => {
     fetchRandMHandler();
-    //const storage = getStorage();
-    const pathReference = ref(storage, "restaurants/xico/xico-sign.jpg");
-    getDownloadURL(pathReference).then((url) => {
-      setImageUrl(url);
-    });
-    console.log(pathReference);
   }, [fetchRandMHandler]);
 
   const showOrderFormHandler = () => {
@@ -114,19 +107,21 @@ function App() {
             restaurantId={restaurantId}
             restaurantName={restaurantInfo.name}
             description={restaurantInfo.description}
+            key={restaurantId}
           />
         ) : (
           <>
             <Container maxWidth="lg">
               <Grid container spacing={3} direction="row">
                 {restaurants.map((restaurant) => (
-                  <Grid item xs={3}>
+                  <Grid item xs={3} key={restaurant.id}>
                     <Restaurant
                       id={restaurant.id}
+                      key={restaurant.id}
                       restaurantPick={restaurantChoiceHandler}
                       name={restaurant.name}
                       description={restaurant.description}
-                      image={imageUrl}
+                      image={restaurant.image}
                     />
                   </Grid>
                 ))}
