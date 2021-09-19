@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import storage from "./firebase/base";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 import Cart from "./components/Cart/Cart";
 import OrderForm from "./components/OrderForm/OrderForm";
 import Restaurant from "./components/Restaurant/Restaurant";
 import CartProvider from "./store/CartProvider";
-
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 
@@ -16,6 +16,7 @@ function App() {
   const [restaurantId, setRestaurantId] = useState("");
   const [restaurants, setRestaurants] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState({});
+  const [imageUrl, setImageUrl] = useState("");
 
   const fetchRandMHandler = useCallback(async () => {
     try {
@@ -26,6 +27,15 @@ function App() {
         throw new Error("Something went wrong!");
       }
       const data = await response.json();
+
+      // const photos = await fetch(
+      //   "gs://food-order-app-d078d.appspot.com/restaurants/xico"
+      // );
+      // if (!photos.ok) {
+      //   throw new Error("Something went wrong in photos");
+      // }
+      // const photoData = await photos.json();
+      // console.log(photoData);
 
       let restaurantsArray = [];
 
@@ -39,6 +49,12 @@ function App() {
   }, []);
   useEffect(() => {
     fetchRandMHandler();
+    //const storage = getStorage();
+    const pathReference = ref(storage, "restaurants/xico/xico-sign.jpg");
+    getDownloadURL(pathReference).then((url) => {
+      setImageUrl(url);
+    });
+    console.log(pathReference);
   }, [fetchRandMHandler]);
 
   const showOrderFormHandler = () => {
@@ -110,6 +126,7 @@ function App() {
                       restaurantPick={restaurantChoiceHandler}
                       name={restaurant.name}
                       description={restaurant.description}
+                      image={imageUrl}
                     />
                   </Grid>
                 ))}

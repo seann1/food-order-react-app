@@ -1,3 +1,5 @@
+//import { app } from "../../firebase/base";
+import { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -31,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Restaurant = (props) => {
+  useEffect(() => {}, []);
   const classes = useStyles();
   return (
     <Card
@@ -47,7 +50,11 @@ const Restaurant = (props) => {
         }
         title={props.name}
       />
-      <CardMedia className={classes.media} image="" title={props.name} />
+      <CardMedia
+        className={classes.media}
+        image={props.image}
+        title={props.name}
+      />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {props.description}
