@@ -2,10 +2,10 @@ import { useContext, useState } from "react";
 import CartContext from "../../store/cart-context";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import PlacesAutoComplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
+// import PlacesAutoComplete, {
+//   geocodeByAddress,
+//   getLatLng,
+// } from "react-places-autocomplete";
 import FormikInput from "../UI/FormikInput";
 import Modal from "../UI/Modal";
 import classes from "./OrderForm.module.css";
@@ -41,7 +41,7 @@ function OrderForm(props) {
           },
         }
       );
-      const data = await response.json();
+      await response.json();
       cartCtx.resetCart();
       setOrderCompleted(true);
     } catch (error) {

@@ -9,6 +9,7 @@ import Restaurant from "./components/Restaurant/Restaurant";
 import CartProvider from "./store/CartProvider";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -16,8 +17,10 @@ function App() {
   const [restaurantId, setRestaurantId] = useState("");
   const [restaurants, setRestaurants] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchRandMHandler = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         "https://food-order-app-d078d-default-rtdb.firebaseio.com/restaurants.json"
@@ -44,6 +47,7 @@ function App() {
       }
 
       setRestaurants(restaurantsArray);
+      setIsLoading(false);
     } catch (error) {}
   }, []);
   useEffect(() => {
@@ -111,22 +115,28 @@ function App() {
           />
         ) : (
           <>
-            <Container maxWidth="lg">
-              <Grid container spacing={3} direction="row">
-                {restaurants.map((restaurant) => (
-                  <Grid item xs={3} key={restaurant.id}>
-                    <Restaurant
-                      id={restaurant.id}
-                      key={restaurant.id}
-                      restaurantPick={restaurantChoiceHandler}
-                      name={restaurant.name}
-                      description={restaurant.description}
-                      image={restaurant.image}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </Container>
+            {isLoading ? (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <Container maxWidth="lg">
+                <Grid container spacing={3} direction="row">
+                  {restaurants.map((restaurant) => (
+                    <Grid item xs={3} key={restaurant.id}>
+                      <Restaurant
+                        id={restaurant.id}
+                        key={restaurant.id}
+                        restaurantPick={restaurantChoiceHandler}
+                        name={restaurant.name}
+                        description={restaurant.description}
+                        image={restaurant.image}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              </Container>
+            )}
           </>
         )}
       </main>

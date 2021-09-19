@@ -1,4 +1,5 @@
-import Button from "@material-ui/core/Button";
+//import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip";
 import HeaderCartButton from "./HeaderCartButton";
 import mealsImage from "../../assets/meals.jpg";
 import classes from "./Header.module.css";
@@ -7,17 +8,23 @@ const Header = (props) => {
   return (
     <>
       <header className={classes.header}>
-        <h1>ReactMeals</h1>
-        {props.restaurantId && (
-          <div>
-            <Button
-              variant="secondary"
+        {props.restaurantId ? (
+          <>
+            <Tooltip title="Back to Restaurant selection">
+              <h1 onClick={props.backToRestaurants} className={classes.pointer}>
+                ReactMeals
+              </h1>
+            </Tooltip>
+            {/* <Button
+              variant="contained"
               onClick={props.backToRestaurants}
               className="text-left"
             >
               Back to restaurants
-            </Button>
-          </div>
+            </Button> */}
+          </>
+        ) : (
+          <h1>ReactMeals</h1>
         )}
         <HeaderCartButton onClick={props.onShowCart} />
       </header>
