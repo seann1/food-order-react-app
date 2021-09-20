@@ -75,6 +75,7 @@ function App() {
   const closeModal = () => {
     setOrderFormIsShown(false);
     setCartIsShown(false);
+    setRestaurantId("");
   };
 
   const restaurantChoiceHandler = (id, name, description) => {

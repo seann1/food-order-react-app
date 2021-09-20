@@ -56,7 +56,7 @@ function OrderForm(props) {
         initialValues={{
           firstName: "",
           lastName: "",
-          email: "",
+          address: "",
         }}
         validationSchema={Yup.object({
           firstName: Yup.string()
@@ -66,7 +66,7 @@ function OrderForm(props) {
             .max(20, "Must be 20 characters or less")
             .required("Required"),
           address: Yup.string()
-            .max(20, "Must be 20 characters or less")
+            .max(100, "Must be 100 characters or less")
             .required("Required"),
         })}
         onSubmit={(values) => {
@@ -75,23 +75,13 @@ function OrderForm(props) {
         }}
       >
         <Form className={classes.form}>
-          <FormikInput
-            label="First Name"
-            name="firstName"
-            type="text"
-            placeholder="Jane"
-          />
+          <FormikInput label="First Name" name="firstName" type="text" />
 
-          <FormikInput
-            label="Last Name"
-            name="lastName"
-            type="text"
-            placeholder="Doe"
-          />
+          <FormikInput label="Last Name" name="lastName" type="text" />
 
           <FormikInput label="Address" name="address" type="text" />
           <div className={classes.actions}>
-            <button type="button" onClick={props.onCancel}>
+            <button type="button" onClick={props.onClose}>
               Cancel
             </button>
             <button type="submit" className={classes.submit}>
