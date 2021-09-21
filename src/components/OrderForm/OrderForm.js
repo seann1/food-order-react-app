@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import CartContext from "../../store/cart-context";
+import SubmissionAlert from "../UI/SubmissionAlert";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 // import PlacesAutoComplete, {
@@ -13,6 +14,8 @@ import classes from "./OrderForm.module.css";
 function OrderForm(props) {
   const [orderCompleted, setOrderCompleted] = useState(false);
   const [error, setError] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertInfo, setAlertInfo] = useState(null);
 
   const cartCtx = useContext(CartContext);
 
@@ -44,6 +47,13 @@ function OrderForm(props) {
       await response.json();
       cartCtx.resetCart();
       setOrderCompleted(true);
+      setShowAlert(true);
+      setAlertInfo(order);
+      console.log(alertInfo);
+      setTimeout(() => {
+        setShowAlert(false);
+        setAlertInfo(null);
+      }, 15000);
     } catch (error) {
       setError(error.message);
     }
@@ -98,6 +108,7 @@ function OrderForm(props) {
   if (orderCompleted) {
     output = (
       <>
+        {showAlert && <SubmissionAlert info={alertInfo} />}
         <p>Order Completed</p>
         <div className={classes.actions}>
           <button
