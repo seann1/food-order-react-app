@@ -19,6 +19,12 @@ function OrderForm(props) {
 
   const cartCtx = useContext(CartContext);
 
+  const closeAlert = () => {
+    setShowAlert(false);
+    setAlertInfo(null);
+    props.returnToMenu();
+  };
+
   function placeOrderHandler(values) {
     //event.preventDefault();
 
@@ -49,11 +55,11 @@ function OrderForm(props) {
       setOrderCompleted(true);
       setShowAlert(true);
       setAlertInfo(order);
-      console.log(alertInfo);
-      setTimeout(() => {
-        setShowAlert(false);
-        setAlertInfo(null);
-      }, 15000);
+
+      // setTimeout(() => {
+      //   setShowAlert(false);
+      //   setAlertInfo(null);
+      // }, 15000);
     } catch (error) {
       setError(error.message);
     }
@@ -62,44 +68,46 @@ function OrderForm(props) {
 
   if (!orderCompleted && !error) {
     output = (
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          address: "",
-        }}
-        validationSchema={Yup.object({
-          firstName: Yup.string()
-            .max(15, "Must be 15 characters or less")
-            .required("Required"),
-          lastName: Yup.string()
-            .max(20, "Must be 20 characters or less")
-            .required("Required"),
-          address: Yup.string()
-            .max(100, "Must be 100 characters or less")
-            .required("Required"),
-        })}
-        onSubmit={(values) => {
-          placeOrderHandler(values);
-          console.log(values);
-        }}
-      >
-        <Form className={classes.form}>
-          <FormikInput label="First Name" name="firstName" type="text" />
+      <Modal onClose={props.onClose}>
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            address: "",
+          }}
+          validationSchema={Yup.object({
+            firstName: Yup.string()
+              .max(15, "Must be 15 characters or less")
+              .required("Required"),
+            lastName: Yup.string()
+              .max(20, "Must be 20 characters or less")
+              .required("Required"),
+            address: Yup.string()
+              .max(100, "Must be 100 characters or less")
+              .required("Required"),
+          })}
+          onSubmit={(values) => {
+            placeOrderHandler(values);
+            console.log(values);
+          }}
+        >
+          <Form className={classes.form}>
+            <FormikInput label="First Name" name="firstName" type="text" />
 
-          <FormikInput label="Last Name" name="lastName" type="text" />
+            <FormikInput label="Last Name" name="lastName" type="text" />
 
-          <FormikInput label="Address" name="address" type="text" />
-          <div className={classes.actions}>
-            <button type="button" onClick={props.onClose}>
-              Cancel
-            </button>
-            <button type="submit" className={classes.submit}>
-              Submit
-            </button>
-          </div>
-        </Form>
-      </Formik>
+            <FormikInput label="Address" name="address" type="text" />
+            <div className={classes.actions}>
+              <button type="button" onClick={props.onClose}>
+                Cancel
+              </button>
+              <button type="submit" className={classes.submit}>
+                Submit
+              </button>
+            </div>
+          </Form>
+        </Formik>
+      </Modal>
     );
   }
   if (error) {
@@ -108,21 +116,21 @@ function OrderForm(props) {
   if (orderCompleted) {
     output = (
       <>
-        {showAlert && <SubmissionAlert info={alertInfo} />}
-        <p>Order Completed</p>
-        <div className={classes.actions}>
-          <button
-            className={classes["button--alt"]}
-            onClick={props.returnToMenu}
-          >
-            Return to menu
-          </button>
-        </div>
+        {/* <p>Order Completed</p> */}
+        {showAlert && (
+          <SubmissionAlert info={alertInfo}>
+            <div className={classes.actions}>
+              <button className={classes["button--alt"]} onClick={closeAlert}>
+                Return to menu
+              </button>
+            </div>
+          </SubmissionAlert>
+        )}
       </>
     );
   }
 
-  return <Modal onClose={props.onClose}>{output}</Modal>;
+  return output;
 }
 
 export default OrderForm;

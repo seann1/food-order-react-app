@@ -1,0 +1,9 @@
+#alert {
+  z-index: 40;
+}
+.alert {
+  z-index: 40;
+  position: absolute;
+  top: 2em;
+  left: 2em;
+}
