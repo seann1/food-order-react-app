@@ -28,4 +28,4 @@ const Modal = (props) => {
     </>
   );
 };
-export default { Backdrop, Modal };
+export { Modal, Backdrop };

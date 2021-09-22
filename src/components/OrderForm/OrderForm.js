@@ -8,7 +8,7 @@ import * as Yup from "yup";
 //   getLatLng,
 // } from "react-places-autocomplete";
 import FormikInput from "../UI/FormikInput";
-import Modal from "../UI/Modal";
+import { Modal } from "../UI/Modal";
 import classes from "./OrderForm.module.css";
 
 function OrderForm(props) {
@@ -98,7 +98,7 @@ function OrderForm(props) {
 
             <FormikInput label="Address" name="address" type="text" />
             <div className={classes.actions}>
-              <button type="button" onClick={props.onClose}>
+              <button type="button" onClick={props.onCancel}>
                 Cancel
               </button>
               <button type="submit" className={classes.submit}>
@@ -118,7 +118,7 @@ function OrderForm(props) {
       <>
         {/* <p>Order Completed</p> */}
         {showAlert && (
-          <SubmissionAlert info={alertInfo}>
+          <SubmissionAlert info={alertInfo} closeAlert={closeAlert}>
             <div className={classes.actions}>
               <button className={classes["button--alt"]} onClick={closeAlert}>
                 Return to menu

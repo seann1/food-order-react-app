@@ -67,9 +67,12 @@ function App() {
     setCartIsShown(true);
   };
 
-  const hideOrderFormHandler = () => {
+  const hideOrderFormHandler = (submit) => {
     setOrderFormIsShown(false);
     setCartIsShown(true);
+    // if (submit) {
+    //   setRestaurantId("");
+    // }
   };
 
   const closeModal = () => {
@@ -99,7 +102,11 @@ function App() {
         />
       )}
       {orderFormIsShown && (
-        <OrderForm onClose={hideOrderFormHandler} returnToMenu={closeModal} />
+        <OrderForm
+          onClose={hideOrderFormHandler}
+          onCancel={hideOrderFormHandler}
+          returnToMenu={closeModal}
+        />
       )}
       <Header
         onShowCart={showCartHandler}
