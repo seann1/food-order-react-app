@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect, forwardRef } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import Slide from "@mui/material/Slide";
 import { styled } from "@mui/material/styles";
+import MuiAlert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { Modal } from "./Modal";
@@ -14,8 +16,23 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+// const theme = {
+//   spacing: 8,
+// };
+
 const SubmissionAlert = (props) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    setOpen(true);
+  }, []);
+
+  function SlideTransition(props) {
+    return <Slide {...props} direction="up" />;
+  }
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -47,7 +64,7 @@ const SubmissionAlert = (props) => {
   return (
     <>
       <Modal>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }} m={2}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Item>The following data was sent to the database:</Item>
@@ -63,9 +80,11 @@ const SubmissionAlert = (props) => {
             </Grid>
           </Grid>
         </Box>
-        <div style={{ height: "20em" }}>
-          <DataGrid rows={rows} columns={columns} />
-        </div>
+        <Box mb={2}>
+          <div style={{ height: "20em" }}>
+            <DataGrid rows={rows} columns={columns} />
+          </div>
+        </Box>
         {props.children}
       </Modal>
       <Snackbar
@@ -73,7 +92,16 @@ const SubmissionAlert = (props) => {
         autoHideDuration={6000}
         onClose={handleClose}
         message="Success"
-      />
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        TransitionComponent={SlideTransition}
+      >
+        <Alert onClose={handleClose} severity="success">
+          Success
+        </Alert>
+      </Snackbar>
       )
     </>
   );

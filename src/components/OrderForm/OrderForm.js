@@ -120,7 +120,7 @@ function OrderForm(props) {
         {showAlert && (
           <SubmissionAlert info={alertInfo} closeAlert={closeAlert}>
             <div className={classes.actions}>
-              <button className={classes["button--alt"]} onClick={closeAlert}>
+              <button className={classes.submit} onClick={closeAlert}>
                 Return to menu
               </button>
             </div>

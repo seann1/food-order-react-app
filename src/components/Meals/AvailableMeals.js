@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 import classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = (props) => {
@@ -65,7 +65,11 @@ const AvailableMeals = (props) => {
     content = <p>{error}</p>;
   }
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </div>
+    );
   }
   return (
     <section className={classes.meals}>
