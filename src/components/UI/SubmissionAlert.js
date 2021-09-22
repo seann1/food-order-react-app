@@ -6,7 +6,7 @@ import Slide from "@mui/material/Slide";
 import { styled } from "@mui/material/styles";
 import MuiAlert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { Modal } from "./Modal";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -19,10 +19,6 @@ const Item = styled(Paper)(({ theme }) => ({
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
-// const theme = {
-//   spacing: 8,
-// };
 
 const SubmissionAlert = (props) => {
   const [open, setOpen] = useState(false);
@@ -52,9 +48,10 @@ const SubmissionAlert = (props) => {
       col4: item.amount,
     });
   });
-  const rows: GridRowsProp = [...rowsArray];
 
-  const columns: GridColDef[] = [
+  const rows = [...rowsArray];
+
+  const columns = [
     { field: "col1", headerName: "Name", width: 150 },
     { field: "col1", headerName: "Name", width: 150 },
     { field: "col2", headerName: "Price", width: 150 },

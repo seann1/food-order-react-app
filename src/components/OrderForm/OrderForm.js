@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import CartContext from "../../store/cart-context";
 import SubmissionAlert from "../UI/SubmissionAlert";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { TextField } from "formik-material-ui";
 // import PlacesAutoComplete, {
 //   geocodeByAddress,
 //   getLatLng,
 // } from "react-places-autocomplete";
-import FormikInput from "../UI/FormikInput";
 import { Modal } from "../UI/Modal";
 import classes from "./OrderForm.module.css";
 
@@ -91,12 +91,33 @@ function OrderForm(props) {
             console.log(values);
           }}
         >
-          <Form className={classes.form}>
-            <FormikInput label="First Name" name="firstName" type="text" />
+          {/* className={classes.form} */}
+          <Form>
+            <Field
+              component={TextField}
+              name="firstName"
+              type="text"
+              label="First Name"
+            />
+            <br />
+            {/* <FormikInput label="First Name" name="firstName" type="text" /> */}
 
-            <FormikInput label="Last Name" name="lastName" type="text" />
-
-            <FormikInput label="Address" name="address" type="text" />
+            {/* <FormikInput label="Last Name" name="lastName" type="text" /> */}
+            <Field
+              component={TextField}
+              label="Last Name"
+              name="lastName"
+              type="text"
+            />
+            <br />
+            {/* <FormikInput label="Address" name="address" type="text" /> */}
+            <Field
+              component={TextField}
+              label="Address"
+              name="address"
+              type="text"
+            />
+            <br />
             <div className={classes.actions}>
               <button type="button" onClick={props.onCancel}>
                 Cancel
