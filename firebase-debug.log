@@ -1,0 +1,28 @@
+[debug] [2021-09-24T22:37:43.106Z] ----------------------------------------------------------------------
+[debug] [2021-09-24T22:37:43.107Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Sean\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-09-24T22:37:43.108Z] CLI Version:   9.16.6
+[debug] [2021-09-24T22:37:43.108Z] Platform:      win32
+[debug] [2021-09-24T22:37:43.108Z] Node Version:  v14.15.5
+[debug] [2021-09-24T22:37:43.108Z] Time:          Fri Sep 24 2021 15:37:43 GMT-0700 (Pacific Daylight Time)
+[debug] [2021-09-24T22:37:43.109Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-09-24T22:37:43.110Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-09-24T22:37:43.168Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-09-24T22:37:43.168Z] > authorizing via signed-in user (seanniesen@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Sean\Documents\code\food-ordering-react-app\01-starting-project
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[debug] [2021-09-24T22:37:43.421Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-09-24T22:37:43.421Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
