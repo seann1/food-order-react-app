@@ -2,32 +2,43 @@
 import Tooltip from "@material-ui/core/Tooltip";
 import HeaderCartButton from "./HeaderCartButton";
 import mealsImage from "../../assets/meals.jpg";
+import AppBar from "@mui/material/AppBar";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Login from "./Login";
 import classes from "./Header.module.css";
 
 const Header = (props) => {
   return (
     <>
-      <header className={classes.header}>
-        {props.restaurantId ? (
-          <>
-            <Tooltip title="Back to Restaurant selection">
-              <h1 onClick={props.backToRestaurants} className={classes.pointer}>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar>
+          <Toolbar>
+            {props.restaurantId ? (
+              <>
+                <Tooltip title="Back to Restaurant selection">
+                  <Typography
+                    variant="h2"
+                    component="div"
+                    sx={{ flexGrow: 1 }}
+                    onClick={props.backToRestaurants}
+                    className={classes.pointer}
+                  >
+                    ReactMeals
+                  </Typography>
+                </Tooltip>
+              </>
+            ) : (
+              <Typography variant="h2" component="div" sx={{ flexGrow: 1 }}>
                 ReactMeals
-              </h1>
-            </Tooltip>
-            {/* <Button
-              variant="contained"
-              onClick={props.backToRestaurants}
-              className="text-left"
-            >
-              Back to restaurants
-            </Button> */}
-          </>
-        ) : (
-          <h1>ReactMeals</h1>
-        )}
-        <HeaderCartButton onClick={props.onShowCart} />
-      </header>
+              </Typography>
+            )}
+            <HeaderCartButton onClick={props.onShowCart} />
+            <Login />
+          </Toolbar>
+        </AppBar>
+      </Box>
       <div className={classes["main-image"]}>
         <img src={mealsImage} alt="A table full of delicious food!" />
       </div>
