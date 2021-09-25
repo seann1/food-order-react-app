@@ -29,6 +29,7 @@ const LoginForm = () => {
       .then((res) => {
         setIsLoading(false);
         if (res.ok) {
+          console.log(res);
           return res.json();
         } else {
           return res.json().then((data) => {
@@ -42,6 +43,7 @@ const LoginForm = () => {
         const expirationTime = new Date(
           new Date().getTime() + +data.expiresIn * 1000
         );
+        console.log(expirationTime.toISOString());
         authCtx.login(data.idToken, expirationTime.toISOString());
       })
       .catch((err) => {

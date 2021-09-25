@@ -11,7 +11,7 @@ const Login = () => {
   const showLoginForm = () => {
     setLoginForm(true);
   };
-
+  console.log(authCtx);
   return (
     <>
       {!authCtx.token ? (
