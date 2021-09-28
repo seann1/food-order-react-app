@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import LoginForm from "./LoginForm";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   //const [isLogin, setIsLogin] = useState(false);
@@ -16,7 +17,7 @@ const Login = () => {
     <>
       {!authCtx.token ? (
         <Button color="inherit" onClick={showLoginForm}>
-          Login
+          <Link to="/Login">Login</Link>
         </Button>
       ) : (
         <Button color="inherit">Logout</Button>
