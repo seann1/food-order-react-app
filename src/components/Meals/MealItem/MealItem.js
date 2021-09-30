@@ -6,10 +6,12 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import AuthContext from "../../../store/auth-context";
 import classes from "./MealItem.module.css";
 
 const MealItem = (props) => {
   const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
   const price = `$${props.price.toFixed(2)}`;
 
   const addToCartHandler = (amount) => {
@@ -38,7 +40,9 @@ const MealItem = (props) => {
             </Typography>
           </Grid>
         </Grid>
-        <MealItemForm id={props.id} onAddToCart={addToCartHandler} />
+        {authCtx.token && (
+          <MealItemForm id={props.id} onAddToCart={addToCartHandler} />
+        )}
       </Box>
     </Paper>
   );

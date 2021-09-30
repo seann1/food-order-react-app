@@ -39,14 +39,14 @@ const MealItemForm = (props) => {
   };
   return (
     <>
-      <form onSubmit={submitHandler} id="mealItem"></form>
+      <form onSubmit={submitHandler} id={props.id}></form>
       <Box
         component="span"
         className={`${classes.bottomRightBox} ${classes.box}`}
       >
         <Input
           ref={amountInputRef}
-          form="mealItem"
+          form={props.id}
           label="Amount"
           input={{
             id: "amount_" + props.id,
@@ -62,7 +62,7 @@ const MealItemForm = (props) => {
         component="span"
         className={`${classes.bottomRightBox} ${classes.box}`}
       >
-        <Button variant="contained" type="submit" form="mealItem">
+        <Button variant="contained" type="submit" form={props.id}>
           + Add
         </Button>
       </Box>

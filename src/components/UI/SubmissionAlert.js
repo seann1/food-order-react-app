@@ -99,7 +99,6 @@ const SubmissionAlert = (props) => {
           Success
         </Alert>
       </Snackbar>
-      )
     </>
   );
 };

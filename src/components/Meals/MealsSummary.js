@@ -1,4 +1,4 @@
-import classes from "./MealsSummary.module.css";
+//import classes from "./MealsSummary.module.css";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";

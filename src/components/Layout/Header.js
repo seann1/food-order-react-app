@@ -3,7 +3,7 @@ import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import Tooltip from "@material-ui/core/Tooltip";
 import HeaderCartButton from "./HeaderCartButton";
-// import mealsImage from "../../assets/meals.jpg";
+
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -22,7 +22,10 @@ const Header = (props) => {
           <Toolbar>
             {props.restaurantId ? (
               <>
-                <Tooltip title="Back to Restaurant selection">
+                <Tooltip
+                  title="Back to Restaurant selection"
+                  placement="bottom-start"
+                >
                   <Typography
                     variant="h2"
                     component="div"
@@ -39,7 +42,7 @@ const Header = (props) => {
                 ReactMeals
               </Typography>
             )}
-            <HeaderCartButton onClick={props.onShowCart} />
+            {authCtx.token && <HeaderCartButton onClick={props.onShowCart} />}
             <Login />
           </Toolbar>
         </AppBar>
@@ -47,7 +50,8 @@ const Header = (props) => {
       {!authCtx.isLoggedIn && (
         <Box m={2}>
           <Alert severity="info">
-            Login with email: admin@admin.com Password: password
+            Login with email: <strong>admin@admin.com</strong> Password:
+            <strong>password</strong> to place an order
           </Alert>
         </Box>
       )}

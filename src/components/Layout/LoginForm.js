@@ -1,14 +1,18 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { Modal } from "../UI/Modal";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField } from "formik-material-ui";
 import AuthContext from "../../store/auth-context";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+//import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import classes from "./LoginForm.module.css";
 
 const LoginForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  //const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
   const authCtx = useContext(AuthContext);
@@ -29,7 +33,7 @@ const LoginForm = () => {
       }
     )
       .then((res) => {
-        setIsLoading(false);
+        //setIsLoading(false);
         if (res.ok) {
           console.log(res);
           return res.json();
@@ -83,16 +87,24 @@ const LoginForm = () => {
           />
           <br />
           {/* onClick={props.onCancel} */}
+          {/* className={classes.actions} */}
           <div className={classes.actions}>
             <Link to="/">
-              <button type="button">Cancel</button>
+              <Button type="button" variant="contained" color="error">
+                Cancel
+              </Button>
             </Link>
-            <button type="submit" className={classes.submit}>
+            <Button type="submit" variant="contained" color="primary">
               Submit
-            </button>
+            </Button>
           </div>
         </Form>
       </Formik>
+      <Box m={1}>
+        <Alert severity="info">
+          Log in with email: admin@admin.com password: password
+        </Alert>
+      </Box>
     </Modal>
   );
 };

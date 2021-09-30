@@ -1,6 +1,6 @@
 import MealsSummary from "./MealsSummary";
 import AvailableMeals from "./AvailableMeals";
-import Box from "@mui/material/Box";
+//import Box from "@mui/material/Box";
 
 const Meals = (props) => {
   return (
