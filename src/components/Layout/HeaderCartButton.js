@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import Button from "@mui/material/Button";
+import { useContext } from "react";
+
+import Badge from "@mui/material/Badge";
 import CartContext from "../../store/cart-context";
-import CartIcon from "../Cart/CartIcon";
-import classes from "./HeaderCartButton.module.css";
+import IconButton from "@mui/material/IconButton";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const HeaderCartButton = (props) => {
-  const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
+  //const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
   const cartCtx = useContext(CartContext);
 
   const { items } = cartCtx;
@@ -14,33 +15,36 @@ const HeaderCartButton = (props) => {
     return curNumber + item.amount;
   }, 0);
 
-  const btnClasses = `${classes.button} ${
-    btnIsHighlighted ? classes.bump : ""
-  }`;
+  // const btnClasses = `${classes.button} ${
+  //   btnIsHighlighted ? classes.bump : ""
+  // }`;
 
-  useEffect(() => {
-    if (items.length === 0) {
-      return;
-    }
-    setBtnIsHighlighted(true);
+  // useEffect(() => {
+  //   if (items.length === 0) {
+  //     return;
+  //   }
+  //   setBtnIsHighlighted(true);
 
-    const timer = setTimeout(() => {
-      setBtnIsHighlighted(false);
-    }, 300);
+  //   const timer = setTimeout(() => {
+  //     setBtnIsHighlighted(false);
+  //   }, 300);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [items]);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [items]);
 
   return (
-    <Button className={btnClasses} onClick={props.onClick}>
-      <span className={classes.icon}>
-        <CartIcon />
-      </span>
-      <span>Your Cart</span>
-      <span className={classes.badge}>{numberOfCartItems}</span>
-    </Button>
+    <IconButton
+      size="large"
+      aria-label="Shopping cart"
+      color="inherit"
+      onClick={props.onClick}
+    >
+      <Badge badgeContent={numberOfCartItems} color="error">
+        <ShoppingCartIcon color="disabled" />
+      </Badge>
+    </IconButton>
   );
 };
 

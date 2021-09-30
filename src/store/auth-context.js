@@ -45,7 +45,7 @@ export const AuthContextProvider = (props) => {
   const logoutHandler = useCallback(() => {
     setToken(null);
     localStorage.removeItem("token");
-    localStorage.remvoeItem("expirationTime");
+    localStorage.removeItem("expirationTime");
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);
@@ -53,7 +53,6 @@ export const AuthContextProvider = (props) => {
   }, []);
 
   const loginHandler = (token, expirationTime) => {
-    console.log("here");
     setToken(token);
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);

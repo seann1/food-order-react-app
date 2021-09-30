@@ -10,6 +10,7 @@ import CartProvider from "./store/CartProvider";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Box from "@mui/material/Box";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -115,12 +116,16 @@ function App() {
       />
       <main>
         {restaurantId ? (
-          <Meals
-            restaurantId={restaurantId}
-            restaurantName={restaurantInfo.name}
-            description={restaurantInfo.description}
-            key={restaurantId}
-          />
+          <Box m={2}>
+            <Container maxWidth="lg">
+              <Meals
+                restaurantId={restaurantId}
+                restaurantName={restaurantInfo.name}
+                description={restaurantInfo.description}
+                key={restaurantId}
+              />
+            </Container>
+          </Box>
         ) : (
           <>
             {isLoading ? (
@@ -128,22 +133,24 @@ function App() {
                 <CircularProgress />
               </div>
             ) : (
-              <Container maxWidth="lg">
-                <Grid container spacing={3} direction="row">
-                  {restaurants.map((restaurant) => (
-                    <Grid item xs={3} key={restaurant.id}>
-                      <Restaurant
-                        id={restaurant.id}
-                        key={restaurant.id}
-                        restaurantPick={restaurantChoiceHandler}
-                        name={restaurant.name}
-                        description={restaurant.description}
-                        image={restaurant.image}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Container>
+              <Box m={2}>
+                <Container maxWidth="lg">
+                  <Grid container spacing={3} direction="row">
+                    {restaurants.map((restaurant) => (
+                      <Grid item xs={3} key={restaurant.id}>
+                        <Restaurant
+                          id={restaurant.id}
+                          key={restaurant.id}
+                          restaurantPick={restaurantChoiceHandler}
+                          name={restaurant.name}
+                          description={restaurant.description}
+                          image={restaurant.image}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Container>
+              </Box>
             )}
           </>
         )}
