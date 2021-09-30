@@ -2,27 +2,34 @@ import { useState, useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import LoginForm from "./LoginForm";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 
 const Login = () => {
-  //const [isLogin, setIsLogin] = useState(false);
-  const [loginForm, setLoginForm] = useState(false);
   const authCtx = useContext(AuthContext);
 
-  const showLoginForm = () => {
-    setLoginForm(true);
-  };
   console.log(authCtx);
+
+  const userLogout = () => {
+    authCtx.logout();
+  };
+
   return (
     <>
       {!authCtx.token ? (
-        <Button color="inherit" onClick={showLoginForm}>
+        <Button color="inherit">
           <Link to="/Login">Login</Link>
         </Button>
       ) : (
-        <Button color="inherit">Logout</Button>
+        <Button color="inherit" onClick={userLogout}>
+          Logout
+        </Button>
       )}
-      {loginForm && <LoginForm />}
+      {/* {loginForm && <LoginForm />} */}
+      <Switch>
+        <Route path="/login" exact>
+          <LoginForm />
+        </Route>
+      </Switch>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import MealsSummary from "./MealsSummary";
 import AvailableMeals from "./AvailableMeals";
+import Box from "@mui/material/Box";
 
 const Meals = (props) => {
   return (
@@ -8,6 +9,7 @@ const Meals = (props) => {
         restaurantName={props.restaurantName}
         description={props.description}
       />
+
       <AvailableMeals
         restaurantId={props.restaurantId}
         restaurantName={props.restaurantName}

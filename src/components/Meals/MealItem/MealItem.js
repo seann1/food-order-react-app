@@ -2,6 +2,10 @@ import { useContext } from "react";
 
 import MealItemForm from "./MealItemForm";
 import CartContext from "../../../store/cart-context";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import classes from "./MealItem.module.css";
 
 const MealItem = (props) => {
@@ -19,16 +23,24 @@ const MealItem = (props) => {
     });
   };
   return (
-    <li className={classes.meal}>
-      <div>
-        <h3>{props.name}</h3>
-        <div className={classes.description}>{props.description}</div>
-        <div className={classes.price}>{price}</div>
-      </div>
-      <div>
+    <Paper elevation={3}>
+      <Box m={2} p={2}>
+        <Grid container>
+          <Grid item xs={9}>
+            <Typography variant="h4">{props.name}</Typography>
+            <Typography variant="body1" className={classes.description}>
+              {props.description}
+            </Typography>
+          </Grid>
+          <Grid item xs={3} justify="flex-end">
+            <Typography variant="h4" align="right" className={classes.price}>
+              {price}
+            </Typography>
+          </Grid>
+        </Grid>
         <MealItemForm id={props.id} onAddToCart={addToCartHandler} />
-      </div>
-    </li>
+      </Box>
+    </Paper>
   );
 };
 export default MealItem;

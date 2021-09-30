@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useHistory, Link } from "react-router-dom";
 import { Modal } from "../UI/Modal";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -8,6 +9,7 @@ import classes from "./LoginForm.module.css";
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
   const authCtx = useContext(AuthContext);
 
@@ -45,6 +47,7 @@ const LoginForm = () => {
         );
         console.log(expirationTime.toISOString());
         authCtx.login(data.idToken, expirationTime.toISOString());
+        history.push("/");
       })
       .catch((err) => {
         alert(err.message);
@@ -76,12 +79,14 @@ const LoginForm = () => {
             component={TextField}
             label="Password"
             name="password"
-            type="text"
+            type="password"
           />
           <br />
           {/* onClick={props.onCancel} */}
           <div className={classes.actions}>
-            <button type="button">Cancel</button>
+            <Link to="/">
+              <button type="button">Cancel</button>
+            </Link>
             <button type="submit" className={classes.submit}>
               Submit
             </button>

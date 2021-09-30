@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 
-import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import classes from "./AvailableMeals.module.css";
+import Container from "@mui/material/Container";
 
 const AvailableMeals = (props) => {
   const [error, setError] = useState(null);
@@ -45,7 +44,7 @@ const AvailableMeals = (props) => {
   useEffect(() => {
     fetchMealsHandler();
   }, [fetchMealsHandler]);
-  //console.log(DUMMY_MEALS);
+
   const mealsList = meals.map((meal) => (
     <MealItem
       id={meal.id}
@@ -59,7 +58,7 @@ const AvailableMeals = (props) => {
   ));
   let content;
   if (meals.length > 0) {
-    content = <ul>{mealsList}</ul>;
+    content = <div>{mealsList}</div>;
   }
   if (error) {
     content = <p>{error}</p>;
@@ -72,9 +71,10 @@ const AvailableMeals = (props) => {
     );
   }
   return (
-    <section className={classes.meals}>
-      <Card>{content}</Card>
-    </section>
+    // <section className={classes.meals}>
+    //   <Card>{content}</Card>
+    // </section>
+    <Container>{content}</Container>
   );
 };
 
