@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const config = {
   projectId: "food-order-app-d078d",
@@ -11,8 +12,22 @@ const config = {
   authDomain: "food-order-app-d078d.firebaseapp.com",
   messagingSenderId: "259467273114",
 };
-
 const firebaseApp = initializeApp(config);
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    //console.log(user.uid);
+    console.log("user exists");
+    // ...
+  } else {
+    console.log("change");
+    // User is signed out
+    // ...
+  }
+});
 const storage = getStorage(firebaseApp);
 
 export default storage;

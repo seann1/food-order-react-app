@@ -152,7 +152,6 @@ function App() {
                   </Box>
                 </Route>
                 <Route path="/newrestaurant">
-                  <p>create restaurant</p>
                   <NewRestaurant />
                 </Route>
               </Switch>

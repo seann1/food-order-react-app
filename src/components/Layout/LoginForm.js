@@ -10,14 +10,32 @@ import Box from "@mui/material/Box";
 //import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import classes from "./LoginForm.module.css";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 const LoginForm = () => {
   //const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+  const auth = getAuth();
 
   const authCtx = useContext(AuthContext);
 
   const submitHandler = (values) => {
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(userCredential.user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDR64c87WSnLF6Pn6MiL6hyukSOKNdqhZ8",
       {
@@ -35,7 +53,6 @@ const LoginForm = () => {
       .then((res) => {
         //setIsLoading(false);
         if (res.ok) {
-          console.log(res);
           return res.json();
         } else {
           return res.json().then((data) => {
@@ -66,7 +83,7 @@ const LoginForm = () => {
         }}
         validationSchema={Yup.object({
           email: Yup.string()
-            .max(15, "Must be 15 characters or less")
+            .max(30, "Must be 15 characters or less")
             .required("Required"),
           password: Yup.string()
             .max(20, "Must be 20 characters or less")
