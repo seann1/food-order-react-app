@@ -1,9 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { ref, getDownloadURL } from "firebase/storage";
+import RestaurantContext from "./store/restaurant-context";
 import storage from "./firebase/base";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 import Cart from "./components/Cart/Cart";
+import NewRestaurant from "./components/Restaurant/NewRestaurant";
 import OrderForm from "./components/OrderForm/OrderForm";
 import Restaurant from "./components/Restaurant/Restaurant";
 import CartProvider from "./store/CartProvider";
@@ -11,6 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -19,6 +22,7 @@ function App() {
   const [restaurants, setRestaurants] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const restaurantCtx = useContext(RestaurantContext);
 
   const fetchRandMHandler = useCallback(async () => {
     setIsLoading(true);
@@ -46,11 +50,12 @@ function App() {
 
         restaurantsArray.push(data[restaurant]);
       }
-
+      restaurantCtx.restaurantCount = restaurantsArray.length;
+      console.log(restaurantCtx);
       setRestaurants(restaurantsArray);
       setIsLoading(false);
     } catch (error) {}
-  }, []);
+  }, [restaurantCtx]);
   useEffect(() => {
     fetchRandMHandler();
   }, [fetchRandMHandler]);
@@ -87,10 +92,6 @@ function App() {
     setRestaurantInfo({ name: name, description: description });
   };
 
-  const clearRestaurantId = () => {
-    setRestaurantId("");
-  };
-
   return (
     <CartProvider>
       {/* cart component is the modal */}
@@ -109,11 +110,7 @@ function App() {
           returnToMenu={closeModal}
         />
       )}
-      <Header
-        onShowCart={showCartHandler}
-        restaurantId={restaurantId}
-        backToRestaurants={clearRestaurantId}
-      />
+      <Header onShowCart={showCartHandler} restaurantId={restaurantId} />
       <main>
         {restaurantId ? (
           <Box m={2}>
@@ -133,24 +130,32 @@ function App() {
                 <CircularProgress />
               </div>
             ) : (
-              <Box m={2}>
-                <Container maxWidth="lg">
-                  <Grid container spacing={3} direction="row">
-                    {restaurants.map((restaurant) => (
-                      <Grid item xs={3} key={restaurant.id}>
-                        <Restaurant
-                          id={restaurant.id}
-                          key={restaurant.id}
-                          restaurantPick={restaurantChoiceHandler}
-                          name={restaurant.name}
-                          description={restaurant.description}
-                          image={restaurant.image}
-                        />
+              <Switch>
+                <Route path="/" exact>
+                  <Box m={2}>
+                    <Container maxWidth="lg">
+                      <Grid container spacing={3} direction="row">
+                        {restaurants.map((restaurant) => (
+                          <Grid item xs={3} key={restaurant.id}>
+                            <Restaurant
+                              id={restaurant.id}
+                              key={restaurant.id}
+                              restaurantPick={restaurantChoiceHandler}
+                              name={restaurant.name}
+                              description={restaurant.description}
+                              image={restaurant.image}
+                            />
+                          </Grid>
+                        ))}
                       </Grid>
-                    ))}
-                  </Grid>
-                </Container>
-              </Box>
+                    </Container>
+                  </Box>
+                </Route>
+                <Route path="/newrestaurant">
+                  <p>create restaurant</p>
+                  <NewRestaurant />
+                </Route>
+              </Switch>
             )}
           </>
         )}
