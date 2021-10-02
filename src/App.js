@@ -115,7 +115,7 @@ function App() {
       )}
       <Header onShowCart={showCartHandler} restaurantId={restaurantId} />
       <main>
-        {restaurantId ? (
+        <Route path={`/restaurant/${restaurantId}`} exact>
           <Box m={2}>
             <Container maxWidth="lg">
               <Meals
@@ -126,43 +126,43 @@ function App() {
               />
             </Container>
           </Box>
-        ) : (
-          <>
-            {isLoading ? (
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <CircularProgress />
-              </div>
-            ) : (
-              <Switch>
-                <Route path="/" exact>
-                  <Box m={2}>
-                    <Container maxWidth="lg">
-                      <Grid container spacing={3} direction="row">
-                        {restaurants.map((restaurant) => (
-                          <Grid item xs={3} key={restaurant.id}>
-                            <Link to="/restaurant/:restaurant.id">
-                              <Restaurant
-                                id={restaurant.id}
-                                key={restaurant.id}
-                                restaurantPick={restaurantChoiceHandler}
-                                name={restaurant.name}
-                                description={restaurant.description}
-                                image={restaurant.image}
-                              />
-                            </Link>
-                          </Grid>
-                        ))}
-                      </Grid>
-                    </Container>
-                  </Box>
-                </Route>
-                <Route path="/newrestaurant">
-                  <NewRestaurant />
-                </Route>
-              </Switch>
-            )}
-          </>
-        )}
+        </Route>
+        <>
+          {isLoading ? (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <CircularProgress />
+            </div>
+          ) : (
+            <Switch>
+              <Route path="/" exact>
+                <Box m={2}>
+                  <Container maxWidth="lg">
+                    <Grid container spacing={3} direction="row">
+                      {restaurants.map((restaurant) => (
+                        <Grid item xs={3} key={restaurant.id}>
+                          <Link to={`/restaurant/${restaurant.id}`}>
+                            <Restaurant
+                              id={restaurant.id}
+                              key={restaurant.id}
+                              restaurantPick={restaurantChoiceHandler}
+                              name={restaurant.name}
+                              description={restaurant.description}
+                              image={restaurant.image}
+                            />
+                          </Link>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Container>
+                </Box>
+              </Route>
+              <Route path="/newrestaurant">
+                <NewRestaurant />
+              </Route>
+            </Switch>
+          )}
+        </>
+        )
       </main>
     </CartProvider>
   );
