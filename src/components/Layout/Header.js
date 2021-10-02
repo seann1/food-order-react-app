@@ -30,12 +30,12 @@ const Header = (props) => {
                 >
                   <Typography
                     variant="h2"
-                    component="div"
-                    sx={{ flexGrow: 1 }}
+                    //component="div"
+                    component={Link}
                     to="/"
+                    sx={{ flexGrow: 1 }}
                     //onClick={props.backToRestaurants}
                     className={classes.pointer}
-                    component={Link}
                   >
                     ReactMeals
                   </Typography>

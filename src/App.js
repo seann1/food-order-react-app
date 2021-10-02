@@ -13,7 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory, Link } from "react-router-dom";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -23,6 +23,8 @@ function App() {
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
+
+  let history = useHistory();
 
   const fetchRandMHandler = useCallback(async () => {
     setIsLoading(true);
@@ -66,7 +68,8 @@ function App() {
   };
 
   const hideCartHandler = () => {
-    setCartIsShown(false);
+    history.push("/");
+    //setCartIsShown(false);
   };
 
   const showCartHandler = () => {
@@ -95,14 +98,14 @@ function App() {
   return (
     <CartProvider>
       {/* cart component is the modal */}
-      {cartIsShown && (
+      <Route path="/cart" exact>
         <Cart
           onClose={hideCartHandler}
           onOrder={showOrderFormHandler}
           restaurantId={restaurantId}
           restaurantName={restaurantInfo.name}
         />
-      )}
+      </Route>
       {orderFormIsShown && (
         <OrderForm
           onClose={hideOrderFormHandler}
@@ -137,14 +140,16 @@ function App() {
                       <Grid container spacing={3} direction="row">
                         {restaurants.map((restaurant) => (
                           <Grid item xs={3} key={restaurant.id}>
-                            <Restaurant
-                              id={restaurant.id}
-                              key={restaurant.id}
-                              restaurantPick={restaurantChoiceHandler}
-                              name={restaurant.name}
-                              description={restaurant.description}
-                              image={restaurant.image}
-                            />
+                            <Link to="/restaurant/:restaurant.id">
+                              <Restaurant
+                                id={restaurant.id}
+                                key={restaurant.id}
+                                restaurantPick={restaurantChoiceHandler}
+                                name={restaurant.name}
+                                description={restaurant.description}
+                                image={restaurant.image}
+                              />
+                            </Link>
                           </Grid>
                         ))}
                       </Grid>

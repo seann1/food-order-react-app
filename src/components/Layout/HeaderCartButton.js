@@ -4,6 +4,7 @@ import Badge from "@mui/material/Badge";
 import CartContext from "../../store/cart-context";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Link } from "react-router-dom";
 
 const HeaderCartButton = (props) => {
   //const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
@@ -35,16 +36,18 @@ const HeaderCartButton = (props) => {
   // }, [items]);
 
   return (
-    <IconButton
-      size="large"
-      aria-label="Shopping cart"
-      color="inherit"
-      onClick={props.onClick}
-    >
-      <Badge badgeContent={numberOfCartItems} color="error">
-        <ShoppingCartIcon color="disabled" />
-      </Badge>
-    </IconButton>
+    <Link to="/cart">
+      <IconButton
+        size="large"
+        aria-label="Shopping cart"
+        color="inherit"
+        onClick={props.onClick}
+      >
+        <Badge badgeContent={numberOfCartItems} color="error">
+          <ShoppingCartIcon color="disabled" />
+        </Badge>
+      </IconButton>
+    </Link>
   );
 };
 
