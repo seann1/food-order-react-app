@@ -7,6 +7,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 
 import { red } from "@material-ui/core/colors";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,10 +27,10 @@ const Restaurant = (props) => {
   const classes = useStyles();
   return (
     <Card
-      className={classes.root}
       onClick={() =>
         props.restaurantPick(props.id, props.name, props.description)
       }
+      className={classes.root}
     >
       <CardHeader
         avatar={

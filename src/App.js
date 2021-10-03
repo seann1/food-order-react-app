@@ -14,6 +14,7 @@ import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
 import { Route, Switch, useHistory, Link } from "react-router-dom";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -46,9 +47,18 @@ function App() {
           storage,
           `restaurants/${data[restaurant].id}/${data[restaurant].id}-1.jpg`
         );
-        await getDownloadURL(pathReference).then((url) => {
-          data[restaurant].image = url;
-        });
+
+        const defaultPathReference = ref(storage, `default/test-image.jpg`);
+        try {
+          await getDownloadURL(pathReference).then((url) => {
+            data[restaurant].image = url;
+          });
+        } catch {
+          console.log("caught");
+          await getDownloadURL(defaultPathReference).then((url) => {
+            data[restaurant].image = url;
+          });
+        }
 
         restaurantsArray.push(data[restaurant]);
       }
@@ -162,7 +172,6 @@ function App() {
             </Switch>
           )}
         </>
-        )
       </main>
     </CartProvider>
   );
