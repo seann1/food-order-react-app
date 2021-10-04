@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
+//import { getStorage } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const config = {
@@ -13,7 +13,7 @@ const config = {
   messagingSenderId: "259467273114",
 };
 const firebaseApp = initializeApp(config);
-const auth = getAuth();
+const auth = getAuth(firebaseApp);
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
@@ -28,6 +28,6 @@ onAuthStateChanged(auth, (user) => {
     // ...
   }
 });
-const storage = getStorage(firebaseApp);
+//const storage = getStorage(firebaseApp);
 
-export default storage;
+export default firebaseApp;

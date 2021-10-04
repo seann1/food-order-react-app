@@ -11,11 +11,12 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import classes from "./LoginForm.module.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import firebaseApp from "../../firebase/base";
 
 const LoginForm = () => {
   //const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
-  const auth = getAuth();
+  const auth = getAuth(firebaseApp);
 
   const authCtx = useContext(AuthContext);
 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useCallback } from "react";
-//import { ref, getDownloadURL } from "firebase/storage";
+
 import RestaurantContext from "./store/restaurant-context";
-//import storage from "./firebase/base";
+
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 import Cart from "./components/Cart/Cart";
@@ -14,7 +14,6 @@ import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
 import { Route, Switch, useHistory, Link } from "react-router-dom";
-//import { ConstructionOutlined } from "@mui/icons-material";
 
 function App() {
   //const [cartIsShown, setCartIsShown] = useState(false);
