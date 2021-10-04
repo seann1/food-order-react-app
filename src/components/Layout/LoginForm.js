@@ -10,11 +10,7 @@ import Box from "@mui/material/Box";
 //import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import classes from "./LoginForm.module.css";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginForm = () => {
   //const [isLoading, setIsLoading] = useState(false);
@@ -27,13 +23,13 @@ const LoginForm = () => {
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        //const user = userCredential.user;
         console.log(userCredential.user);
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        //const errorCode = error.code;
+        //const errorMessage = error.message;
       });
 
     fetch(

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useCallback } from "react";
-import { ref, getDownloadURL } from "firebase/storage";
+//import { ref, getDownloadURL } from "firebase/storage";
 import RestaurantContext from "./store/restaurant-context";
-import storage from "./firebase/base";
+//import storage from "./firebase/base";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 import Cart from "./components/Cart/Cart";
@@ -14,13 +14,13 @@ import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
 import { Route, Switch, useHistory, Link } from "react-router-dom";
-import { ConstructionOutlined } from "@mui/icons-material";
+//import { ConstructionOutlined } from "@mui/icons-material";
 
 function App() {
-  const [cartIsShown, setCartIsShown] = useState(false);
+  //const [cartIsShown, setCartIsShown] = useState(false);
   const [orderFormIsShown, setOrderFormIsShown] = useState(false);
   const [restaurantId, setRestaurantId] = useState("");
-  const [restaurants, setRestaurants] = useState([]);
+  //const [restaurants, setRestaurants] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
@@ -43,40 +43,22 @@ function App() {
       for (let restaurant in data) {
         data[restaurant].id = restaurant;
 
-        const pathReference = ref(
-          storage,
-          `restaurants/${data[restaurant].id}/${data[restaurant].id}-1.jpg`
-        );
-
-        const defaultPathReference = ref(storage, `default/test-image.jpg`);
-
-        try {
-          await getDownloadURL(pathReference).then((url) => {
-            data[restaurant].image = url;
-            console.log(url);
-          });
-        } catch {
-          await getDownloadURL(defaultPathReference).then((url) => {
-            data[restaurant].image = url;
-          });
-        }
-
         restaurantsArray.push(data[restaurant]);
       }
       restaurantCtx.restaurantCount = restaurantsArray.length;
       restaurantCtx.restaurants = restaurantsArray;
-      setRestaurants(restaurantsArray);
+      //setRestaurants(restaurantsArray);
       setIsLoading(false);
       console.log(restaurantCtx);
     } catch (error) {}
   }, [restaurantCtx]);
   useEffect(() => {
     fetchRandMHandler();
-  }, [fetchRandMHandler]);
+  }, [fetchRandMHandler, restaurantCtx]);
 
   const showOrderFormHandler = () => {
     setOrderFormIsShown(true);
-    setCartIsShown(false);
+    //setCartIsShown(false);
   };
 
   const hideCartHandler = () => {
@@ -85,20 +67,17 @@ function App() {
   };
 
   const showCartHandler = () => {
-    setCartIsShown(true);
+    //setCartIsShown(true);
   };
 
   const hideOrderFormHandler = (submit) => {
     setOrderFormIsShown(false);
-    setCartIsShown(true);
-    // if (submit) {
-    //   setRestaurantId("");
-    // }
+    //setCartIsShown(true);
   };
 
   const closeModal = () => {
     setOrderFormIsShown(false);
-    setCartIsShown(false);
+    //setCartIsShown(false);
     setRestaurantId("");
   };
 
@@ -150,7 +129,7 @@ function App() {
                 <Box m={2}>
                   <Container maxWidth="lg">
                     <Grid container spacing={3} direction="row">
-                      {restaurants.map((restaurant) => (
+                      {restaurantCtx.restaurants.map((restaurant) => (
                         <Grid item xs={3} key={restaurant.id}>
                           <Link to={`/restaurant/${restaurant.id}`}>
                             <Restaurant
