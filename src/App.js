@@ -49,12 +49,13 @@ function App() {
         );
 
         const defaultPathReference = ref(storage, `default/test-image.jpg`);
+
         try {
           await getDownloadURL(pathReference).then((url) => {
             data[restaurant].image = url;
+            console.log(url);
           });
         } catch {
-          console.log("caught");
           await getDownloadURL(defaultPathReference).then((url) => {
             data[restaurant].image = url;
           });
@@ -63,9 +64,10 @@ function App() {
         restaurantsArray.push(data[restaurant]);
       }
       restaurantCtx.restaurantCount = restaurantsArray.length;
-      console.log(restaurantCtx);
+      restaurantCtx.restaurants = restaurantsArray;
       setRestaurants(restaurantsArray);
       setIsLoading(false);
+      console.log(restaurantCtx);
     } catch (error) {}
   }, [restaurantCtx]);
   useEffect(() => {

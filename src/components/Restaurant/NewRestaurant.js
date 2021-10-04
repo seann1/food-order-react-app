@@ -10,39 +10,56 @@ import Paper from "@mui/material/Paper";
 import RestaurantContext from "../../store/restaurant-context";
 //import storage from "../../firebase/base";
 import { getDatabase, ref, set } from "firebase/database";
-import { getStorage, ref as storageRef, uploadBytes } from "firebase/storage";
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
 //import classes from "./NewRestaurant.module.css";
 
 const NewRestaurant = () => {
   const restaurantCtx = useContext(RestaurantContext);
   const db = getDatabase();
   const storage = getStorage();
+  const restaurantId = `r${restaurantCtx.restaurantCount + 1}`;
   const createRestaurantHandler = (values) => {
     const restaurantValues = {
       name: values.name,
       description: values.description,
       file: values.file,
-      id: `r${restaurantCtx.restaurantCount + 1}`,
+      id: restaurantId,
     };
     console.log(restaurantValues);
     sendRestaurantFunction(restaurantValues);
   };
 
   const sendRestaurantFunction = async (values) => {
-    set(ref(db, "restaurants/" + values.id), {
+    const pathReference = storageRef(
+      storage,
+      `restaurants/${restaurantId}/${restaurantId}-1.jpg`
+    );
+
+    await uploadBytes(pathReference, values.file).then((snapshot) => {
+      console.log("Uploaded a blob or file!");
+    });
+
+    await getDownloadURL(pathReference).then((url) => {
+      values.image = url;
+      console.log(url);
+    });
+
+    await set(ref(db, "restaurants/" + values.id), {
       name: values.name,
       description: values.description,
       id: values.id,
+      image: values.image,
     });
 
     const restaurantImageRef = storageRef(
       storage,
       `restaurants/${values.id}/${values.id}-1.jpg`
     );
-
-    uploadBytes(restaurantImageRef, values.file).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
-    });
     restaurantCtx.restaurantCount += 1;
     // try {
     //   const response = await fetch(
