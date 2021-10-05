@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback, useRef } from "react";
 
 import RestaurantContext from "./store/restaurant-context";
 
@@ -14,6 +14,8 @@ import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
 import { Route, Switch, useHistory, Link } from "react-router-dom";
+import equal from "fast-deep-equal";
+import CartContext from "./store/cart-context";
 
 function App() {
   //const [cartIsShown, setCartIsShown] = useState(false);
@@ -23,10 +25,13 @@ function App() {
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
+  const restaurantData = useRef(null);
 
   let history = useHistory();
   const fetchRandMHandler = useCallback(async () => {
+    console.log(restaurantCtx);
     setIsLoading(true);
+    //restaurantCtx.clearRestaurants();
     try {
       const response = await fetch(
         "https://food-order-app-d078d-default-rtdb.firebaseio.com/restaurants.json"
@@ -35,26 +40,30 @@ function App() {
         throw new Error("Something went wrong!");
       }
       const data = await response.json();
-      //console.log("data", data);
-      let restaurantsArray = [];
 
-      for (let restaurant in data) {
-        data[restaurant].id = restaurant;
-        //console.log(data[restaurant]);
-        //console.log("data[restaurant]", data[restaurant]);
-        restaurantsArray.push(data[restaurant]);
-        restaurantCtx.addRestaurant(data[restaurant]);
+      if (!equal(restaurantData.current, data)) {
+        let restaurantsArray = [];
+        restaurantCtx.clearRestaurants();
+        for (let restaurant in data) {
+          data[restaurant].id = restaurant;
 
-        //restaurantCtx.updateCount();
+          restaurantsArray.push(data[restaurant]);
+          restaurantCtx.addRestaurant(data[restaurant]);
+
+          console.log(restaurant);
+
+          //restaurantCtx.updateCount();
+        }
+
+        setRestaurants(restaurantsArray);
+        //restaurantCtx.addRestaurant(restaurantsArray);
+        //console.log(restaurantsArray);
       }
-
-      setRestaurants(restaurantsArray);
-      //restaurantCtx.addRestaurant(restaurantsArray);
-      //console.log(restaurantsArray);
       setIsLoading(false);
+      restaurantData.current = data;
       //console.log(restaurantCtx);
     } catch (error) {}
-  }, []);
+  }, [restaurantCtx]);
   useEffect(() => {
     fetchRandMHandler();
     //setRestaurants(restaurantsArray);

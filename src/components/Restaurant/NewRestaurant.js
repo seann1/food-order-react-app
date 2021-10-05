@@ -63,7 +63,6 @@ const NewRestaurant = () => {
     restaurantCtx.addRestaurant(newRestaurant);
     restaurantCtx.updateCount();
     history.push("/");
-    //restaurantCtx.restaurantCount = restaurantCtx.restaurants.length;
   };
 
   return (

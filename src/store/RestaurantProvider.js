@@ -8,22 +8,28 @@ const defaultRestaurantState = {
 
 const restaurantReducer = (state, action) => {
   if (action.type === "ADD_RESTAURANT") {
-    console.log("action", action);
-    console.log("state", state);
-    const updatedRestaurants = state.restaurants.concat(action.restaurant);
+    //console.log("action", action);
+    console.log("state", state.restaurants);
+
     return {
-      restaurants: updatedRestaurants,
+      restaurants: state.restaurants.concat(action.restaurant),
       restaurantCount: state.restaurantCount,
     };
   }
 
   if (action.type === "UPDATE_COUNT") {
-    //console.log("stateCount", state.restaurantCount);
     const updatedCount = state.restaurantCount + 1;
-    //console.log("updatedCount", updatedCount);
+
     return {
       restaurants: state.restaurants,
       restaurantCount: updatedCount,
+    };
+  }
+
+  if (action.type === "CLEAR_RESTAURANTS") {
+    return {
+      restaurants: [],
+      restaurantCount: state.restaurantCount,
     };
   }
 };
@@ -44,11 +50,16 @@ const RestaurantProvider = (props) => {
       restaurant: restaurant,
     });
   };
+
+  const clearRestaurantsHandler = () => {
+    dispatchRestaurantAction({ type: "CLEAR_RESTAURANTS" });
+  };
   const restaurantContext = {
     restaurantCount: restaurantState.restaurantCount,
     restaurants: restaurantState.restaurants,
     updateCount: countUpdateHandler,
     addRestaurant: restaurantAddHandler,
+    clearRestaurants: clearRestaurantsHandler,
   };
 
   return (
