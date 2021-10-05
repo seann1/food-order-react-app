@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import RestaurantContext from "../../store/restaurant-context";
-
+import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
 import {
   getStorage,
@@ -22,7 +22,8 @@ const NewRestaurant = () => {
   const restaurantCtx = useContext(RestaurantContext);
   const db = getDatabase();
   const storage = getStorage();
-  const restaurantId = `r${restaurantCtx.restaurantCount + 1}`;
+  let history = useHistory();
+  const restaurantId = `r${restaurantCtx.restaurants.length + 1}`;
   const createRestaurantHandler = (values) => {
     console.log(values);
     const restaurantValues = {
@@ -59,8 +60,10 @@ const NewRestaurant = () => {
     });
 
     await set(ref(db, "restaurants/" + values.id), newRestaurant);
-    restaurantCtx.restaurants.push(newRestaurant);
-    restaurantCtx.restaurantCount = restaurantCtx.restaurants.length;
+    restaurantCtx.addRestaurant(newRestaurant);
+    restaurantCtx.updateCount();
+    history.push("/");
+    //restaurantCtx.restaurantCount = restaurantCtx.restaurants.length;
   };
 
   return (
@@ -116,8 +119,6 @@ const NewRestaurant = () => {
                 }}
               />
 
-              {/* <div className={classes.actions}>
-          </div> */}
               <Box m={2} mb={2}>
                 <Button
                   type="button"

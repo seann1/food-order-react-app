@@ -19,13 +19,12 @@ function App() {
   //const [cartIsShown, setCartIsShown] = useState(false);
   const [orderFormIsShown, setOrderFormIsShown] = useState(false);
   const [restaurantId, setRestaurantId] = useState("");
-  //const [restaurants, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
 
   let history = useHistory();
-
   const fetchRandMHandler = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -36,24 +35,34 @@ function App() {
         throw new Error("Something went wrong!");
       }
       const data = await response.json();
-
+      //console.log("data", data);
       let restaurantsArray = [];
 
       for (let restaurant in data) {
         data[restaurant].id = restaurant;
-
+        //console.log(data[restaurant]);
+        //console.log("data[restaurant]", data[restaurant]);
         restaurantsArray.push(data[restaurant]);
+        restaurantCtx.addRestaurant(data[restaurant]);
+
+        //restaurantCtx.updateCount();
       }
-      restaurantCtx.restaurantCount = restaurantsArray.length;
-      restaurantCtx.restaurants = restaurantsArray;
-      //setRestaurants(restaurantsArray);
+
+      setRestaurants(restaurantsArray);
+      //restaurantCtx.addRestaurant(restaurantsArray);
+      //console.log(restaurantsArray);
       setIsLoading(false);
-      console.log(restaurantCtx);
+      //console.log(restaurantCtx);
     } catch (error) {}
-  }, [restaurantCtx]);
+  }, []);
   useEffect(() => {
     fetchRandMHandler();
-  }, [fetchRandMHandler, restaurantCtx]);
+    //setRestaurants(restaurantsArray);
+    // for (let restaurant of restaurants) {
+    //   restaurantCtx.addRestaurant(restaurant);
+    // }
+    // console.log(restaurantCtx);
+  }, [fetchRandMHandler]);
 
   const showOrderFormHandler = () => {
     setOrderFormIsShown(true);
