@@ -22,6 +22,7 @@ function App() {
   const [orderFormIsShown, setOrderFormIsShown] = useState(false);
   const [restaurantId, setRestaurantId] = useState("");
   //const [restaurants, setRestaurants] = useState([]);
+
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);

@@ -29,14 +29,13 @@ const NewRestaurant = () => {
   let history = useHistory();
   const restaurantId = `r${restaurantCtx.restaurants.length + 1}`;
   const createRestaurantHandler = (values) => {
-    //console.log(values);
     const restaurantValues = {
       name: values.name,
       description: values.description,
       file: values.file,
       id: restaurantId,
     };
-    //console.log(restaurantValues);
+
     sendRestaurantFunction(restaurantValues);
   };
 

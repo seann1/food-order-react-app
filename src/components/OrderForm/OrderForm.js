@@ -4,6 +4,7 @@ import SubmissionAlert from "../UI/SubmissionAlert";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField } from "formik-material-ui";
+import { useHistory } from "react-router-dom";
 // import PlacesAutoComplete, {
 //   geocodeByAddress,
 //   getLatLng,
@@ -16,7 +17,7 @@ function OrderForm(props) {
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertInfo, setAlertInfo] = useState(null);
-
+  let history = useHistory();
   const cartCtx = useContext(CartContext);
 
   const closeAlert = () => {
@@ -55,11 +56,7 @@ function OrderForm(props) {
       setOrderCompleted(true);
       setShowAlert(true);
       setAlertInfo(order);
-
-      // setTimeout(() => {
-      //   setShowAlert(false);
-      //   setAlertInfo(null);
-      // }, 15000);
+      history.push("/");
     } catch (error) {
       setError(error.message);
     }
