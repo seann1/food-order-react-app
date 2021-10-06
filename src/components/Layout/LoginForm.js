@@ -26,12 +26,11 @@ const LoginForm = () => {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
       //const uid = user.uid;
-      //console.log(user.uid);
+
       authCtx.storeUser(user.uid);
-      console.log("user exists");
+
       // ...
     } else {
-      console.log("change");
       // User is signed out
       // ...
     }
@@ -42,7 +41,7 @@ const LoginForm = () => {
       .then((userCredential) => {
         // Signed in
         //const user = userCredential.user;
-        console.log(userCredential.user);
+        //console.log(userCredential.user);
         // ...
       })
       .catch((error) => {
@@ -80,7 +79,7 @@ const LoginForm = () => {
         const expirationTime = new Date(
           new Date().getTime() + +data.expiresIn * 1000
         );
-        console.log(expirationTime.toISOString());
+        //console.log(expirationTime.toISOString());
         authCtx.login(data.idToken, expirationTime.toISOString());
         history.push("/");
       })

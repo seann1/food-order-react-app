@@ -30,7 +30,6 @@ function App() {
 
   let history = useHistory();
   const fetchRandMHandler = useCallback(async () => {
-    //console.log(restaurantCtx);
     setIsLoading(true);
 
     try {
@@ -50,8 +49,6 @@ function App() {
 
           restaurantsArray.push(data[restaurant]);
           restaurantCtx.addRestaurant(data[restaurant]);
-
-          //console.log(restaurant);
         }
 
         //setRestaurants(restaurantsArray);

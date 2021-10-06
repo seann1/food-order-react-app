@@ -10,8 +10,6 @@ const Login = () => {
   const authCtx = useContext(AuthContext);
   //const [anchorEl, setAnchorEl] = useState(null);
 
-  //console.log(authCtx);
-
   const userLogout = () => {
     authCtx.logout();
   };

@@ -44,7 +44,7 @@ const NewRestaurant = () => {
     if (values.file) {
       imageUrl = `restaurants/${restaurantId}/${restaurantId}-1.jpg`;
     } else {
-      console.log("no value");
+      //console.log("no value");
       imageUrl = "";
     }
     const pathReference = storageRef(storage, imageUrl);
@@ -58,7 +58,7 @@ const NewRestaurant = () => {
     };
     if (imageUrl !== "") {
       await uploadBytes(pathReference, values.file).then((snapshot) => {
-        console.log(pathReference);
+        //console.log(pathReference);
       });
 
       await getDownloadURL(pathReference).then((url) => {
