@@ -7,7 +7,7 @@ import { TextField } from "formik-material-ui";
 import AuthContext from "../../store/auth-context";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-//import Grid from "@mui/material/Grid";
+
 import Button from "@mui/material/Button";
 import classes from "./LoginForm.module.css";
 import {
@@ -18,7 +18,6 @@ import {
 import firebaseApp from "../../firebase/base";
 
 const LoginForm = () => {
-  //const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const auth = getAuth(firebaseApp);
   const authCtx = useContext(AuthContext);

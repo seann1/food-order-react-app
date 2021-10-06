@@ -7,8 +7,6 @@ const AuthContext = React.createContext({
   isLoggedIn: false,
   login: (token) => {},
   logout: () => {},
-  storeUser: (currentUser) => {},
-  currentUser: "",
 });
 
 const calculateRemainingTime = (expirationTime) => {
@@ -42,13 +40,7 @@ export const AuthContextProvider = (props) => {
     initialToken = tokenData.token;
   }
   const [token, setToken] = useState(initialToken);
-  const [currentUser, setCurrentUser] = useState("");
   const userIsLoggedIn = !!token;
-
-  const storeUserHandler = (user) => {
-    setCurrentUser(user);
-    console.log(currentUser);
-  };
 
   const logoutHandler = useCallback(() => {
     setToken(null);
@@ -82,8 +74,6 @@ export const AuthContextProvider = (props) => {
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
-    storeUser: storeUserHandler,
-    currentUser: currentUser,
   };
   return (
     <AuthContext.Provider value={contextValue}>

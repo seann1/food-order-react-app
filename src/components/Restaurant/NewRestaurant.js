@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import AuthContext from "../../store/auth-context";
+
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField, SimpleFileUpload } from "formik-material-ui";
@@ -11,6 +11,7 @@ import Paper from "@mui/material/Paper";
 import RestaurantContext from "../../store/restaurant-context";
 import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
+import { getAuth } from "firebase/auth";
 import {
   getStorage,
   ref as storageRef,
@@ -21,8 +22,9 @@ import {
 
 const NewRestaurant = () => {
   const restaurantCtx = useContext(RestaurantContext);
-  const authCtx = useContext(AuthContext);
+
   const db = getDatabase();
+  const auth = getAuth();
   const storage = getStorage();
   let history = useHistory();
   const restaurantId = `r${restaurantCtx.restaurants.length + 1}`;
@@ -53,7 +55,7 @@ const NewRestaurant = () => {
       id: values.id,
       image: values.file,
       dateCreated: +new Date(),
-      user: authCtx.currentUser,
+      user: auth.currentUser.uid,
     };
     if (imageUrl !== "") {
       await uploadBytes(pathReference, values.file).then((snapshot) => {
