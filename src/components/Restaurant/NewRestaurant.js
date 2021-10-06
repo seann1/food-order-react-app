@@ -41,7 +41,8 @@ const NewRestaurant = () => {
     if (values.file) {
       imageUrl = `restaurants/${restaurantId}/${restaurantId}-1.jpg`;
     } else {
-      imageUrl = "default/test-image.jpg";
+      console.log("no value");
+      imageUrl = "restaurants/default/test-image.jpg";
     }
     const pathReference = storageRef(storage, imageUrl);
     const newRestaurant = {
@@ -51,12 +52,11 @@ const NewRestaurant = () => {
       image: values.file,
     };
     await uploadBytes(pathReference, values.file).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
+      console.log(pathReference);
     });
 
     await getDownloadURL(pathReference).then((url) => {
       newRestaurant.image = url;
-      console.log(url);
     });
 
     await set(ref(db, "restaurants/" + values.id), newRestaurant);

@@ -29,9 +29,9 @@ function App() {
 
   let history = useHistory();
   const fetchRandMHandler = useCallback(async () => {
-    console.log(restaurantCtx);
+    //console.log(restaurantCtx);
     setIsLoading(true);
-    //restaurantCtx.clearRestaurants();
+
     try {
       const response = await fetch(
         "https://food-order-app-d078d-default-rtdb.firebaseio.com/restaurants.json"
@@ -50,27 +50,17 @@ function App() {
           restaurantsArray.push(data[restaurant]);
           restaurantCtx.addRestaurant(data[restaurant]);
 
-          console.log(restaurant);
-
-          //restaurantCtx.updateCount();
+          //console.log(restaurant);
         }
 
         setRestaurants(restaurantsArray);
-        //restaurantCtx.addRestaurant(restaurantsArray);
-        //console.log(restaurantsArray);
       }
       setIsLoading(false);
       restaurantData.current = data;
-      //console.log(restaurantCtx);
     } catch (error) {}
   }, [restaurantCtx]);
   useEffect(() => {
     fetchRandMHandler();
-    //setRestaurants(restaurantsArray);
-    // for (let restaurant of restaurants) {
-    //   restaurantCtx.addRestaurant(restaurant);
-    // }
-    // console.log(restaurantCtx);
   }, [fetchRandMHandler]);
 
   const showOrderFormHandler = () => {

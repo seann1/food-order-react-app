@@ -5,6 +5,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import defaultImage from "../../assets/default-image.jpg";
 
 import { red } from "@material-ui/core/colors";
 
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Restaurant = (props) => {
   const classes = useStyles();
+
   return (
     <Card
       onClick={() =>
@@ -41,7 +43,7 @@ const Restaurant = (props) => {
       />
       <CardMedia
         className={classes.media}
-        image={props.image}
+        image={props.image ? props.image : defaultImage}
         title={props.name}
       />
       <CardContent>

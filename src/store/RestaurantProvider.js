@@ -8,9 +8,6 @@ const defaultRestaurantState = {
 
 const restaurantReducer = (state, action) => {
   if (action.type === "ADD_RESTAURANT") {
-    //console.log("action", action);
-    console.log("state", state.restaurants);
-
     return {
       restaurants: state.restaurants.concat(action.restaurant),
       restaurantCount: state.restaurantCount,
@@ -44,7 +41,6 @@ const RestaurantProvider = (props) => {
   };
 
   const restaurantAddHandler = (restaurant) => {
-    //console.log("restaurant", restaurant);
     dispatchRestaurantAction({
       type: "ADD_RESTAURANT",
       restaurant: restaurant,
