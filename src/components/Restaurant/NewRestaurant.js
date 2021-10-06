@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import AuthContext from "../../store/auth-context";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField, SimpleFileUpload } from "formik-material-ui";
@@ -20,19 +21,20 @@ import {
 
 const NewRestaurant = () => {
   const restaurantCtx = useContext(RestaurantContext);
+  const authCtx = useContext(AuthContext);
   const db = getDatabase();
   const storage = getStorage();
   let history = useHistory();
   const restaurantId = `r${restaurantCtx.restaurants.length + 1}`;
   const createRestaurantHandler = (values) => {
-    console.log(values);
+    //console.log(values);
     const restaurantValues = {
       name: values.name,
       description: values.description,
       file: values.file,
       id: restaurantId,
     };
-    console.log(restaurantValues);
+    //console.log(restaurantValues);
     sendRestaurantFunction(restaurantValues);
   };
 
@@ -42,7 +44,7 @@ const NewRestaurant = () => {
       imageUrl = `restaurants/${restaurantId}/${restaurantId}-1.jpg`;
     } else {
       console.log("no value");
-      imageUrl = "restaurants/default/test-image.jpg";
+      imageUrl = "";
     }
     const pathReference = storageRef(storage, imageUrl);
     const newRestaurant = {
@@ -50,14 +52,18 @@ const NewRestaurant = () => {
       description: values.description,
       id: values.id,
       image: values.file,
+      dateCreated: +new Date(),
+      user: authCtx.currentUser,
     };
-    await uploadBytes(pathReference, values.file).then((snapshot) => {
-      console.log(pathReference);
-    });
+    if (imageUrl !== "") {
+      await uploadBytes(pathReference, values.file).then((snapshot) => {
+        console.log(pathReference);
+      });
 
-    await getDownloadURL(pathReference).then((url) => {
-      newRestaurant.image = url;
-    });
+      await getDownloadURL(pathReference).then((url) => {
+        newRestaurant.image = url;
+      });
+    }
 
     await set(ref(db, "restaurants/" + values.id), newRestaurant);
     restaurantCtx.addRestaurant(newRestaurant);

@@ -15,13 +15,13 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
 import { Route, Switch, useHistory, Link } from "react-router-dom";
 import equal from "fast-deep-equal";
-import CartContext from "./store/cart-context";
+//import CartContext from "./store/cart-context";
 
 function App() {
   //const [cartIsShown, setCartIsShown] = useState(false);
   const [orderFormIsShown, setOrderFormIsShown] = useState(false);
   const [restaurantId, setRestaurantId] = useState("");
-  const [restaurants, setRestaurants] = useState([]);
+  //const [restaurants, setRestaurants] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
@@ -53,7 +53,7 @@ function App() {
           //console.log(restaurant);
         }
 
-        setRestaurants(restaurantsArray);
+        //setRestaurants(restaurantsArray);
       }
       setIsLoading(false);
       restaurantData.current = data;
