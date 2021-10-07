@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import MealItem from "./MealItem/MealItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
+import GoogleMapReact from "google-map-react";
 
 const AvailableMeals = (props) => {
   const [error, setError] = useState(null);
@@ -74,7 +75,19 @@ const AvailableMeals = (props) => {
     // <section className={classes.meals}>
     //   <Card>{content}</Card>
     // </section>
-    <Container>{content}</Container>
+    <Container>
+      {content}
+      <div style={{ height: "50vh", width: "100%" }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: "AIzaSyB4PJv3cQv8aQw21KKrVyKQOCJPHX-Uw2Q" }}
+          defaultCenter={{
+            lat: 59.95,
+            lng: 30.33,
+          }}
+          defaultZoom={11}
+        ></GoogleMapReact>
+      </div>
+    </Container>
   );
 };
 

@@ -10,10 +10,10 @@ const MealsSummary = (props) => {
     <Container>
       <Paper elevation={3}>
         <Box p={3}>
-          <Typography align="center" variant="h3">
+          <Typography align="left" variant="h3">
             {props.restaurantName}
           </Typography>
-          <Typography align="center" variant="h6">
+          <Typography align="left" variant="h6">
             {props.description}
           </Typography>
         </Box>

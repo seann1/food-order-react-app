@@ -134,20 +134,24 @@ function App() {
                 <Box m={2}>
                   <Container maxWidth="lg">
                     <Grid container spacing={3} direction="row">
-                      {restaurantCtx.restaurants.map((restaurant) => (
-                        <Grid item xs={3} key={restaurant.id}>
-                          <Link to={`/restaurant/${restaurant.id}`}>
-                            <Restaurant
-                              id={restaurant.id}
-                              key={restaurant.id}
-                              restaurantPick={restaurantChoiceHandler}
-                              name={restaurant.name}
-                              description={restaurant.description}
-                              image={restaurant.image}
-                            />
-                          </Link>
-                        </Grid>
-                      ))}
+                      {restaurantCtx.restaurants
+                        .sort((a, b) =>
+                          a.dateCreated < b.dateCreated ? 1 : -1
+                        )
+                        .map((restaurant) => (
+                          <Grid item xs={3} key={restaurant.id}>
+                            <Link to={`/restaurant/${restaurant.id}`}>
+                              <Restaurant
+                                id={restaurant.id}
+                                key={restaurant.id}
+                                restaurantPick={restaurantChoiceHandler}
+                                name={restaurant.name}
+                                description={restaurant.description}
+                                image={restaurant.image}
+                              />
+                            </Link>
+                          </Grid>
+                        ))}
                     </Grid>
                   </Container>
                 </Box>

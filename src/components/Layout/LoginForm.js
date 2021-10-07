@@ -10,31 +10,25 @@ import Box from "@mui/material/Box";
 
 import Button from "@mui/material/Button";
 import classes from "./LoginForm.module.css";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import firebaseApp from "../../firebase/base";
 
 const LoginForm = () => {
   const history = useHistory();
   const auth = getAuth(firebaseApp);
   const authCtx = useContext(AuthContext);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      //const uid = user.uid;
-
-      authCtx.storeUser(user.uid);
-
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     // User is signed in, see docs for a list of available properties
+  //     // https://firebase.google.com/docs/reference/js/firebase.User
+  //     //const uid = user.uid;
+  //     //authCtx.storeUser(user.uid);
+  //     // ...
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //   }
+  // });
 
   const submitHandler = (values) => {
     signInWithEmailAndPassword(auth, values.email, values.password)
