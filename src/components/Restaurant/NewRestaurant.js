@@ -12,6 +12,8 @@ import RestaurantContext from "../../store/restaurant-context";
 import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
+//import { usePlacesWidget } from "react-google-autocomplete";
+import FormikPlacesAutoComplete from "./FormikPlacesAutoComplete";
 import {
   getStorage,
   ref as storageRef,
@@ -23,6 +25,13 @@ import {
 const NewRestaurant = () => {
   const restaurantCtx = useContext(RestaurantContext);
 
+  // const { ref: placesRef, autocompleteRef } = usePlacesWidget({
+  //   apiKey: process.env.REACT_APP_API_KEY,
+  //   onPlaceSelected: (place) => {
+  //     console.log(place);
+  //   },
+  // });
+
   const db = getDatabase();
   const auth = getAuth();
   const storage = getStorage();
@@ -33,6 +42,7 @@ const NewRestaurant = () => {
       name: values.name,
       description: values.description,
       file: values.file,
+      location: values.location,
       id: restaurantId,
     };
 
@@ -52,6 +62,7 @@ const NewRestaurant = () => {
       name: values.name,
       description: values.description,
       id: values.id,
+      location: values.location,
       image: values.file,
       dateCreated: +new Date(),
       user: auth.currentUser.uid,
@@ -80,6 +91,7 @@ const NewRestaurant = () => {
             initialValues={{
               name: "",
               description: "",
+              location: "",
               file: null,
             }}
             validationSchema={Yup.object({
@@ -114,6 +126,14 @@ const NewRestaurant = () => {
                 fullWidth
                 minRows={4}
                 maxRows={4}
+              />
+              <br />
+              <label name="Address">Address</label>
+              <Field
+                component={FormikPlacesAutoComplete}
+                label="Address"
+                name="location"
+                fullWidth
               />
               <br />
               <Field

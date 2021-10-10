@@ -79,7 +79,7 @@ const AvailableMeals = (props) => {
       {content}
       <div style={{ height: "50vh", width: "100%" }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyB4PJv3cQv8aQw21KKrVyKQOCJPHX-Uw2Q" }}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_API_KEY }}
           defaultCenter={{
             lat: 59.95,
             lng: 30.33,
