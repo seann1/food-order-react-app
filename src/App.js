@@ -149,6 +149,7 @@ function App() {
                                 name={restaurant.name}
                                 description={restaurant.description}
                                 image={restaurant.image}
+                                location={restaurant.location}
                               />
                             </Link>
                           </Grid>

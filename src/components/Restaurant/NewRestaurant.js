@@ -12,7 +12,6 @@ import RestaurantContext from "../../store/restaurant-context";
 import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
-//import { usePlacesWidget } from "react-google-autocomplete";
 import FormikPlacesAutoComplete from "./FormikPlacesAutoComplete";
 import {
   getStorage,
@@ -24,13 +23,6 @@ import {
 
 const NewRestaurant = () => {
   const restaurantCtx = useContext(RestaurantContext);
-
-  // const { ref: placesRef, autocompleteRef } = usePlacesWidget({
-  //   apiKey: process.env.REACT_APP_API_KEY,
-  //   onPlaceSelected: (place) => {
-  //     console.log(place);
-  //   },
-  // });
 
   const db = getDatabase();
   const auth = getAuth();

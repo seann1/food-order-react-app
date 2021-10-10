@@ -1,15 +1,21 @@
-import { useState, useEffect, useCallback } from "react";
-
+import { useState, useEffect, useContext, useCallback } from "react";
+import Marker from "../UI/Marker";
 import MealItem from "./MealItem/MealItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
 import GoogleMapReact from "google-map-react";
+import RestaurantContext from "../../store/restaurant-context";
 
 const AvailableMeals = (props) => {
   const [error, setError] = useState(null);
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const restaurantCtx = useContext(RestaurantContext);
 
+  const chosenRestaurant = restaurantCtx.restaurants.filter(
+    (restaurant) => restaurant.id === props.restaurantId
+  );
+  console.log(chosenRestaurant[0].location.coordinates.lat);
   const fetchMealsHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -80,12 +86,17 @@ const AvailableMeals = (props) => {
       <div style={{ height: "50vh", width: "100%" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_API_KEY }}
-          defaultCenter={{
-            lat: 59.95,
-            lng: 30.33,
+          center={{
+            lat: chosenRestaurant[0].location.coordinates.lat,
+            lng: chosenRestaurant[0].location.coordinates.lon,
           }}
-          defaultZoom={11}
-        ></GoogleMapReact>
+          defaultZoom={16}
+        >
+          <Marker
+            lat={chosenRestaurant[0].location.coordinates.lat}
+            lng={chosenRestaurant[0].location.coordinates.lon}
+          />
+        </GoogleMapReact>
       </div>
     </Container>
   );
