@@ -13,12 +13,14 @@ import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import FormikPlacesAutoComplete from "./FormikPlacesAutoComplete";
+import PredicitionsOnInputChange from "./AutoCompleteHook";
 import {
   getStorage,
   ref as storageRef,
   uploadBytes,
   getDownloadURL,
 } from "firebase/storage";
+import PredictionsOnInputChange from "./AutoCompleteHook";
 //import classes from "./NewRestaurant.module.css";
 
 const NewRestaurant = () => {
@@ -93,6 +95,7 @@ const NewRestaurant = () => {
               description: Yup.string()
                 .max(500, "Must be 500 characters or less")
                 .required("Required"),
+              address: Yup.string().required(),
             })}
             onSubmit={(values) => {
               createRestaurantHandler(values);
@@ -105,6 +108,7 @@ const NewRestaurant = () => {
                 name="name"
                 type="text"
                 label="Name"
+                margin="normal"
                 fullWidth
               />
               <br />
@@ -120,13 +124,8 @@ const NewRestaurant = () => {
                 maxRows={4}
               />
               <br />
-              <label name="Address">Address</label>
-              <Field
-                component={FormikPlacesAutoComplete}
-                label="Address"
-                name="location"
-                fullWidth
-              />
+              {/* <label name="Address">Address</label> */}
+              <Field component={FormikPlacesAutoComplete} name="location" />
               <br />
               <Field
                 component={SimpleFileUpload}

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@atomap/use-places-autocomplete": "^1.0.4",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@googlemaps/react-wrapper": "^1.1.8",

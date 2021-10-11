@@ -1,9 +1,19 @@
 import React, { Component } from "react";
-
+import TextField from "@mui/material/TextField";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
 
 class FormikPlacesAutoComplete extends Component {
   constructor(props) {
@@ -46,16 +56,16 @@ class FormikPlacesAutoComplete extends Component {
 
   render() {
     const {
-      field: { name, ...field }, // { name, value, onChange, onBlur }
+      field: { name }, // { name, value, onChange, onBlur } ...field
       form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
       classes,
       label,
       ...props
     } = this.props;
 
-    const error = errors[name];
-    const touch = touched[name];
-    console.log(this.state);
+    //const error = errors[name];
+    //const touch = touched[name];
+    //console.log(this.state);
     return (
       <PlacesAutocomplete
         name={name}
@@ -67,8 +77,11 @@ class FormikPlacesAutoComplete extends Component {
         onError={this.handleError}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <input
+          <>
+            <TextField
+              label="Address"
+              margin="normal"
+              fullWidth
               {...getInputProps({
                 placeholder: "Search Places ...",
                 className: "location-search-input form-control",
@@ -96,7 +109,8 @@ class FormikPlacesAutoComplete extends Component {
                 );
               })}
             </div>
-          </div>
+            {/* div wrapping input ends here */}
+          </>
         )}
       </PlacesAutocomplete>
     );
