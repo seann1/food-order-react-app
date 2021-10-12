@@ -1,19 +1,10 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import TextField from "@mui/material/TextField";
+import AwesomeDebouncePromise from "awesome-debounce-promise";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-
-function debounce(func, timeout = 300) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, timeout);
-  };
-}
 
 class FormikPlacesAutoComplete extends Component {
   constructor(props) {
@@ -26,6 +17,7 @@ class FormikPlacesAutoComplete extends Component {
   }
 
   handleError = (error) => {
+    console.log("error", error);
     this.props.form.setFieldError(this.state.name, error);
   };
 
@@ -37,6 +29,8 @@ class FormikPlacesAutoComplete extends Component {
       return { address };
     });
   };
+
+  //searchDebounced = AwesomeDebouncePromise(this.handleChange, 300);
 
   handleSelect = (address) => {
     geocodeByAddress(address)
@@ -56,21 +50,23 @@ class FormikPlacesAutoComplete extends Component {
 
   render() {
     const {
-      field: { name }, // { name, value, onChange, onBlur } ...field
+      field: { name, ...field }, // { name, value, onChange, onBlur } ...field
       form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
       classes,
+      options,
       label,
       ...props
     } = this.props;
 
-    //const error = errors[name];
-    //const touch = touched[name];
-    //console.log(this.state);
+    const error = errors[name];
+    const touch = touched[name];
+    console.log(this.state);
     return (
       <PlacesAutocomplete
         name={name}
         id={name}
         {...props}
+        searchOptions={this.props.options || {}}
         value={this.state.address}
         onChange={this.handleChange}
         onSelect={this.handleSelect}
@@ -89,7 +85,7 @@ class FormikPlacesAutoComplete extends Component {
             />
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
-              {suggestions.map((suggestion) => {
+              {suggestions.map((suggestion, index) => {
                 const className = suggestion.active
                   ? "suggestion-item--active"
                   : "suggestion-item";
@@ -99,12 +95,14 @@ class FormikPlacesAutoComplete extends Component {
                   : { backgroundColor: "#ffffff", cursor: "pointer" };
                 return (
                   <div
+                    key={index}
                     {...getSuggestionItemProps(suggestion, {
                       className,
                       style,
+                      key: index,
                     })}
                   >
-                    <span>{suggestion.description}</span>
+                    <span key={index}>{suggestion.description}</span>
                   </div>
                 );
               })}

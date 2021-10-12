@@ -13,17 +13,18 @@ import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import FormikPlacesAutoComplete from "./FormikPlacesAutoComplete";
-import PredicitionsOnInputChange from "./AutoCompleteHook";
+import FormikPlacesFunction from "./FormikPlacesFunction";
+import { getIn } from "formik";
 import {
   getStorage,
   ref as storageRef,
   uploadBytes,
   getDownloadURL,
 } from "firebase/storage";
-import PredictionsOnInputChange from "./AutoCompleteHook";
+
 //import classes from "./NewRestaurant.module.css";
 
-const NewRestaurant = () => {
+const NewRestaurant = (props) => {
   const restaurantCtx = useContext(RestaurantContext);
 
   const db = getDatabase();
@@ -88,14 +89,17 @@ const NewRestaurant = () => {
               location: "",
               file: null,
             }}
-            validationSchema={Yup.object({
+            validationSchema={Yup.object().shape({
               name: Yup.string()
                 .max(100, "Must be 100 characters or less")
                 .required("Required"),
               description: Yup.string()
                 .max(500, "Must be 500 characters or less")
                 .required("Required"),
-              address: Yup.string().required(),
+              location: Yup.object().shape({
+                value: Yup.string().required("Address is required"),
+                address: Yup.string().required("Invalid address"),
+              }),
             })}
             onSubmit={(values) => {
               createRestaurantHandler(values);
@@ -125,7 +129,12 @@ const NewRestaurant = () => {
               />
               <br />
               {/* <label name="Address">Address</label> */}
-              <Field component={FormikPlacesAutoComplete} name="location" />
+              {/* FormikPlacesAutoComplete */}
+              <Field
+                component={FormikPlacesFunction}
+                name="location"
+                options={{}}
+              />
               <br />
               <Field
                 component={SimpleFileUpload}
