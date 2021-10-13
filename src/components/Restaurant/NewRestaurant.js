@@ -12,7 +12,7 @@ import RestaurantContext from "../../store/restaurant-context";
 import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import FormikPlacesAutoComplete from "./FormikPlacesAutoComplete";
+//import FormikPlacesAutoComplete from "./FormikPlacesAutoComplete";
 import FormikPlacesFunction from "./FormikPlacesFunction";
 import { getIn } from "formik";
 import {
@@ -96,10 +96,10 @@ const NewRestaurant = (props) => {
               description: Yup.string()
                 .max(500, "Must be 500 characters or less")
                 .required("Required"),
-              location: Yup.object().shape({
-                value: Yup.string().required("Address is required"),
-                address: Yup.string().required("Invalid address"),
-              }),
+              // location: Yup.object().shape({
+              //   value: Yup.string().required("Address is required"),
+              //   address: Yup.string().required("Invalid address"),
+              // }),
             })}
             onSubmit={(values) => {
               createRestaurantHandler(values);

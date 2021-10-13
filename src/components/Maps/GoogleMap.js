@@ -16,7 +16,7 @@ const MapComponent = withGoogleMap((props) => {
       //bootstrapURLKeys={{ key: process.env.REACT_APP_API_KEY }}
       defaultCenter={{
         lat: props.chosenRestaurant[0].location.coordinates.lat,
-        lng: props.chosenRestaurant[0].location.coordinates.lon,
+        lng: props.chosenRestaurant[0].location.coordinates.lng,
       }}
       defaultZoom={16}
     >
@@ -29,7 +29,7 @@ const MapComponent = withGoogleMap((props) => {
       <Marker
         position={{
           lat: props.chosenRestaurant[0].location.coordinates.lat,
-          lng: props.chosenRestaurant[0].location.coordinates.lon,
+          lng: props.chosenRestaurant[0].location.coordinates.lng,
         }}
         // lat={chosenRestaurant[0].location.coordinates.lat}
         // lng={chosenRestaurant[0].location.coordinates.lon}

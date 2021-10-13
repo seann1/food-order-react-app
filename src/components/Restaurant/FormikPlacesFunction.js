@@ -1,8 +1,8 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
-import { getIn } from "formik";
+
 import { makeStyles } from "@material-ui/core";
-import AwesomeDebouncePromise from "awesome-debounce-promise";
+
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -39,18 +39,43 @@ export default function FormikPlacesFunction(props) {
   const [name, setName] = useState(props.field.name);
   //const [address, setAddress] = useState(props.value || "");
   const handleChange = (value) => {
-    console.log(props.form);
+    //console.log(props.form);
     props.form.setFieldTouched(`${name}.value`);
     props.form.setFieldTouched(`${name}.address`);
     props.form.setFieldValue(name, { value: address });
     setAddress(value);
-    console.log(value);
+    //console.log(value);
   };
-  const handleSelect = async (value) => {
-    const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
-    setAddress(value);
-    setCoordinates(latLng);
+  const handleSelect = async (address) => {
+    geocodeByAddress(address)
+      .then((results) => getLatLng(results[0]))
+      .then((latLng) => {
+        // this.setState(() => {
+        // });
+        props.form.setFieldValue(props.field.name, {
+          value: address,
+          address,
+          coordinates: latLng,
+        });
+        return { address };
+      })
+      .catch((error) => props.form.setFieldError(this.state.name, error));
+    // geocodeByAddress(value)
+    //   .then((results) => getLatLng(results[0]))
+    //   .then((latLng) => {
+    //     this.setState(() => {
+    //       props.form.setFieldValue(this.state.name, {
+    //         value: address,
+    //         address,
+    //         coordinates: latLng,
+    //       });
+
+    //   });
+    // })
+    // .catch((error) => this.props.form.setFieldError(this.state.name, error));
+
+    // setAddress(address);
+    // setCoordinates(latLng);
   };
 
   const handleError = (error) => {
@@ -81,12 +106,12 @@ export default function FormikPlacesFunction(props) {
               //   props.form.errors?.location?.value ||
               //   props.form.errors?.location?.address
               // }
-              helperText={
-                props.form.errors?.location?.value ||
-                props.form.errors?.location?.address
-                  ? "Please Enter a Valid Address"
-                  : " "
-              }
+              // helperText={
+              //   props.form.errors?.location?.value ||
+              //   props.form.errors?.location?.address
+              //     ? "Please Enter a Valid Address"
+              //     : " "
+              // }
               {...getInputProps({ placeholder: "Type address" })}
               //isValid={getIn(touched, name) && !getIn(errors, name)}
               //isInvalid={getIn(touched, name) && !!getIn(errors, name)}
@@ -94,12 +119,15 @@ export default function FormikPlacesFunction(props) {
 
             <div>
               {loading ? <div>...loading</div> : null}
-              {suggestions.map((suggestion) => {
+              {suggestions.map((suggestion, index) => {
                 const style = {
                   backgroundColor: suggestion.active ? "#dadada" : "#fff",
                 };
                 return (
-                  <div {...getSuggestionItemProps(suggestion, { style })}>
+                  <div
+                    {...getSuggestionItemProps(suggestion, { style })}
+                    key={index}
+                  >
                     {suggestion.description}
                   </div>
                 );

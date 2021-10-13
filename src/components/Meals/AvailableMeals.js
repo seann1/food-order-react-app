@@ -1,34 +1,34 @@
 import { useState, useEffect, useContext, useCallback } from "react";
-//import Marker from "../UI/Marker";
+
 import MealItem from "./MealItem/MealItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
-import GoogleMapReact from "google-map-react";
+
 import MapComponent from "../Maps/GoogleMap";
-//import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
+
 import RestaurantContext from "../../store/restaurant-context";
-import { ClassNames } from "@emotion/react";
-import Typography from "@mui/material/Typography";
-import classes from "./AvailableMeals.module.css";
+// import { ClassNames } from "@emotion/react";
+// import Typography from "@mui/material/Typography";
+// import classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = (props) => {
   const [error, setError] = useState(null);
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showInfoWindow, setShowInfoWindow] = useState(false);
+  //const [showInfoWindow, setShowInfoWindow] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
 
-  const handleMouseOver = () => {
-    setShowInfoWindow(true);
-  };
-  const handleMouseOut = () => {
-    setShowInfoWindow(false);
-  };
+  // const handleMouseOver = () => {
+  //   setShowInfoWindow(true);
+  // };
+  // const handleMouseOut = () => {
+  //   setShowInfoWindow(false);
+  // };
 
   const chosenRestaurant = restaurantCtx.restaurants.filter(
     (restaurant) => restaurant.id === props.restaurantId
   );
-  console.log(chosenRestaurant[0].location.coordinates.lat);
+  //console.log(chosenRestaurant[0].location.coordinates.lat);
   const fetchMealsHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
