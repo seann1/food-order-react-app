@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useCallback, useRef } from "react";
 
 import RestaurantContext from "./store/restaurant-context";
-
+import RestaurantMap from "./components/Maps/RestaurantsMap";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 import Cart from "./components/Cart/Cart";
@@ -155,6 +155,17 @@ function App() {
                           </Grid>
                         ))}
                     </Grid>
+                    <Box mt={2}>
+                      <RestaurantMap
+                        containerElement={
+                          <div style={{ height: "50vh", width: "100%" }}></div>
+                        }
+                        mapElement={
+                          <div style={{ height: "50vh", width: "100%" }}></div>
+                        }
+                        restaurantMarkers={restaurantCtx.restaurants}
+                      />
+                    </Box>
                   </Container>
                 </Box>
               </Route>

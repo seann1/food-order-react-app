@@ -11,9 +11,6 @@ const MapComponent = withGoogleMap((props) => {
   };
   return (
     <GoogleMap
-      containerElement={<div style={{ height: `500px`, width: "500px" }} />}
-      mapElement={<div style={{ height: `100%` }} />}
-      //bootstrapURLKeys={{ key: process.env.REACT_APP_API_KEY }}
       defaultCenter={{
         lat: props.chosenRestaurant[0].location.coordinates.lat,
         lng: props.chosenRestaurant[0].location.coordinates.lng,
