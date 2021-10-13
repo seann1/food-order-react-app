@@ -1,13 +1,39 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { getIn } from "formik";
+import { makeStyles } from "@material-ui/core";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
 
+const useStyles = makeStyles({
+  textField: {
+    width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    color: "white",
+    paddingBottom: 0,
+    marginTop: 30,
+    fontWeight: 500,
+  },
+});
+
+// const styles = (theme) => ({
+//   textField: {
+//     width: "90%",
+//     marginLeft: "auto",
+//     marginRight: "auto",
+//     color: "white",
+//     paddingBottom: 0,
+//     marginTop: 0,
+//     fontWeight: 500,
+//   },
+// });
+
 export default function FormikPlacesFunction(props) {
+  const classes = useStyles();
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const [name, setName] = useState(props.field.name);
@@ -44,10 +70,23 @@ export default function FormikPlacesFunction(props) {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-            <p>Latitude: {coordinates.lat}</p>
-            <p>Longitude: {coordinates.lng}</p>
+            {/* <p>Latitude: {coordinates.lat}</p>
+            <p>Longitude: {coordinates.lng}</p> */}
             <TextField
+              label="Address"
               fullWidth
+              name="location"
+              className={classes.textField}
+              // error={
+              //   props.form.errors?.location?.value ||
+              //   props.form.errors?.location?.address
+              // }
+              helperText={
+                props.form.errors?.location?.value ||
+                props.form.errors?.location?.address
+                  ? "Please Enter a Valid Address"
+                  : " "
+              }
               {...getInputProps({ placeholder: "Type address" })}
               //isValid={getIn(touched, name) && !getIn(errors, name)}
               //isInvalid={getIn(touched, name) && !!getIn(errors, name)}
@@ -66,12 +105,12 @@ export default function FormikPlacesFunction(props) {
                 );
               })}
             </div>
-            {props.form.errors.location && (
+            {/* {props.form.errors.location && (
               <>
                 <div>{props.form.errors.location.value}</div>
                 <div>{props.form.errors.location.address}</div>
               </>
-            )}
+            )} */}
           </div>
         )}
       </PlacesAutocomplete>

@@ -5,12 +5,23 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
 import GoogleMapReact from "google-map-react";
 import RestaurantContext from "../../store/restaurant-context";
+import { ClassNames } from "@emotion/react";
+import Typography from "@mui/material/Typography";
+import classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = (props) => {
   const [error, setError] = useState(null);
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showInfoWindow, setShowInfoWindow] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
+
+  const handleMouseOver = () => {
+    setShowInfoWindow(true);
+  };
+  const handleMouseOut = () => {
+    setShowInfoWindow(false);
+  };
 
   const chosenRestaurant = restaurantCtx.restaurants.filter(
     (restaurant) => restaurant.id === props.restaurantId
@@ -92,10 +103,31 @@ const AvailableMeals = (props) => {
           }}
           defaultZoom={16}
         >
-          <Marker
+          <div
             lat={chosenRestaurant[0].location.coordinates.lat}
             lng={chosenRestaurant[0].location.coordinates.lon}
-          />
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            <Marker
+              lat={chosenRestaurant[0].location.coordinates.lat}
+              lng={chosenRestaurant[0].location.coordinates.lon}
+            />
+            {showInfoWindow && (
+              <div
+                className={classes.infoWindow}
+                lat={chosenRestaurant[0].location.coordinates.lat}
+                lng={chosenRestaurant[0].location.coordinates.lon}
+              >
+                <Typography align="center" variant="h4">
+                  {chosenRestaurant[0].name}
+                </Typography>
+                <Typography align="center" variant="body">
+                  {chosenRestaurant[0].location.address}
+                </Typography>
+              </div>
+            )}
+          </div>
         </GoogleMapReact>
       </div>
     </Container>

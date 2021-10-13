@@ -22,3 +22,18 @@
     transform: translateY(0);
   }
 } */
+
+.infoWindow {
+  margin: 0 auto; /*FOR HORIZONTAL CENTER */
+  /* max-width: 150px;
+  max-height: 20px; */
+  /* position: relative; */
+  height: auto;
+  width: 25vw;
+
+  background-color: rgba(0, 0, 0, 0.4);
+  /* border-radius: 2em; */
+  box-shadow: black;
+  color: white;
+  padding: 2em;
+}

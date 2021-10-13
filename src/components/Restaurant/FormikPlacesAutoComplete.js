@@ -77,6 +77,7 @@ class FormikPlacesAutoComplete extends Component {
             <TextField
               label="Address"
               margin="normal"
+              name="location"
               fullWidth
               {...getInputProps({
                 placeholder: "Search Places ...",
