@@ -15,7 +15,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
 import { Route, Switch, useHistory, Link } from "react-router-dom";
 import equal from "fast-deep-equal";
-import { Wrapper } from "@googlemaps/react-wrapper";
+//import { Wrapper } from "@googlemaps/react-wrapper";
 //import CartContext from "./store/cart-context";
 
 function App() {
@@ -159,12 +159,12 @@ function App() {
                 </Box>
               </Route>
               <Route path="/newrestaurant">
-                <Wrapper
+                {/* <Wrapper
                   apiKey={process.env.REACT_APP_API_KEY}
                   libraries={["places"]}
                 >
-                  <NewRestaurant />
-                </Wrapper>
+                </Wrapper> */}
+                <NewRestaurant />
               </Route>
             </Switch>
           )}

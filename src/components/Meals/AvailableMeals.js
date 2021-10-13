@@ -1,9 +1,11 @@
 import { useState, useEffect, useContext, useCallback } from "react";
-import Marker from "../UI/Marker";
+//import Marker from "../UI/Marker";
 import MealItem from "./MealItem/MealItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
 import GoogleMapReact from "google-map-react";
+import MapComponent from "../Maps/GoogleMap";
+//import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
 import RestaurantContext from "../../store/restaurant-context";
 import { ClassNames } from "@emotion/react";
 import Typography from "@mui/material/Typography";
@@ -88,48 +90,19 @@ const AvailableMeals = (props) => {
       </div>
     );
   }
+
   return (
     // <section className={classes.meals}>
     //   <Card>{content}</Card>
     // </section>
     <Container>
       {content}
-      <div style={{ height: "50vh", width: "100%" }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_API_KEY }}
-          center={{
-            lat: chosenRestaurant[0].location.coordinates.lat,
-            lng: chosenRestaurant[0].location.coordinates.lon,
-          }}
-          defaultZoom={16}
-        >
-          <div
-            lat={chosenRestaurant[0].location.coordinates.lat}
-            lng={chosenRestaurant[0].location.coordinates.lon}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-          >
-            <Marker
-              lat={chosenRestaurant[0].location.coordinates.lat}
-              lng={chosenRestaurant[0].location.coordinates.lon}
-            />
-            {showInfoWindow && (
-              <div
-                className={classes.infoWindow}
-                lat={chosenRestaurant[0].location.coordinates.lat}
-                lng={chosenRestaurant[0].location.coordinates.lon}
-              >
-                <Typography align="center" variant="h4">
-                  {chosenRestaurant[0].name}
-                </Typography>
-                <Typography align="center" variant="body">
-                  {chosenRestaurant[0].location.address}
-                </Typography>
-              </div>
-            )}
-          </div>
-        </GoogleMapReact>
-      </div>
+
+      <MapComponent
+        chosenRestaurant={chosenRestaurant}
+        containerElement={<div style={{ height: "50vh", width: "100%" }}></div>}
+        mapElement={<div style={{ height: "50vh", width: "100%" }}></div>}
+      ></MapComponent>
     </Container>
   );
 };
