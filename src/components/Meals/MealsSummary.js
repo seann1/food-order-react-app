@@ -22,7 +22,7 @@ const MealsSummary = (props) => {
     //   });
     // }
     const filteredContext = restaurantCtx.restaurants.filter(
-      (restaurant) => restaurant.id === urlParams.id
+      (restaurant) => restaurant.id === `r${urlParams.id}`
     );
     setChosenRestaurant(filteredContext[0]);
   }, []);
@@ -32,10 +32,10 @@ const MealsSummary = (props) => {
       <Paper elevation={3}>
         <Box p={3}>
           <Typography align="left" variant="h3">
-            {chosenRestaurant.name}
+            {chosenRestaurant?.name}
           </Typography>
           <Typography align="left" variant="h6">
-            {chosenRestaurant.description}
+            {chosenRestaurant?.description}
           </Typography>
         </Box>
       </Paper>

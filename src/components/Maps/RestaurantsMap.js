@@ -21,9 +21,10 @@ const RestaurantMap = withGoogleMap((props) => {
       //   }}
       //   defaultZoom={16}
     >
-      {props.restaurantMarkers.map((marker) => {
+      {props.restaurantMarkers.map((marker, index) => {
         return (
           <Marker
+            key={index}
             position={{
               lat: marker.location.coordinates.lat,
               lng: marker.location.coordinates.lng,

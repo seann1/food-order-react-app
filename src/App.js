@@ -77,7 +77,8 @@ function App() {
   };
 
   const hideCartHandler = () => {
-    history.push("/");
+    //history.push("/");
+    history.goBack();
     //setCartIsShown(false);
   };
 
@@ -128,7 +129,7 @@ function App() {
             </div>
           ) : (
             <Switch>
-              <Route path={"/:id"} exact>
+              <Route path={`/r:id`} exact>
                 <Box m={2}>
                   <Container maxWidth="lg">
                     <Meals

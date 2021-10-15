@@ -5,7 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import MapComponent from "../Maps/GoogleMap";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Route } from "react-router-dom";
 import RestaurantContext from "../../store/restaurant-context";
 // import { ClassNames } from "@emotion/react";
 // import Typography from "@mui/material/Typography";
@@ -27,7 +27,7 @@ const AvailableMeals = (props) => {
   // };
 
   const chosenRestaurant = restaurantCtx.restaurants.filter(
-    (restaurant) => restaurant.id === urlParams.id
+    (restaurant) => restaurant.id === `r${urlParams.id}`
   );
 
   const fetchMealsHandler = useCallback(async () => {
@@ -53,7 +53,7 @@ const AvailableMeals = (props) => {
         });
       }
       const filteredMealsArray = mealsArray.filter(
-        (meal) => meal.restaurantId === urlParams.id
+        (meal) => meal.restaurantId === `r${urlParams.id}`
       );
       setMeals(filteredMealsArray);
     } catch (error) {
@@ -99,12 +99,15 @@ const AvailableMeals = (props) => {
     // </section>
     <Container>
       {content}
-
-      <MapComponent
-        chosenRestaurant={chosenRestaurant}
-        containerElement={<div style={{ height: "50vh", width: "100%" }}></div>}
-        mapElement={<div style={{ height: "50vh", width: "100%" }}></div>}
-      ></MapComponent>
+      <Route path="/r:id">
+        <MapComponent
+          chosenRestaurant={chosenRestaurant}
+          containerElement={
+            <div style={{ height: "50vh", width: "100%" }}></div>
+          }
+          mapElement={<div style={{ height: "50vh", width: "100%" }}></div>}
+        ></MapComponent>
+      </Route>
     </Container>
   );
 };
