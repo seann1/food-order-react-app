@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 
 const MealsSummary = (props) => {
   const restaurantCtx = useContext(RestaurantContext);
-  const restaurants = restaurantCtx.restaurants;
+  //const restaurants = restaurantCtx.restaurants;
   const [chosenRestaurant, setChosenRestaurant] = useState({});
   let urlParams = useParams();
 
@@ -25,7 +25,7 @@ const MealsSummary = (props) => {
       (restaurant) => restaurant.id === `r${urlParams.id}`
     );
     setChosenRestaurant(filteredContext[0]);
-  }, []);
+  }, [restaurantCtx.restaurants, urlParams.id]);
 
   return (
     <Container>

@@ -13,14 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
-import {
-  Route,
-  Switch,
-  useHistory,
-  Link,
-  useParams,
-  useLocation,
-} from "react-router-dom";
+import { Route, Switch, useHistory, Link } from "react-router-dom";
 import equal from "fast-deep-equal";
 
 //import { Wrapper } from "@googlemaps/react-wrapper";
@@ -36,7 +29,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
   const restaurantData = useRef(null);
-  let urlParams = useLocation();
+  //let urlParams = useLocation();
 
   let history = useHistory();
   const fetchRandMHandler = useCallback(async () => {

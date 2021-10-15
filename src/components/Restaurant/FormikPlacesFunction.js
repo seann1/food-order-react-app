@@ -35,8 +35,8 @@ const useStyles = makeStyles({
 export default function FormikPlacesFunction(props) {
   const classes = useStyles();
   const [address, setAddress] = useState("");
-  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
-  const [name, setName] = useState(props.field.name);
+  //const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+  const name = props.field.name;
   //const [address, setAddress] = useState(props.value || "");
   const handleChange = (value) => {
     props.form.setFieldTouched(`${name}.value`);

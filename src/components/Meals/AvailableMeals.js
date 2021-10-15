@@ -5,7 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import MapComponent from "../Maps/GoogleMap";
-import { useParams, useLocation, Route } from "react-router-dom";
+import { useParams, Route } from "react-router-dom";
 import RestaurantContext from "../../store/restaurant-context";
 // import { ClassNames } from "@emotion/react";
 // import Typography from "@mui/material/Typography";
@@ -60,7 +60,7 @@ const AvailableMeals = (props) => {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [props.restaurantId]);
+  }, [urlParams.id]);
   useEffect(() => {
     fetchMealsHandler();
   }, [fetchMealsHandler]);

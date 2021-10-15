@@ -109,8 +109,7 @@ const LoginForm = () => {
             type="password"
           />
           <br />
-          {/* onClick={props.onCancel} */}
-          {/* className={classes.actions} */}
+
           <div className={classes.actions}>
             <Link to="/">
               <Button type="button" variant="contained" color="error">

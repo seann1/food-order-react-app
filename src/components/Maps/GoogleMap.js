@@ -1,14 +1,14 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
 
 const MapComponent = withGoogleMap((props) => {
-  const [showInfoWindow, setShowInfoWindow] = useState(false);
-  const handleMouseOver = () => {
-    setShowInfoWindow(true);
-  };
-  const handleMouseOut = () => {
-    setShowInfoWindow(false);
-  };
+  // const [showInfoWindow, setShowInfoWindow] = useState(false);
+  // const handleMouseOver = () => {
+  //   setShowInfoWindow(true);
+  // };
+  // const handleMouseOut = () => {
+  //   setShowInfoWindow(false);
+  // };
   return (
     <GoogleMap
       defaultCenter={{
