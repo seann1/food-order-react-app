@@ -22,7 +22,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import equal from "fast-deep-equal";
-import { ConstructionOutlined } from "@mui/icons-material";
+
 //import { Wrapper } from "@googlemaps/react-wrapper";
 //import CartContext from "./store/cart-context";
 
@@ -151,7 +151,10 @@ function App() {
                         )
                         .map((restaurant) => (
                           <Grid item xs={3} key={restaurant.id}>
-                            <Link to={`/${restaurant.id}`}>
+                            <Link
+                              to={`/${restaurant.id}`}
+                              style={{ textDecoration: "none" }}
+                            >
                               <Restaurant
                                 id={restaurant.id}
                                 key={restaurant.id}

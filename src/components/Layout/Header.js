@@ -35,6 +35,7 @@ const Header = (props) => {
                     to="/"
                     sx={{ flexGrow: 1 }}
                     className={classes.pointer}
+                    style={{ textDecoration: "none" }}
                   >
                     ReactMeals
                   </Typography>
@@ -47,11 +48,10 @@ const Header = (props) => {
             )}
             {authCtx.token && (
               <>
+                <HeaderCartButton onClick={props.onShowCart} />
+
                 <Box m={2}>
-                  <HeaderCartButton onClick={props.onShowCart} />
-                </Box>
-                <Box m={2}>
-                  <Link to="/newrestaurant">
+                  <Link to="/newrestaurant" style={{ textDecoration: "none" }}>
                     <Button variant="contained">Create Restaurant</Button>
                   </Link>
                 </Box>

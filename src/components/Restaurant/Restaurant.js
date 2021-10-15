@@ -40,6 +40,7 @@ const Restaurant = (props) => {
           </Avatar>
         }
         title={props.name}
+        titleTypographyProps={{ variant: "subtitle1" }}
       />
       <CardMedia
         className={classes.media}

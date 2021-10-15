@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import { makeStyles } from "@material-ui/core";
 import RestaurantContext from "../../store/restaurant-context";
 import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 import FormikPlacesFunction from "./FormikPlacesFunction";
-
 import {
   getStorage,
   ref as storageRef,
@@ -22,9 +22,17 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
+const useStyles = makeStyles({
+  btn: {
+    marginLeft: "1rem",
+    // marginBottom: "1rem",
+  },
+});
+
 //import classes from "./NewRestaurant.module.css";
 
 const NewRestaurant = (props) => {
+  const classes = useStyles();
   const restaurantCtx = useContext(RestaurantContext);
 
   const db = getDatabase();
@@ -143,7 +151,7 @@ const NewRestaurant = (props) => {
                 }}
               />
 
-              <Box m={2} mb={2}>
+              <Box mt={2} pb={2} mr={2}>
                 <Button
                   type="button"
                   variant="contained"
@@ -154,7 +162,12 @@ const NewRestaurant = (props) => {
                   Cancel
                 </Button>
 
-                <Button type="submit" variant="contained" color="primary">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.btn}
+                >
                   Submit
                 </Button>
               </Box>

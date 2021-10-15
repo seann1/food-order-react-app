@@ -35,7 +35,7 @@
 .actions button:active {
   background-color: #5a1a01;
   border-color: #5a1a01;
-  color: white;
+  /* color: white; */
 }
 
 .actions .button--alt {
@@ -44,5 +44,5 @@
 
 .actions .button {
   background-color: #8a2b06;
-  color: white;
+  /* color: white; */
 }
