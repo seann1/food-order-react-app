@@ -11,18 +11,18 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Login from "./Login";
 import Alert from "@mui/material/Alert";
-
 import classes from "./Header.module.css";
 
 const Header = (props) => {
   const currentLocation = useLocation().pathname;
   const authCtx = useContext(AuthContext);
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="sticky">
           <Toolbar>
-            {props.restaurantId || currentLocation === "/newrestaurant" ? (
+            {currentLocation !== "/" ? (
               <>
                 <Tooltip
                   title="Back to Restaurant selection"
@@ -34,7 +34,6 @@ const Header = (props) => {
                     component={Link}
                     to="/"
                     sx={{ flexGrow: 1 }}
-                    //onClick={props.backToRestaurants}
                     className={classes.pointer}
                   >
                     ReactMeals
@@ -71,9 +70,6 @@ const Header = (props) => {
           </Alert>
         </Box>
       )}
-      {/* <div className={classes["main-image"]}>
-        <img src={mealsImage} alt="A table full of delicious food!" />
-      </div> */}
     </>
   );
 };

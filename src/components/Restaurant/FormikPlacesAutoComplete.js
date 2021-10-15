@@ -17,7 +17,6 @@ class FormikPlacesAutoComplete extends Component {
   }
 
   handleError = (error) => {
-    console.log("error", error);
     this.props.form.setFieldError(this.state.name, error);
   };
 
@@ -60,7 +59,7 @@ class FormikPlacesAutoComplete extends Component {
 
     const error = errors[name];
     const touch = touched[name];
-    console.log(this.state);
+
     return (
       <PlacesAutocomplete
         name={name}

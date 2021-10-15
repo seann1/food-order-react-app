@@ -1,4 +1,10 @@
-import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
+import {
+  GoogleMap,
+  Marker,
+  withGoogleMap,
+  InfoWindow,
+} from "react-google-maps";
+import Typography from "@mui/material/Typography";
 
 const RestaurantMap = withGoogleMap((props) => {
   const markerBounds = new window.google.maps.LatLngBounds();
@@ -22,7 +28,11 @@ const RestaurantMap = withGoogleMap((props) => {
               lat: marker.location.coordinates.lat,
               lng: marker.location.coordinates.lng,
             }}
-          />
+          >
+            <InfoWindow>
+              <Typography variant="body">{marker.name}</Typography>
+            </InfoWindow>
+          </Marker>
         );
       })}
     </GoogleMap>

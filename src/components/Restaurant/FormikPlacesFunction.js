@@ -39,12 +39,10 @@ export default function FormikPlacesFunction(props) {
   const [name, setName] = useState(props.field.name);
   //const [address, setAddress] = useState(props.value || "");
   const handleChange = (value) => {
-    //console.log(props.form);
     props.form.setFieldTouched(`${name}.value`);
     props.form.setFieldTouched(`${name}.address`);
     props.form.setFieldValue(name, { value: address });
     setAddress(value);
-    //console.log(value);
   };
   const handleSelect = async (address) => {
     geocodeByAddress(address)
@@ -79,7 +77,6 @@ export default function FormikPlacesFunction(props) {
   };
 
   const handleError = (error) => {
-    //console.log("Google Maps API returned error with status: ", status);
     props.form.setFieldError(name, error);
     //clearSuggestions();
   };

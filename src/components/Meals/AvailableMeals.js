@@ -3,9 +3,9 @@ import { useState, useEffect, useContext, useCallback } from "react";
 import MealItem from "./MealItem/MealItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
-
+import Box from "@mui/material/Box";
 import MapComponent from "../Maps/GoogleMap";
-
+import { useParams, useLocation } from "react-router-dom";
 import RestaurantContext from "../../store/restaurant-context";
 // import { ClassNames } from "@emotion/react";
 // import Typography from "@mui/material/Typography";
@@ -17,6 +17,7 @@ const AvailableMeals = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   //const [showInfoWindow, setShowInfoWindow] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
+  let urlParams = useParams();
 
   // const handleMouseOver = () => {
   //   setShowInfoWindow(true);
@@ -26,9 +27,9 @@ const AvailableMeals = (props) => {
   // };
 
   const chosenRestaurant = restaurantCtx.restaurants.filter(
-    (restaurant) => restaurant.id === props.restaurantId
+    (restaurant) => restaurant.id === urlParams.id
   );
-  //console.log(chosenRestaurant[0].location.coordinates.lat);
+
   const fetchMealsHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -52,10 +53,9 @@ const AvailableMeals = (props) => {
         });
       }
       const filteredMealsArray = mealsArray.filter(
-        (meal) => meal.restaurantId === props.restaurantId
+        (meal) => meal.restaurantId === urlParams.id
       );
       setMeals(filteredMealsArray);
-      //console.log(mealsArray);
     } catch (error) {
       setError(error.message);
     }
@@ -85,9 +85,11 @@ const AvailableMeals = (props) => {
   }
   if (isLoading) {
     content = (
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <CircularProgress />
-      </div>
+      <Box m={2}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </div>
+      </Box>
     );
   }
 

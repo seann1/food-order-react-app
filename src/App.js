@@ -13,8 +13,16 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@mui/material/Box";
-import { Route, Switch, useHistory, Link } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  useHistory,
+  Link,
+  useParams,
+  useLocation,
+} from "react-router-dom";
 import equal from "fast-deep-equal";
+import { ConstructionOutlined } from "@mui/icons-material";
 //import { Wrapper } from "@googlemaps/react-wrapper";
 //import CartContext from "./store/cart-context";
 
@@ -28,6 +36,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
   const restaurantData = useRef(null);
+  let urlParams = useLocation();
 
   let history = useHistory();
   const fetchRandMHandler = useCallback(async () => {
@@ -112,18 +121,6 @@ function App() {
       )}
       <Header onShowCart={showCartHandler} restaurantId={restaurantId} />
       <main>
-        <Route path={`/restaurant/${restaurantId}`} exact>
-          <Box m={2}>
-            <Container maxWidth="lg">
-              <Meals
-                restaurantId={restaurantId}
-                restaurantName={restaurantInfo.name}
-                description={restaurantInfo.description}
-                key={restaurantId}
-              />
-            </Container>
-          </Box>
-        </Route>
         <>
           {isLoading ? (
             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -131,6 +128,18 @@ function App() {
             </div>
           ) : (
             <Switch>
+              <Route path={"/:id"} exact>
+                <Box m={2}>
+                  <Container maxWidth="lg">
+                    <Meals
+                      restaurantId={restaurantId}
+                      restaurantName={restaurantInfo.name}
+                      description={restaurantInfo.description}
+                      key={restaurantId}
+                    />
+                  </Container>
+                </Box>
+              </Route>
               <Route path="/" exact>
                 <Box m={2}>
                   <Container maxWidth="lg">
@@ -141,7 +150,7 @@ function App() {
                         )
                         .map((restaurant) => (
                           <Grid item xs={3} key={restaurant.id}>
-                            <Link to={`/restaurant/${restaurant.id}`}>
+                            <Link to={`/${restaurant.id}`}>
                               <Restaurant
                                 id={restaurant.id}
                                 key={restaurant.id}
@@ -170,11 +179,6 @@ function App() {
                 </Box>
               </Route>
               <Route path="/newrestaurant">
-                {/* <Wrapper
-                  apiKey={process.env.REACT_APP_API_KEY}
-                  libraries={["places"]}
-                >
-                </Wrapper> */}
                 <NewRestaurant />
               </Route>
             </Switch>

@@ -85,7 +85,6 @@ function OrderForm(props) {
           })}
           onSubmit={(values) => {
             placeOrderHandler(values);
-            //console.log(values);
           }}
         >
           {/* className={classes.form} */}

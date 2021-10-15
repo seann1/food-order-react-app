@@ -35,7 +35,6 @@ const LoginForm = () => {
       .then((userCredential) => {
         // Signed in
         //const user = userCredential.user;
-        //console.log(userCredential.user);
         // ...
       })
       .catch((error) => {
@@ -73,7 +72,7 @@ const LoginForm = () => {
         const expirationTime = new Date(
           new Date().getTime() + +data.expiresIn * 1000
         );
-        //console.log(expirationTime.toISOString());
+
         authCtx.login(data.idToken, expirationTime.toISOString());
         history.push("/");
       })

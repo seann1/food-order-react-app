@@ -4,11 +4,13 @@ import { useReducer } from "react";
 const defaultRestaurantState = {
   restaurantCount: 0,
   restaurants: [],
+  chosenRestaurant: "",
 };
 
 const restaurantReducer = (state, action) => {
   if (action.type === "ADD_RESTAURANT") {
     return {
+      chosenRestaurant: state.chosenRestaurant,
       restaurants: state.restaurants.concat(action.restaurant),
       restaurantCount: state.restaurantCount,
     };
@@ -18,6 +20,7 @@ const restaurantReducer = (state, action) => {
     const updatedCount = state.restaurantCount + 1;
 
     return {
+      chosenRestaurant: state.chosenRestaurant,
       restaurants: state.restaurants,
       restaurantCount: updatedCount,
     };
@@ -25,7 +28,19 @@ const restaurantReducer = (state, action) => {
 
   if (action.type === "CLEAR_RESTAURANTS") {
     return {
+      chosenRestaurant: "",
       restaurants: [],
+      restaurantCount: state.restaurantCount,
+    };
+  }
+
+  if (action.type === "CHOOSE_RESTAURANT") {
+    const chosenRestaurant = action.chosenRestaurant.restaurants.filter(
+      (restaurant) => restaurant.id === action.chosenRestaurant.urlParams.id
+    );
+    return {
+      chosenRestaurant: chosenRestaurant,
+      restaurants: state.restaurants,
       restaurantCount: state.restaurantCount,
     };
   }
@@ -47,6 +62,13 @@ const RestaurantProvider = (props) => {
     });
   };
 
+  const chooseRestaurantHandler = (restaurantObject) => {
+    dispatchRestaurantAction({
+      type: "CHOOSE_RESTAURANT",
+      chosenRestaurant: restaurantObject,
+    });
+  };
+
   const clearRestaurantsHandler = () => {
     dispatchRestaurantAction({ type: "CLEAR_RESTAURANTS" });
   };
@@ -56,6 +78,8 @@ const RestaurantProvider = (props) => {
     updateCount: countUpdateHandler,
     addRestaurant: restaurantAddHandler,
     clearRestaurants: clearRestaurantsHandler,
+    setChosenRestaurant: chooseRestaurantHandler,
+    chosenRestaurant: restaurantState.chosenRestaurant,
   };
 
   return (

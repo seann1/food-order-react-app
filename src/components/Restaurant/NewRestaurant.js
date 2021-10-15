@@ -12,9 +12,9 @@ import RestaurantContext from "../../store/restaurant-context";
 import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
-//import FormikPlacesAutoComplete from "./FormikPlacesAutoComplete";
+
 import FormikPlacesFunction from "./FormikPlacesFunction";
-import { getIn } from "formik";
+
 import {
   getStorage,
   ref as storageRef,
@@ -49,7 +49,6 @@ const NewRestaurant = (props) => {
     if (values.file) {
       imageUrl = `restaurants/${restaurantId}/${restaurantId}-1.jpg`;
     } else {
-      //console.log("no value");
       imageUrl = "";
     }
     const pathReference = storageRef(storage, imageUrl);
@@ -96,14 +95,13 @@ const NewRestaurant = (props) => {
               description: Yup.string()
                 .max(500, "Must be 500 characters or less")
                 .required("Required"),
-              // location: Yup.object().shape({
-              //   value: Yup.string().required("Address is required"),
-              //   address: Yup.string().required("Invalid address"),
-              // }),
+              location: Yup.object().shape({
+                value: Yup.string().required("Address is required"),
+                address: Yup.string().required("Invalid address"),
+              }),
             })}
             onSubmit={(values) => {
               createRestaurantHandler(values);
-              //console.log(values);
             }}
           >
             <Form>

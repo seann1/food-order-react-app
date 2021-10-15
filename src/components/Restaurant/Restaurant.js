@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Restaurant = (props) => {
   const classes = useStyles();
-
+  const id = props.id;
   return (
     <Card
       onClick={() =>
