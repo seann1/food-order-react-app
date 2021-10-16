@@ -95,9 +95,9 @@ export default function FormikPlacesFunction(props) {
             <div>
               {loading ? <div>...loading</div> : null}
               {suggestions.map((suggestion, index) => {
-                const style = {
-                  backgroundColor: suggestion.active ? "#dadada" : "#fff",
-                };
+                const style = suggestion.active
+                  ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                  : { backgroundColor: "#ffffff", cursor: "pointer" };
                 return (
                   <div
                     {...getSuggestionItemProps(suggestion, { style })}
