@@ -6,6 +6,7 @@ import {
 } from "react-google-maps";
 import { useHistory } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 const RestaurantMap = withGoogleMap((props) => {
   const history = useHistory();
@@ -20,24 +21,26 @@ const RestaurantMap = withGoogleMap((props) => {
   });
 
   return (
-    <GoogleMap ref={(map) => map && map.fitBounds(markerBounds)}>
-      {props.restaurantMarkers.map((marker, index) => {
-        return (
-          <Marker
-            key={index}
-            position={{
-              lat: marker.location.coordinates.lat,
-              lng: marker.location.coordinates.lng,
-            }}
-            onClick={() => handleClick(marker.id)}
-          >
-            <InfoWindow>
-              <Typography variant="body">{marker.name}</Typography>
-            </InfoWindow>
-          </Marker>
-        );
-      })}
-    </GoogleMap>
+    <Box m={2}>
+      <GoogleMap ref={(map) => map && map.fitBounds(markerBounds)}>
+        {props.restaurantMarkers.map((marker, index) => {
+          return (
+            <Marker
+              key={index}
+              position={{
+                lat: marker.location.coordinates.lat,
+                lng: marker.location.coordinates.lng,
+              }}
+              onClick={() => handleClick(marker.id)}
+            >
+              <InfoWindow>
+                <Typography variant="body">{marker.name}</Typography>
+              </InfoWindow>
+            </Marker>
+          );
+        })}
+      </GoogleMap>
+    </Box>
   );
 });
 

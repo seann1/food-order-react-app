@@ -29,12 +29,12 @@ const MealsSummary = (props) => {
 
   return (
     <Container>
-      <Paper elevation={3}>
+      <Paper elevation={6}>
         <Box p={3}>
           <Typography align="left" variant="h3">
             {chosenRestaurant?.name}
           </Typography>
-          <Typography align="left" variant="h6">
+          <Typography align="left" variant="h5">
             {chosenRestaurant?.description}
           </Typography>
         </Box>

@@ -100,13 +100,15 @@ const AvailableMeals = (props) => {
     <Container>
       {content}
       <Route path="/r:id">
-        <MapComponent
-          chosenRestaurant={chosenRestaurant}
-          containerElement={
-            <div style={{ height: "50vh", width: "100%" }}></div>
-          }
-          mapElement={<div style={{ height: "50vh", width: "100%" }}></div>}
-        ></MapComponent>
+        <Box mt={2}>
+          <MapComponent
+            chosenRestaurant={chosenRestaurant}
+            containerElement={
+              <div style={{ height: "50vh", width: "100%" }}></div>
+            }
+            mapElement={<div style={{ height: "50vh", width: "100%" }}></div>}
+          ></MapComponent>
+        </Box>
       </Route>
     </Container>
   );

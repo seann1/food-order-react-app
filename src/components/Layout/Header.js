@@ -66,7 +66,7 @@ const Header = (props) => {
         <Box m={2}>
           <Alert severity="info">
             Login with email: <strong>admin@admin.com</strong> Password:
-            <strong>password</strong> to place an order
+            <strong> password</strong> to place an order
           </Alert>
         </Box>
       )}

@@ -36,6 +36,7 @@ class FormikPlacesAutoComplete extends Component {
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
         this.setState(() => {
+          console.log({ value: address, address, coordinates: latLng });
           this.props.form.setFieldValue(this.state.name, {
             value: address,
             address,
@@ -49,16 +50,16 @@ class FormikPlacesAutoComplete extends Component {
 
   render() {
     const {
-      field: { name, ...field }, // { name, value, onChange, onBlur } ...field
-      form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+      //field: { name, ...field }, // { name, value, onChange, onBlur } ...field
+      //form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
       classes,
       options,
       label,
       ...props
     } = this.props;
 
-    const error = errors[name];
-    const touch = touched[name];
+    //const error = errors[name];
+    //const touch = touched[name];
 
     return (
       <PlacesAutocomplete

@@ -70,6 +70,7 @@ const NewRestaurant = (props) => {
       user: auth.currentUser.uid,
     };
     if (imageUrl !== "") {
+      console.log("got in here");
       await uploadBytes(pathReference, values.file).then((snapshot) => {
         //console.log(pathReference);
       });
@@ -139,7 +140,7 @@ const NewRestaurant = (props) => {
               <Field
                 component={FormikPlacesFunction}
                 name="location"
-                options={{}}
+                //options={{}}
               />
               <br />
               <Field

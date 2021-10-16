@@ -36,54 +36,44 @@ export default function FormikPlacesFunction(props) {
   const classes = useStyles();
   const [address, setAddress] = useState("");
   //const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
-  const name = props.field.name;
+  //const [name, setName] = useState(props.field.name);
   //const [address, setAddress] = useState(props.value || "");
   const handleChange = (value) => {
-    props.form.setFieldTouched(`${name}.value`);
-    props.form.setFieldTouched(`${name}.address`);
-    props.form.setFieldValue(name, { value: address });
+    console.log(value);
     setAddress(value);
+    props.form.setFieldTouched(`${props.field.name}.value`);
+    props.form.setFieldTouched(`${props.field.name}.address`);
+    props.form.setFieldValue(props.field.name, { value: address });
   };
   const handleSelect = async (address) => {
-    geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        // this.setState(() => {
-        // });
-        props.form.setFieldValue(props.field.name, {
-          value: address,
-          address,
-          coordinates: latLng,
-        });
-        return { address };
-      })
-      .catch((error) => props.form.setFieldError(this.state.name, error));
-    // geocodeByAddress(value)
-    //   .then((results) => getLatLng(results[0]))
-    //   .then((latLng) => {
-    //     this.setState(() => {
-    //       props.form.setFieldValue(this.state.name, {
-    //         value: address,
-    //         address,
-    //         coordinates: latLng,
-    //       });
+    const results = await geocodeByAddress(address);
+    const latLng = await getLatLng(results[0]);
+    console.log(address);
+    setAddress(address);
+    props.form.setFieldValue(props.field.name, {
+      value: address,
+      address: address,
+      coordinates: latLng,
+    });
 
-    //   });
-    // })
-    // .catch((error) => this.props.form.setFieldError(this.state.name, error));
-
-    // setAddress(address);
-    // setCoordinates(latLng);
+    //return { address };
+    // .catch((error) => {
+    //   console.log(error);
+    //   //props.form.setFieldError(this.state.name, error);
+    // });
   };
 
   const handleError = (error) => {
-    props.form.setFieldError(name, error);
+    props.form.setFieldError(props.field.name, error);
     //clearSuggestions();
   };
 
   return (
     <div>
       <PlacesAutocomplete
+        field={props.field.name}
+        name={props.field.name}
+        id={props.field.name}
         value={address}
         onChange={handleChange}
         onSelect={handleSelect}
@@ -97,21 +87,9 @@ export default function FormikPlacesFunction(props) {
             <TextField
               label="Address"
               fullWidth
-              name="location"
+              //name="location"
               className={classes.textField}
-              // error={
-              //   props.form.errors?.location?.value ||
-              //   props.form.errors?.location?.address
-              // }
-              // helperText={
-              //   props.form.errors?.location?.value ||
-              //   props.form.errors?.location?.address
-              //     ? "Please Enter a Valid Address"
-              //     : " "
-              // }
               {...getInputProps({ placeholder: "Type address" })}
-              //isValid={getIn(touched, name) && !getIn(errors, name)}
-              //isInvalid={getIn(touched, name) && !!getIn(errors, name)}
             />
 
             <div>
