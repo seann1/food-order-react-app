@@ -6,8 +6,19 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  paperContainer: {
+    height: "100%",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  },
+});
 
 const MealsSummary = (props) => {
+  const classes = useStyles();
   const restaurantCtx = useContext(RestaurantContext);
   //const restaurants = restaurantCtx.restaurants;
   const [chosenRestaurant, setChosenRestaurant] = useState({});
@@ -29,16 +40,29 @@ const MealsSummary = (props) => {
 
   return (
     <Container>
-      <Paper elevation={6}>
-        <Box p={3}>
-          <Typography align="left" variant="h3">
-            {chosenRestaurant?.name}
-          </Typography>
-          <Typography align="left" variant="h5">
-            {chosenRestaurant?.description}
-          </Typography>
-        </Box>
-      </Paper>
+      <Grid container spacing={2}>
+        <Grid item xs={2}>
+          <Paper
+            elevation={3}
+            className={classes.paperContainer}
+            style={{ backgroundImage: `url(${chosenRestaurant.image})` }}
+          >
+            {/* <img src={chosenRestaurant.image} className={classes.image} /> */}
+          </Paper>
+        </Grid>
+        <Grid item xs={10}>
+          <Paper elevation={6}>
+            <Box p={3}>
+              <Typography align="left" variant="h3">
+                {chosenRestaurant?.name}
+              </Typography>
+              <Typography align="left" variant="h5">
+                {chosenRestaurant?.description}
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
     </Container>
   );
 };
