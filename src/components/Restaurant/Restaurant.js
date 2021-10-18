@@ -32,6 +32,7 @@ const Restaurant = (props) => {
         props.restaurantPick(props.id, props.name, props.description)
       }
       className={classes.root}
+      elevation={6}
     >
       <CardHeader
         avatar={

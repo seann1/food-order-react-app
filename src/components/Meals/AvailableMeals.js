@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext, useCallback } from "react";
 
 import MealItem from "./MealItem/MealItem";
+import Reviews from "./Reviews";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import MapComponent from "../Maps/GoogleMap";
+import Grid from "@mui/material/Grid";
 import { useParams, Route } from "react-router-dom";
 import RestaurantContext from "../../store/restaurant-context";
 // import { ClassNames } from "@emotion/react";
@@ -98,17 +100,22 @@ const AvailableMeals = (props) => {
     //   <Card>{content}</Card>
     // </section>
     <Container>
-      {content}
       <Route path="/r:id">
-        <Box mt={2}>
-          <MapComponent
-            chosenRestaurant={chosenRestaurant}
-            containerElement={
-              <div style={{ height: "50vh", width: "100%" }}></div>
-            }
-            mapElement={<div style={{ height: "50vh", width: "100%" }}></div>}
-          ></MapComponent>
-        </Box>
+        {content}
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+            <MapComponent
+              chosenRestaurant={chosenRestaurant}
+              containerElement={
+                <div style={{ height: "50vh", width: "100%" }}></div>
+              }
+              mapElement={<div style={{ height: "50vh", width: "100%" }}></div>}
+            ></MapComponent>
+          </Grid>
+          <Grid item xs={4}>
+            <Reviews restaurant={chosenRestaurant} />
+          </Grid>
+        </Grid>
       </Route>
     </Container>
   );
