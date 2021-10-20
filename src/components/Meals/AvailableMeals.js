@@ -2,12 +2,13 @@ import { useState, useEffect, useContext, useCallback } from "react";
 
 import MealItem from "./MealItem/MealItem";
 import Reviews from "./Reviews";
+import Photos from "./Photos";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import MapComponent from "../Maps/GoogleMap";
 import Grid from "@mui/material/Grid";
-import { useParams, Route } from "react-router-dom";
+import { useParams, Route, Switch } from "react-router-dom";
 import RestaurantContext from "../../store/restaurant-context";
 // import { ClassNames } from "@emotion/react";
 // import Typography from "@mui/material/Typography";
@@ -100,8 +101,14 @@ const AvailableMeals = (props) => {
     //   <Card>{content}</Card>
     // </section>
     <Container>
-      <Route path="/r:id">
+      <Route path={`/${urlParams.id}/photos`} exact>
+        <p>hi</p>
+        <Photos images={chosenRestaurant.image} />
+      </Route>
+      <Route path="/r:id" exact>
         {content}
+      </Route>
+      <Route path={["/r:id", "/r:id/photos"]} exact>
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <MapComponent

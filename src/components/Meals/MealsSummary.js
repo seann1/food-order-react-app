@@ -4,7 +4,7 @@ import RestaurantContext from "../../store/restaurant-context";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core";
@@ -68,14 +68,11 @@ const MealsSummary = (props) => {
     <Container>
       <Grid container spacing={2}>
         <Grid item xs={2}>
-          <Paper
-            //elevation={3}
-            className={classes.paperContainer}
-            elevation={6}
-            //style={{ backgroundImage: `url(${chosenRestaurant.image})` }}
-          >
-            {/* <img src={chosenRestaurant.image} className={classes.image} /> */}
-          </Paper>
+          <Link to={`/r${urlParams.id}/photos`}>
+            <Paper className={classes.paperContainer} elevation={6}>
+              {/* <img src={chosenRestaurant.image} className={classes.image} /> */}
+            </Paper>
+          </Link>
           <div className={classes.overlay}>Images</div>
         </Grid>
         <Grid item xs={10}>
