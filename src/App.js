@@ -122,7 +122,7 @@ function App() {
             </div>
           ) : (
             <Switch>
-              <Route path={`/r:id`} exact>
+              <Route path={[`/r:id`, `/r:id/photos`]} exact>
                 <Box m={2}>
                   <Container maxWidth="lg">
                     <Meals

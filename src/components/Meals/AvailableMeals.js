@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import MapComponent from "../Maps/GoogleMap";
 import Grid from "@mui/material/Grid";
-import { useParams, Route, Switch } from "react-router-dom";
+import { useParams, Route, useRouteMatch, Switch } from "react-router-dom";
 import RestaurantContext from "../../store/restaurant-context";
 // import { ClassNames } from "@emotion/react";
 // import Typography from "@mui/material/Typography";
@@ -21,6 +21,7 @@ const AvailableMeals = (props) => {
   //const [showInfoWindow, setShowInfoWindow] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
   let urlParams = useParams();
+  let match = useRouteMatch();
 
   // const handleMouseOver = () => {
   //   setShowInfoWindow(true);
@@ -101,9 +102,8 @@ const AvailableMeals = (props) => {
     //   <Card>{content}</Card>
     // </section>
     <Container>
-      <Route path={`/${urlParams.id}/photos`} exact>
-        <p>hi</p>
-        <Photos images={chosenRestaurant.image} />
+      <Route path="/r:id/photos">
+        <Photos chosenRestaurant={chosenRestaurant} />
       </Route>
       <Route path="/r:id" exact>
         {content}
@@ -120,7 +120,7 @@ const AvailableMeals = (props) => {
             ></MapComponent>
           </Grid>
           <Grid item xs={4}>
-            <Reviews restaurant={chosenRestaurant} />
+            {/* <Reviews restaurant={chosenRestaurant} /> */}
           </Grid>
         </Grid>
       </Route>

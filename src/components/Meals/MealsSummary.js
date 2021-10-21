@@ -4,13 +4,15 @@ import RestaurantContext from "../../store/restaurant-context";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useRouteMatch, Route } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core";
 
 const MealsSummary = (props) => {
   const restaurantCtx = useContext(RestaurantContext);
+  let match = useRouteMatch();
+
   //const restaurants = restaurantCtx.restaurants;
   const [chosenRestaurant, setChosenRestaurant] = useState({});
   let urlParams = useParams();
@@ -63,12 +65,13 @@ const MealsSummary = (props) => {
   });
 
   const classes = useStyles();
-
+  ///r${urlParams.id}
   return (
     <Container>
       <Grid container spacing={2}>
         <Grid item xs={2}>
-          <Link to={`/r${urlParams.id}/photos`}>
+          {/* ${match.url} */}
+          <Link to={`r${urlParams.id}/photos`}>
             <Paper className={classes.paperContainer} elevation={6}>
               {/* <img src={chosenRestaurant.image} className={classes.image} /> */}
             </Paper>

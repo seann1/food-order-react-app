@@ -57,7 +57,7 @@ const NewRestaurant = (props) => {
     if (values.file) {
       imageUrl = `restaurants/${restaurantId}/${restaurantId}-1.jpg`;
     } else {
-      imageUrl = "";
+      imageUrl = null;
     }
     const pathReference = storageRef(storage, imageUrl);
     const newRestaurant = {
@@ -69,14 +69,13 @@ const NewRestaurant = (props) => {
       dateCreated: +new Date(),
       user: auth.currentUser.uid,
     };
-    if (imageUrl !== "") {
-      console.log("got in here");
+    if (imageUrl !== null) {
       await uploadBytes(pathReference, values.file).then((snapshot) => {
         //console.log(pathReference);
       });
 
       await getDownloadURL(pathReference).then((url) => {
-        newRestaurant.image = url;
+        newRestaurant.image = [url];
       });
     }
 

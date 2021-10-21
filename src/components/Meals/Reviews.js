@@ -3,6 +3,7 @@ import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 const Reviews = (props) => {
+  console.log(props);
   const restaurantAddress = props.restaurant[0].location.address
     .split(",")
     .map((item) => item.trim());
@@ -10,12 +11,12 @@ const Reviews = (props) => {
   useEffect(() => {
     fetch(
       `/v3/businesses/matches?name=${encodeURIComponent(
-        props.restaurant.name
+        props.restaurant[0].name
       )}&address1=${encodeURIComponent(restaurantAddress[0])}&city=${
         restaurantAddress[1]
-      }&state=${restaurantAddress[2].split(" ")[0]}&country=${
-        restaurantAddress[3]
-      }`,
+      }&state=${
+        restaurantAddress[2].split(" ")[0]
+      }&country=${restaurantAddress[3].substring(0, 2)}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_YELP_API_KEY}`,
