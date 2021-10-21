@@ -37,7 +37,7 @@ const MealsSummary = (props) => {
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundColor: "red",
-      backgroundImage: `url(${chosenRestaurant.image})`,
+      backgroundImage: `url(${chosenRestaurant.profileImage})`,
       "&:hover": {
         backgroundColor: "white",
       },

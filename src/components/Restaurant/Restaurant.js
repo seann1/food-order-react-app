@@ -45,7 +45,7 @@ const Restaurant = (props) => {
       />
       <CardMedia
         className={classes.media}
-        image={props.image ? props.image : defaultImage}
+        image={props.profileImage ? props.profileImage : defaultImage}
         title={props.name}
       />
       <CardContent>

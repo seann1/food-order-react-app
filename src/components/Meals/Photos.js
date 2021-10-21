@@ -60,7 +60,7 @@ const Photos = (props) => {
   const uploadImageHandler = async (value) => {
     const imageUrl = `restaurants/${props.chosenRestaurant[0].id}/${
       props.chosenRestaurant[0].id
-    }-${props.chosenRestaurant[0].image.length + 1}.jpg`;
+    }-${Object.keys(props.chosenRestaurant[0].image).length + 1}.jpg`;
     const pathReference = storageRef(storage, imageUrl);
     await uploadBytes(pathReference, value.file).then((snapshot) => {
       //console.log(pathReference);
@@ -68,11 +68,11 @@ const Photos = (props) => {
 
     const URLforImage = await getDownloadURL(pathReference);
     await push(
-      ref(db, `restaurants/${props.chosenRestaurant[0].id}/image`),
+      ref(db, `restaurants/${props.chosenRestaurant[0].id}/images`),
       URLforImage
     );
   };
-  const images = props.chosenRestaurant[0].image;
+  const images = props.chosenRestaurant[0].images;
 
   return (
     <>
@@ -81,18 +81,17 @@ const Photos = (props) => {
           {
             console.log(images[image]);
           }
-          <Grid item xs={4}>
-            <Paper
-              className={classes.paperContainer}
-              // style={{
-              //   backgroundImage: `url(${images[image]})`,
-              // }}
-              elevation={6}
-            >
-              <Typography>hi</Typography>
-              <img src={`${images[image]}`} width="500" height="600" />
-            </Paper>
-          </Grid>;
+          return (
+            <Grid item xs={4}>
+              <Paper
+                className={classes.paperContainer}
+                style={{
+                  backgroundImage: `url(${images[image]})`,
+                }}
+                elevation={6}
+              ></Paper>
+            </Grid>
+          );
         })}
       </Grid>
       <Grid container spacing={2}>

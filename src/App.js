@@ -154,7 +154,8 @@ function App() {
                                 restaurantPick={restaurantChoiceHandler}
                                 name={restaurant.name}
                                 description={restaurant.description}
-                                image={restaurant.image}
+                                images={restaurant.images}
+                                profileImage={restaurant.profileImage}
                                 location={restaurant.location}
                               />
                             </Link>
