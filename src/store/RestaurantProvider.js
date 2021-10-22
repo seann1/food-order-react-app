@@ -44,6 +44,30 @@ const restaurantReducer = (state, action) => {
       restaurantCount: state.restaurantCount,
     };
   }
+  if (action.type === "ADD_IMAGE") {
+    const restaurant = state.restaurants.find(
+      (restaurant) => restaurant.id === action.newImageObject.restaurantId
+    );
+    const updatedImagesArray = state.restaurants
+      .find((restaurant) => {
+        return restaurant.id === action.newImageObject.restaurantId;
+      })
+      .images.concat(action.newImageObject.imageUrl);
+
+    restaurant.images = updatedImagesArray;
+
+    const filteredRestaurants = state.restaurants.filter(
+      (obj) => obj.id !== action.newImageObject.restaurantId
+    );
+
+    const updatedRestaurants = filteredRestaurants.concat(restaurant);
+
+    return {
+      chosenRestaurant: state.chosenRestaurant,
+      restaurants: updatedRestaurants,
+      restaurantCount: state.restaurantCount,
+    };
+  }
 };
 const RestaurantProvider = (props) => {
   const [restaurantState, dispatchRestaurantAction] = useReducer(
@@ -69,6 +93,14 @@ const RestaurantProvider = (props) => {
     });
   };
 
+  const addImageHandler = (restaurantId, imageUrl) => {
+    const newImageObject = { restaurantId, imageUrl };
+    dispatchRestaurantAction({
+      type: "ADD_IMAGE",
+      newImageObject,
+    });
+  };
+
   const clearRestaurantsHandler = () => {
     dispatchRestaurantAction({ type: "CLEAR_RESTAURANTS" });
   };
@@ -79,6 +111,7 @@ const RestaurantProvider = (props) => {
     addRestaurant: restaurantAddHandler,
     clearRestaurants: clearRestaurantsHandler,
     setChosenRestaurant: chooseRestaurantHandler,
+    addImage: addImageHandler,
     chosenRestaurant: restaurantState.chosenRestaurant,
   };
 

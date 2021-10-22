@@ -1,11 +1,17 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Formik, Form, Field } from "formik";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
+import Chip from "@mui/material/Chip";
+//import Typography from "@mui/material/Typography";
+//import { Link } from "react-router-dom";
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
+
 import { SimpleFileUpload } from "formik-material-ui";
 import Button from "@mui/material/Button";
 import RestaurantContext from "../../store/restaurant-context";
@@ -19,11 +25,14 @@ import {
 } from "firebase/storage";
 
 const Photos = (props) => {
+  const [showForm, setShowForm] = useState(false);
+
   const restaurantCtx = useContext(RestaurantContext);
   const db = getDatabase();
   const auth = getAuth();
+
   const storage = getStorage();
-  //console.log(props);
+
   const useStyles = makeStyles({
     paperContainer: {
       height: "15em",
@@ -71,79 +80,99 @@ const Photos = (props) => {
       ref(db, `restaurants/${props.chosenRestaurant[0].id}/images`),
       URLforImage
     );
+    restaurantCtx.addImage(props.chosenRestaurant[0].id, URLforImage);
   };
   const images = props.chosenRestaurant[0].images;
+  const userSignedIn =
+    auth?.currentUser?.uid === props.chosenRestaurant[0].user;
 
+  console.log(Object.keys(images).length);
   return (
     <>
       <Grid container spacing={2} mt={1} mb={2}>
-        {Object.keys(images).map((image) => {
-          {
-            console.log(images[image]);
-          }
+        {Object.keys(images).map((image, index) => {
           return (
-            <Grid item xs={4}>
+            <Grid item xs={4} key={index}>
               <Paper
                 className={classes.paperContainer}
                 style={{
                   backgroundImage: `url(${images[image]})`,
                 }}
                 elevation={6}
-              ></Paper>
+                key={index}
+              >
+                <Box p={1}>
+                  {userSignedIn && (
+                    <Chip label="Delete" color="error" size="small"></Chip>
+                  )}
+                </Box>
+              </Paper>
             </Grid>
           );
         })}
       </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <Paper elevation={6}>
-            <Box mb={2} p={2}>
-              <Formik
-                initialValues={{
-                  file: null,
-                }}
-                onSubmit={(value) => {
-                  uploadImageHandler(value);
-                }}
-              >
-                <Form>
-                  <Field
-                    component={SimpleFileUpload}
-                    name="file"
-                    label="Simple File Upload"
-                    onChange={(event) => {
-                      Formik.setFieldValue(
-                        "file",
-                        event.currentTarget.files[0]
-                      );
+      {userSignedIn && (
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            {showForm ? (
+              <Paper elevation={6}>
+                <Box mb={2} p={2}>
+                  <Formik
+                    initialValues={{
+                      file: null,
                     }}
-                  />
-                  <Box mt={2} pb={2} mr={2}>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="error"
-                      component={Link}
-                      to={"/"}
-                    >
-                      Cancel
-                    </Button>
+                    onSubmit={(value) => {
+                      uploadImageHandler(value);
+                    }}
+                  >
+                    <Form>
+                      <Field
+                        component={SimpleFileUpload}
+                        name="file"
+                        label="Simple File Upload"
+                        onChange={(event) => {
+                          Formik.setFieldValue(
+                            "file",
+                            event.currentTarget.files[0]
+                          );
+                        }}
+                      />
+                      <Box mt={2} pb={2} mr={2}>
+                        <Button
+                          type="button"
+                          variant="contained"
+                          color="error"
+                          onClick={() => setShowForm(!showForm)}
+                        >
+                          Cancel
+                        </Button>
 
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      className={classes.btn}
-                    >
-                      Submit
-                    </Button>
-                  </Box>
-                </Form>
-              </Formik>
-            </Box>
-          </Paper>
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          className={classes.btn}
+                        >
+                          Submit
+                        </Button>
+                      </Box>
+                    </Form>
+                  </Formik>
+                </Box>
+              </Paper>
+            ) : (
+              <Box mb={2}>
+                <Button
+                  variant="contained"
+                  onClick={() => setShowForm(!showForm)}
+                >
+                  Add Photo
+                </Button>
+              </Box>
+            )}
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </>
   );
 };

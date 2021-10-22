@@ -2,16 +2,19 @@ import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import LoginForm from "./LoginForm";
 import Button from "@mui/material/Button";
+import { getAuth } from "firebase/auth";
 //import IconButton from "@mui/material/IconButton";
 //import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Switch, Route, Link } from "react-router-dom";
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
+  const auth = getAuth();
   //const [anchorEl, setAnchorEl] = useState(null);
 
   const userLogout = () => {
     authCtx.logout();
+    auth.signOut();
   };
 
   // const handleProfileMenuOpen = (event) => {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import axios from "axios";
+//import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 const Reviews = (props) => {

@@ -4,7 +4,8 @@ import RestaurantContext from "../../store/restaurant-context";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { useParams, Link, useRouteMatch, Route } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
+import { useParams, Link, useRouteMatch } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core";
@@ -70,11 +71,19 @@ const MealsSummary = (props) => {
     <Container>
       <Grid container spacing={2}>
         <Grid item xs={2}>
-          {/* ${match.url} */}
-          <Link to={`r${urlParams.id}/photos`}>
-            <Paper className={classes.paperContainer} elevation={6}>
-              {/* <img src={chosenRestaurant.image} className={classes.image} /> */}
-            </Paper>
+          <Link
+            to={
+              match.path === "/r:id"
+                ? `r${urlParams.id}/photos`
+                : `/r${urlParams.id}`
+            }
+          >
+            <Tooltip
+              title={match.path === "/r:id" ? "View Photos" : "Back to Menu"}
+              placement="bottom-start"
+            >
+              <Paper className={classes.paperContainer} elevation={6}></Paper>
+            </Tooltip>
           </Link>
           <div className={classes.overlay}>Images</div>
         </Grid>

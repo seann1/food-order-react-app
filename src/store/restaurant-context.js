@@ -6,6 +6,7 @@ const RestaurantContext = React.createContext({
   updateCount: (count) => {},
   addRestaurant: (restaurant) => {},
   setChosenRestaurant: (restaurantObject) => {},
+  addImage: (restaurantId, imageURL) => {},
 });
 
 export default RestaurantContext;
