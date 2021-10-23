@@ -60,7 +60,7 @@ const NewRestaurant = (props) => {
       imageUrl = null;
     }
     const pathReference = storageRef(storage, imageUrl);
-    const newRestaurant = {
+    let newRestaurant = {
       name: values.name,
       description: values.description,
       id: values.id,
@@ -75,7 +75,11 @@ const NewRestaurant = (props) => {
       });
 
       await getDownloadURL(pathReference).then((url) => {
-        newRestaurant.image = [url];
+        return (newRestaurant = {
+          ...newRestaurant,
+          images: { 0: url },
+          profileImage: url,
+        });
       });
     }
 

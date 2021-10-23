@@ -28,6 +28,7 @@ const Photos = (props) => {
   const [showForm, setShowForm] = useState(false);
 
   const restaurantCtx = useContext(RestaurantContext);
+  console.log(restaurantCtx);
   const db = getDatabase();
   const auth = getAuth();
 
@@ -69,7 +70,7 @@ const Photos = (props) => {
   const uploadImageHandler = async (value) => {
     const imageUrl = `restaurants/${props.chosenRestaurant[0].id}/${
       props.chosenRestaurant[0].id
-    }-${Object.keys(props.chosenRestaurant[0].image).length + 1}.jpg`;
+    }-${Object.keys(props.chosenRestaurant[0].images).length + 1}.jpg`;
     const pathReference = storageRef(storage, imageUrl);
     await uploadBytes(pathReference, value.file).then((snapshot) => {
       //console.log(pathReference);
@@ -85,8 +86,8 @@ const Photos = (props) => {
   const images = props.chosenRestaurant[0].images;
   const userSignedIn =
     auth?.currentUser?.uid === props.chosenRestaurant[0].user;
-
-  console.log(Object.keys(images).length);
+  console.log(userSignedIn);
+  //console.log(Object.keys(images).length);
   return (
     <>
       <Grid container spacing={2} mt={1} mb={2}>
