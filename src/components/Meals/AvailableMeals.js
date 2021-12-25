@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import MealItem from "./MealItem/MealItem";
 //import Reviews from "./Reviews";
@@ -33,41 +33,46 @@ const AvailableMeals = (props) => {
   const chosenRestaurant = restaurantCtx.restaurants.filter(
     (restaurant) => restaurant.id === `r${urlParams.id}`
   );
-
-  const fetchMealsHandler = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        "https://food-order-app-d078d-default-rtdb.firebaseio.com/meals.json"
-      );
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const data = await response.json();
-      const mealsArray = [];
-      for (const property in data) {
-        mealsArray.push({
-          id: property,
-          name: data[property].name,
-          description: data[property].description,
-          price: data[property].price,
-          restaurantId: data[property].restaurantId,
-          restaurantName: data[property].restaurantName,
-        });
-      }
-      const filteredMealsArray = mealsArray.filter(
-        (meal) => meal.restaurantId === `r${urlParams.id}`
-      );
-      setMeals(filteredMealsArray);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
-  }, [urlParams.id]);
   useEffect(() => {
-    fetchMealsHandler();
-  }, [fetchMealsHandler]);
+    let isMounted = true;
+    //const fetchMealsHandler =
+    (async () => {
+      if (isMounted) setIsLoading(true);
+      if (isMounted) setError(null);
+      try {
+        const response = await fetch(
+          "https://food-order-app-d078d-default-rtdb.firebaseio.com/meals.json"
+        );
+        if (!response.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const data = await response.json();
+        const mealsArray = [];
+        for (const property in data) {
+          mealsArray.push({
+            id: property,
+            name: data[property].name,
+            description: data[property].description,
+            price: data[property].price,
+            restaurantId: data[property].restaurantId,
+            restaurantName: data[property].restaurantName,
+          });
+        }
+        const filteredMealsArray = mealsArray.filter(
+          (meal) => meal.restaurantId === `r${urlParams.id}`
+        );
+
+        if (isMounted) setMeals(filteredMealsArray);
+      } catch (error) {
+        setError(error.message);
+      }
+      if (isMounted) setIsLoading(false);
+      // fetchMealsHandler();
+    })();
+    return () => {
+      isMounted = false;
+    };
+  }, [urlParams.id]);
 
   const mealsList = meals.map((meal) => (
     <MealItem

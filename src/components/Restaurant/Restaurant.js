@@ -28,9 +28,7 @@ const Restaurant = (props) => {
   //const id = props.id;
   return (
     <Card
-      onClick={() =>
-        props.restaurantPick(props.id, props.name, props.description)
-      }
+      onClick={() => props.restaurantPick(props.restaurant)}
       className={classes.root}
       elevation={6}
     >

@@ -90,9 +90,13 @@ function App() {
     setRestaurantId("");
   };
 
-  const restaurantChoiceHandler = (id, name, description) => {
-    setRestaurantId(id);
-    setRestaurantInfo({ name: name, description: description });
+  const restaurantChoiceHandler = (restaurant) => {
+    setRestaurantId(restaurant.id);
+    setRestaurantInfo({
+      name: restaurant.name,
+      description: restaurant.description,
+    });
+    restaurantCtx.setChosenRestaurant(restaurant);
   };
 
   return (
@@ -157,6 +161,7 @@ function App() {
                                 images={restaurant.images}
                                 profileImage={restaurant.profileImage}
                                 location={restaurant.location}
+                                restaurant={restaurant}
                               />
                             </Link>
                           </Grid>

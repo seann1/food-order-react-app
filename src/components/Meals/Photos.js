@@ -8,8 +8,8 @@ import Chip from "@mui/material/Chip";
 //import { Link } from "react-router-dom";
 import {
   makeStyles,
-  createMuiTheme,
-  ThemeProvider,
+  //createMuiTheme,
+  //ThemeProvider,
 } from "@material-ui/core/styles";
 
 import { SimpleFileUpload } from "formik-material-ui";
@@ -78,15 +78,15 @@ const Photos = (props) => {
 
     const URLforImage = await getDownloadURL(pathReference);
     await push(
-      ref(db, `restaurants/${props.chosenRestaurant[0].id}/images`),
+      ref(db, `restaurants/${restaurantCtx.chosenRestaurant.id}/images`),
       URLforImage
     );
-    restaurantCtx.addImage(props.chosenRestaurant[0].id, URLforImage);
+    restaurantCtx.addImage(restaurantCtx.chosenRestaurant.id, URLforImage);
   };
-  const images = props.chosenRestaurant[0].images;
+  const images = restaurantCtx.chosenRestaurant.images;
   const userSignedIn =
-    auth?.currentUser?.uid === props.chosenRestaurant[0].user;
-  console.log(userSignedIn);
+    auth?.currentUser?.uid === restaurantCtx.chosenRestaurant.user;
+  console.log(images);
   //console.log(Object.keys(images).length);
   return (
     <>

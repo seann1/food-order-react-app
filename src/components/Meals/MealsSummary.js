@@ -1,5 +1,5 @@
 //import classes from "./MealsSummary.module.css";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import RestaurantContext from "../../store/restaurant-context";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
@@ -10,27 +10,27 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core";
 
-const MealsSummary = (props) => {
+const MealsSummary = () => {
   const restaurantCtx = useContext(RestaurantContext);
   let match = useRouteMatch();
 
   //const restaurants = restaurantCtx.restaurants;
-  const [chosenRestaurant, setChosenRestaurant] = useState({});
+  // const [chosenRestaurant, setChosenRestaurant] = useState({});
   let urlParams = useParams();
 
-  useEffect(() => {
-    // if (restaurantCtx.chosenRestaurant === "") {
+  // useEffect(() => {
+  //   // if (restaurantCtx.chosenRestaurant === "") {
 
-    //   restaurantCtx.setChosenRestaurant({
-    //     restaurants: restaurants,
-    //     urlParams: urlParams,
-    //   });
-    // }
-    const filteredContext = restaurantCtx.restaurants.filter(
-      (restaurant) => restaurant.id === `r${urlParams.id}`
-    );
-    setChosenRestaurant(filteredContext[0]);
-  }, [restaurantCtx.restaurants, urlParams.id]);
+  //   //   restaurantCtx.setChosenRestaurant({
+  //   //     restaurants: restaurants,
+  //   //     urlParams: urlParams,
+  //   //   });
+  //   // }
+  //   const filteredContext = restaurantCtx.restaurants.filter(
+  //     (restaurant) => restaurant.id === `r${urlParams.id}`
+  //   );
+  //   setChosenRestaurant(filteredContext[0]);
+  // }, [restaurantCtx.restaurants, urlParams.id]);
 
   const useStyles = makeStyles({
     paperContainer: {
@@ -38,7 +38,7 @@ const MealsSummary = (props) => {
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundColor: "red",
-      backgroundImage: `url(${chosenRestaurant.profileImage})`,
+      backgroundImage: `url(${restaurantCtx.chosenRestaurant.profileImage})`,
       "&:hover": {
         backgroundColor: "white",
       },
@@ -91,10 +91,10 @@ const MealsSummary = (props) => {
           <Paper elevation={6} className={classes.nameHeader}>
             <Box p={3}>
               <Typography align="left" variant="h3">
-                {chosenRestaurant?.name}
+                {restaurantCtx.chosenRestaurant?.name}
               </Typography>
               <Typography align="left" variant="h5">
-                {chosenRestaurant?.description}
+                {restaurantCtx.chosenRestaurant?.description}
               </Typography>
             </Box>
           </Paper>

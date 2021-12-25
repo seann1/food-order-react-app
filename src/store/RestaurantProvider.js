@@ -35,11 +35,11 @@ const restaurantReducer = (state, action) => {
   }
 
   if (action.type === "CHOOSE_RESTAURANT") {
-    const chosenRestaurant = action.chosenRestaurant.restaurants.filter(
-      (restaurant) => restaurant.id === action.chosenRestaurant.urlParams.id
-    );
+    // const chosenRestaurant = action.chosenRestaurant.restaurants.filter(
+    //   (restaurant) => restaurant.id === action.chosenRestaurant.urlParams.id
+    // );
     return {
-      chosenRestaurant: chosenRestaurant,
+      chosenRestaurant: action.chosenRestaurant,
       restaurants: state.restaurants,
       restaurantCount: state.restaurantCount,
     };

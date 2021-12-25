@@ -149,7 +149,7 @@ const NewRestaurant = (props) => {
               <Field
                 component={SimpleFileUpload}
                 name="file"
-                label="Simple File Upload"
+                label="Photo"
                 onChange={(event) => {
                   Formik.setFieldValue("file", event.currentTarget.files[0]);
                 }}
