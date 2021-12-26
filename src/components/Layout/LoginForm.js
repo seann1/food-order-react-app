@@ -13,7 +13,7 @@ import classes from "./LoginForm.module.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import firebaseApp from "../../firebase/base";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const history = useHistory();
   const auth = getAuth(firebaseApp);
   const authCtx = useContext(AuthContext);
@@ -74,6 +74,7 @@ const LoginForm = () => {
         );
 
         authCtx.login(data.idToken, expirationTime.toISOString());
+        props.logUserIn();
         history.push("/");
       })
       .catch((err) => {

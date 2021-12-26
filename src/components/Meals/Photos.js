@@ -15,6 +15,7 @@ import {
 import { SimpleFileUpload } from "formik-material-ui";
 import Button from "@mui/material/Button";
 import RestaurantContext from "../../store/restaurant-context";
+import AuthContext from "../../store/auth-context";
 import { getDatabase, ref, push } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import {
@@ -24,11 +25,12 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-const Photos = (props) => {
+const Photos = () => {
   const [showForm, setShowForm] = useState(false);
 
   const restaurantCtx = useContext(RestaurantContext);
-  console.log(restaurantCtx);
+  const authCtx = useContext(AuthContext);
+
   const db = getDatabase();
   const auth = getAuth();
 
@@ -52,9 +54,6 @@ const Photos = (props) => {
       right: "0px",
       top: "0px",
       bottom: "0px",
-      // display: "block",
-      // width: "100%",
-      // height: "100%",
     },
     nameHeader: {
       backgroundColor: "grey",
@@ -62,19 +61,16 @@ const Photos = (props) => {
     },
     btn: {
       marginLeft: "1rem",
-      // marginBottom: "1rem",
     },
   });
   const classes = useStyles();
 
   const uploadImageHandler = async (value) => {
-    const imageUrl = `restaurants/${props.chosenRestaurant[0].id}/${
-      props.chosenRestaurant[0].id
-    }-${Object.keys(props.chosenRestaurant[0].images).length + 1}.jpg`;
+    const imageUrl = `restaurants/${restaurantCtx.chosenRestaurant.id}/${
+      restaurantCtx.chosenRestaurant.id
+    }-${Object.keys(restaurantCtx.chosenRestaurant.images).length + 1}.jpg`;
     const pathReference = storageRef(storage, imageUrl);
-    await uploadBytes(pathReference, value.file).then((snapshot) => {
-      //console.log(pathReference);
-    });
+    await uploadBytes(pathReference, value.file).then((snapshot) => {});
 
     const URLforImage = await getDownloadURL(pathReference);
     await push(
@@ -84,10 +80,10 @@ const Photos = (props) => {
     restaurantCtx.addImage(restaurantCtx.chosenRestaurant.id, URLforImage);
   };
   const images = restaurantCtx.chosenRestaurant.images;
-  const userSignedIn =
+  let usersRestaurant =
+    authCtx.isLoggedIn &&
     auth?.currentUser?.uid === restaurantCtx.chosenRestaurant.user;
-  console.log(images);
-  //console.log(Object.keys(images).length);
+
   return (
     <>
       <Grid container spacing={2} mt={1} mb={2}>
@@ -103,7 +99,7 @@ const Photos = (props) => {
                 key={index}
               >
                 <Box p={1}>
-                  {userSignedIn && (
+                  {usersRestaurant && (
                     <Chip label="Delete" color="error" size="small"></Chip>
                   )}
                 </Box>
@@ -112,7 +108,7 @@ const Photos = (props) => {
           );
         })}
       </Grid>
-      {userSignedIn && (
+      {usersRestaurant && (
         <Grid container spacing={2}>
           <Grid item xs={4}>
             {showForm ? (
