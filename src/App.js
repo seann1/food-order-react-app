@@ -147,7 +147,7 @@ function App() {
                           a.dateCreated < b.dateCreated ? 1 : -1
                         )
                         .map((restaurant) => (
-                          <Grid item xs={3} key={restaurant.id}>
+                          <Grid item xs={12} sm={6} md={3} key={restaurant.id}>
                             <Link
                               to={`/${restaurant.id}`}
                               style={{ textDecoration: "none" }}

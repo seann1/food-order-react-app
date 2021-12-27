@@ -12,10 +12,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Login from "./Login";
 import Alert from "@mui/material/Alert";
 import classes from "./Header.module.css";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Container from "@material-ui/core/Container";
 
 const Header = (props) => {
   const currentLocation = useLocation().pathname;
   const authCtx = useContext(AuthContext);
+  const smallScreen = useMediaQuery("(max-width:1000px)");
+  const signedInAndSmall = authCtx.token && smallScreen;
+  const signedInAndBig = authCtx.token && !smallScreen;
 
   return (
     <>
@@ -29,7 +34,7 @@ const Header = (props) => {
                   placement="bottom-start"
                 >
                   <Typography
-                    variant="h2"
+                    variant="h6"
                     //component="div"
                     component={Link}
                     to="/"
@@ -42,14 +47,13 @@ const Header = (props) => {
                 </Tooltip>
               </>
             ) : (
-              <Typography variant="h2" component="div" sx={{ flexGrow: 1 }}>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 ReactMeals
               </Typography>
             )}
-            {authCtx.token && (
+            {authCtx.token && <HeaderCartButton onClick={props.onShowCart} />}
+            {signedInAndBig && (
               <>
-                <HeaderCartButton onClick={props.onShowCart} />
-
                 <Box m={2}>
                   <Link to="/newrestaurant" style={{ textDecoration: "none" }}>
                     <Button variant="contained">Create Restaurant</Button>
@@ -61,6 +65,15 @@ const Header = (props) => {
             <Login />
           </Toolbar>
         </AppBar>
+        {signedInAndSmall && (
+          <Container maxWidth="lg">
+            <Box m={2}>
+              <Link to="/newrestaurant" style={{ textDecoration: "none" }}>
+                <Button variant="contained">Create Restaurant</Button>
+              </Link>
+            </Box>
+          </Container>
+        )}
       </Box>
       {!authCtx.isLoggedIn && (
         <Box m={2}>
