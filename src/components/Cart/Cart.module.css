@@ -1,4 +1,4 @@
-.cart-items {
+/* .cart-items {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -35,7 +35,6 @@
 .actions button:active {
   background-color: #5a1a01;
   border-color: #5a1a01;
-  /* color: white; */
 }
 
 .actions .button--alt {
@@ -44,5 +43,4 @@
 
 .actions .button {
   background-color: #8a2b06;
-  /* color: white; */
-}
+} */

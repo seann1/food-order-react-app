@@ -74,7 +74,7 @@ const LoginForm = (props) => {
         );
 
         authCtx.login(data.idToken, expirationTime.toISOString());
-        props.logUserIn();
+        // props.logUserIn();
         history.push("/");
       })
       .catch((err) => {

@@ -25,33 +25,57 @@ const useStyles = makeStyles((theme) => ({
 
 const Restaurant = (props) => {
   const classes = useStyles();
-  //const id = props.id;
+
   return (
-    <Card
-      onClick={() => props.restaurantPick(props.restaurant)}
-      className={classes.root}
-      elevation={6}
-    >
-      <CardHeader
-        avatar={
-          <Avatar aria-label="restaurant" className={classes.avatar}>
-            {props.name.split("")[0]}
-          </Avatar>
-        }
-        title={props.name}
-        titleTypographyProps={{ variant: "subtitle1" }}
-      />
-      <CardMedia
-        className={classes.media}
-        image={props.profileImage ? props.profileImage : defaultImage}
-        title={props.name}
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {props.description}
-        </Typography>
-      </CardContent>
-    </Card>
+    <>
+      {/* <Card
+        sx={{ maxWidth: 345 }}
+        onClick={() => props.restaurantPick(props.restaurant)}
+      >
+        <CardMedia
+          component="img"
+          height="140"
+          image={props.profileImage ? props.profileImage : defaultImage}
+          alt={props.name}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {props.name}
+          </Typography>
+          <Typography variant="body2">{props.description}</Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small">Share</Button>
+          <Button size="small">Learn More</Button>
+        </CardActions>
+      </Card> */}
+
+      <Card
+        onClick={() => props.restaurantPick(props.restaurant)}
+        className={classes.root}
+        elevation={6}
+      >
+        <CardHeader
+          avatar={
+            <Avatar aria-label="restaurant" className={classes.avatar}>
+              {props.name.split("")[0]}
+            </Avatar>
+          }
+          title={props.name}
+          titleTypographyProps={{ variant: "subtitle1" }}
+        />
+        <CardMedia
+          className={classes.media}
+          image={props.profileImage ? props.profileImage : defaultImage}
+          title={props.name}
+        />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.description}
+          </Typography>
+        </CardContent>
+      </Card>
+    </>
   );
 };
 

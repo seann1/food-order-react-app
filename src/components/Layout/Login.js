@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import LoginForm from "./LoginForm";
 import Button from "@mui/material/Button";
@@ -11,27 +11,22 @@ const Login = () => {
   const authCtx = useContext(AuthContext);
   const auth = getAuth();
 
-  const [loggedIn, setLoggedIn] = useState();
+  // const [loggedIn, setLoggedIn] = useState();
 
   // if (auth.currentUser !== null && loggedIn !== true) {
   //   setLoggedIn(true);
   // }
   //const [anchorEl, setAnchorEl] = useState(null);
   //!authCtx.token
-  const logInFunction = () => {
-    setLoggedIn(true);
-  };
 
   const userLogout = () => {
     authCtx.logout();
     auth.signOut();
-    setLoggedIn(false);
   };
 
   // const handleProfileMenuOpen = (event) => {
   //   setAnchorEl(event.currentTarget);
   // };
-  //!loggedIn
   return (
     <>
       {/* <IconButton
@@ -44,8 +39,10 @@ const Login = () => {
         color="inherit"
       >
         <AccountCircle />
-      </IconButton> */}
-      {!loggedIn ? (
+      </IconButton>
+       !loggedIn
+      */}
+      {!authCtx.token ? (
         <Button color="inherit">
           <Link to="/Login">Login</Link>
         </Button>
@@ -57,7 +54,7 @@ const Login = () => {
 
       <Switch>
         <Route path="/login" exact>
-          <LoginForm logUserIn={logInFunction} />
+          <LoginForm />
         </Route>
       </Switch>
     </>

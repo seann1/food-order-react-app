@@ -14,6 +14,19 @@ import Alert from "@mui/material/Alert";
 import classes from "./Header.module.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Container from "@material-ui/core/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme();
+
+theme.typography.h3 = {
+  fontSize: "1.2rem",
+  "@media (min-width:600px)": {
+    fontSize: "1.5rem",
+  },
+  [theme.breakpoints.up("md")]: {
+    fontSize: "2rem",
+  },
+};
 
 const Header = (props) => {
   const currentLocation = useLocation().pathname;
@@ -33,23 +46,34 @@ const Header = (props) => {
                   title="Back to Restaurant selection"
                   placement="bottom-start"
                 >
-                  <Typography
-                    variant="h6"
-                    //component="div"
-                    component={Link}
-                    to="/"
-                    sx={{ flexGrow: 1 }}
-                    className={classes.pointer}
-                    style={{ textDecoration: "none" }}
-                  >
-                    ReactMeals
-                  </Typography>
+                  <ThemeProvider theme={theme}>
+                    <Typography
+                      variant="h3"
+                      //component="div"
+                      component={Link}
+                      to="/"
+                      sx={{ flexGrow: 1 }}
+                      className={classes.pointer}
+                      style={{ textDecoration: "none" }}
+                    >
+                      ReactMeals
+                    </Typography>
+                  </ThemeProvider>
                 </Tooltip>
               </>
             ) : (
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                ReactMeals
-              </Typography>
+              <ThemeProvider theme={theme}>
+                <Typography
+                  variant="h3"
+                  component={Link}
+                  to="/"
+                  sx={{ flexGrow: 1 }}
+                  className={classes.pointer}
+                  style={{ textDecoration: "none" }}
+                >
+                  ReactMeals
+                </Typography>
+              </ThemeProvider>
             )}
             {authCtx.token && <HeaderCartButton onClick={props.onShowCart} />}
             {signedInAndBig && (
@@ -65,6 +89,7 @@ const Header = (props) => {
             <Login />
           </Toolbar>
         </AppBar>
+
         {signedInAndSmall && (
           <Container maxWidth="lg">
             <Box m={2}>
