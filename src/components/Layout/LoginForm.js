@@ -9,7 +9,7 @@ import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 
 import Button from "@mui/material/Button";
-import classes from "./LoginForm.module.css";
+// import classes from "./LoginForm.module.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import firebaseApp from "../../firebase/base";
 
@@ -111,7 +111,7 @@ const LoginForm = (props) => {
           />
           <br />
 
-          <div className={classes.actions}>
+          <div>
             <Link to="/">
               <Button type="button" variant="contained" color="error">
                 Cancel

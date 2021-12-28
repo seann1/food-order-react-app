@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Login from "./Login";
 import Alert from "@mui/material/Alert";
-import classes from "./Header.module.css";
+// import classes from "./Header.module.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Container from "@material-ui/core/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -53,7 +53,6 @@ const Header = (props) => {
                       component={Link}
                       to="/"
                       sx={{ flexGrow: 1 }}
-                      className={classes.pointer}
                       style={{ textDecoration: "none" }}
                     >
                       ReactMeals
@@ -68,7 +67,6 @@ const Header = (props) => {
                   component={Link}
                   to="/"
                   sx={{ flexGrow: 1 }}
-                  className={classes.pointer}
                   style={{ textDecoration: "none" }}
                 >
                   ReactMeals

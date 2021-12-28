@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 //   getLatLng,
 // } from "react-places-autocomplete";
 import { Modal } from "../UI/Modal";
-import classes from "./OrderForm.module.css";
+// import classes from "./OrderForm.module.css";
 
 function OrderForm(props) {
   const [orderCompleted, setOrderCompleted] = useState(false);
@@ -114,13 +114,11 @@ function OrderForm(props) {
               type="text"
             />
             <br />
-            <div className={classes.actions}>
+            <div>
               <button type="button" onClick={props.onCancel}>
                 Cancel
               </button>
-              <button type="submit" className={classes.submit}>
-                Submit
-              </button>
+              <button type="submit">Submit</button>
             </div>
           </Form>
         </Formik>
@@ -136,10 +134,8 @@ function OrderForm(props) {
         {/* <p>Order Completed</p> */}
         {showAlert && (
           <SubmissionAlert info={alertInfo} closeAlert={closeAlert}>
-            <div className={classes.actions}>
-              <button className={classes.submit} onClick={closeAlert}>
-                Return to menu
-              </button>
+            <div>
+              <button onClick={closeAlert}>Return to menu</button>
             </div>
           </SubmissionAlert>
         )}

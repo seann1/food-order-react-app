@@ -152,7 +152,7 @@ function App() {
                               to={`/${restaurant.id}`}
                               style={{ textDecoration: "none" }}
                             >
-                              <Restaurant
+                              {/* <Restaurant
                                 id={restaurant.id}
                                 key={restaurant.id}
                                 restaurantPick={restaurantChoiceHandler}
@@ -162,7 +162,7 @@ function App() {
                                 profileImage={restaurant.profileImage}
                                 location={restaurant.location}
                                 restaurant={restaurant}
-                              />
+                              /> */}
                             </Link>
                           </Grid>
                         ))}

@@ -3,7 +3,7 @@ import { Modal } from "../UI/Modal";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem/CartItem";
 
-import classes from "./Cart.module.css";
+// import classes from "./Cart.module.css";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
@@ -23,7 +23,7 @@ const Cart = (props) => {
   );
 
   const cartItems = (
-    <ul className={classes["cart-items"]}>
+    <ul>
       {sortedCart.map((item) => (
         <CartItem
           key={item.id}
@@ -43,19 +43,13 @@ const Cart = (props) => {
     <Modal onClose={props.onClose}>
       {cartItems}
 
-      <div className={classes.total}>
+      <div>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      <div className={classes.actions}>
-        <button className={classes["button--alt"]} onClick={props.onClose}>
-          Close
-        </button>
-        {hasItems && (
-          <button className={classes.button} onClick={props.onOrder}>
-            Order
-          </button>
-        )}
+      <div>
+        <button onClick={props.onClose}>Close</button>
+        {hasItems && <button onClick={props.onOrder}>Order</button>}
       </div>
     </Modal>
   );
