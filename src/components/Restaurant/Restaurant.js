@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
 import defaultImage from "../../assets/default-image.jpg";
 
 import { red } from "@material-ui/core/colors";
@@ -48,11 +48,14 @@ const Restaurant = (props) => {
           <Button size="small">Share</Button>
           <Button size="small">Learn More</Button>
         </CardActions>
-      </Card> */}
-
+      </Card> 
+      className={classes.avatar}
+      className={classes.avatar}
+      className={classes.media}
+      */}
       <Card
         onClick={() => props.restaurantPick(props.restaurant)}
-        className={classes.root}
+        // className={classes.root}
         elevation={6}
       >
         <CardHeader
@@ -65,8 +68,8 @@ const Restaurant = (props) => {
           titleTypographyProps={{ variant: "subtitle1" }}
         />
         <CardMedia
-          className={classes.media}
           image={props.profileImage ? props.profileImage : defaultImage}
+          className={classes.media}
           title={props.name}
         />
         <CardContent>
