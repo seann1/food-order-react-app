@@ -10,7 +10,7 @@ import {
   makeStyles,
   //createMuiTheme,
   //ThemeProvider,
-} from "@material-ui/core/styles";
+} from "@mui/styles";
 
 import { SimpleFileUpload } from "formik-material-ui";
 import Button from "@mui/material/Button";

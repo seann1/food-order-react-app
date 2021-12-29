@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 import RestaurantContext from "../../store/restaurant-context";
 import { useHistory } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";

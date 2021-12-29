@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import defaultImage from "../../assets/default-image.jpg";
 
-import { red } from "@material-ui/core/colors";
+import { red } from "@mui/material/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {

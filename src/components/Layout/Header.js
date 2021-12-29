@@ -1,8 +1,7 @@
-//import Button from "@material-ui/core/Button";
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import { Link, useLocation } from "react-router-dom";
-import Tooltip from "@material-ui/core/Tooltip";
+import Tooltip from "@mui/material/Tooltip";
 import HeaderCartButton from "./HeaderCartButton";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
@@ -13,13 +12,14 @@ import Login from "./Login";
 import Alert from "@mui/material/Alert";
 import classes from "./Header.module.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme();
 
 theme.typography.h3 = {
   fontSize: "1.2rem",
+  color: "white",
   "@media (min-width:600px)": {
     fontSize: "1.5rem",
   },
@@ -101,12 +101,14 @@ const Header = (props) => {
         )}
       </Box>
       {!authCtx.isLoggedIn && (
-        <Box m={2}>
-          <Alert severity="info">
-            Login with email: <strong>admin@admin.com</strong> Password:
-            <strong> password</strong> to place an order
-          </Alert>
-        </Box>
+        <Container maxWidth="lg">
+          <Box m={2}>
+            <Alert severity="info">
+              Login with email: <strong>admin@admin.com</strong> Password:
+              <strong> password</strong> to place an order
+            </Alert>
+          </Box>
+        </Container>
       )}
     </>
   );

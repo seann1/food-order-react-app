@@ -4,6 +4,7 @@ import Badge from "@mui/material/Badge";
 import CartContext from "../../store/cart-context";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { blueGrey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 const HeaderCartButton = (props) => {
@@ -40,11 +41,11 @@ const HeaderCartButton = (props) => {
       <IconButton
         size="large"
         aria-label="Shopping cart"
-        color="inherit"
+        color="info"
         onClick={props.onClick}
       >
         <Badge badgeContent={numberOfCartItems} color="error">
-          <ShoppingCartIcon color="disabled" />
+          <ShoppingCartIcon sx={{ color: blueGrey[50] }} />
         </Badge>
       </IconButton>
     </Link>

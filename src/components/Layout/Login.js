@@ -44,7 +44,9 @@ const Login = () => {
       */}
       {!authCtx.token ? (
         <Button color="inherit">
-          <Link to="/Login">Login</Link>
+          <Link to="/Login" style={{ textDecoration: "none", color: "white" }}>
+            Login
+          </Link>
         </Button>
       ) : (
         <Button color="inherit" onClick={userLogout}>

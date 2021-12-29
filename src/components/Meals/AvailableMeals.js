@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import MealItem from "./MealItem/MealItem";
 //import Reviews from "./Reviews";
 import Photos from "./Photos";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import MapComponent from "../Maps/GoogleMap";
@@ -106,7 +106,7 @@ const AvailableMeals = (props) => {
     // <section className={classes.meals}>
     //   <Card>{content}</Card>
     // </section>
-    <Container>
+    <>
       <Route path="/r:id/photos">
         <Photos chosenRestaurant={chosenRestaurant} />
       </Route>
@@ -129,7 +129,7 @@ const AvailableMeals = (props) => {
           </Grid>
         </Grid>
       </Route>
-    </Container>
+    </>
   );
 };
 

@@ -112,7 +112,7 @@ const LoginForm = (props) => {
           <br />
 
           <div className={classes.actions}>
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: "none" }}>
               <Button type="button" variant="contained" color="error">
                 Cancel
               </Button>
@@ -123,9 +123,10 @@ const LoginForm = (props) => {
           </div>
         </Form>
       </Formik>
-      <Box m={1}>
+      <Box mt={1}>
         <Alert severity="info">
-          Log in with email: admin@admin.com password: password
+          Log in with email: <strong>admin@admin.com</strong> password:
+          <strong> password</strong>
         </Alert>
       </Box>
     </Modal>

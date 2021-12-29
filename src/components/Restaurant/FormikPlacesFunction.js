@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 
 import PlacesAutocomplete, {
   geocodeByAddress,

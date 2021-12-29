@@ -8,7 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useParams, Link, useRouteMatch } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 
 const MealsSummary = () => {
   const restaurantCtx = useContext(RestaurantContext);
@@ -68,39 +68,37 @@ const MealsSummary = () => {
   const classes = useStyles();
   ///r${urlParams.id}
   return (
-    <Container>
-      <Grid container spacing={2}>
-        <Grid item xs={2}>
-          <Link
-            to={
-              match.path === "/r:id"
-                ? `r${urlParams.id}/photos`
-                : `/r${urlParams.id}`
-            }
+    <Grid container spacing={2}>
+      <Grid item xs={2}>
+        <Link
+          to={
+            match.path === "/r:id"
+              ? `r${urlParams.id}/photos`
+              : `/r${urlParams.id}`
+          }
+        >
+          <Tooltip
+            title={match.path === "/r:id" ? "View Photos" : "Back to Menu"}
+            placement="bottom-start"
           >
-            <Tooltip
-              title={match.path === "/r:id" ? "View Photos" : "Back to Menu"}
-              placement="bottom-start"
-            >
-              <Paper className={classes.paperContainer} elevation={6}></Paper>
-            </Tooltip>
-          </Link>
-          <div className={classes.overlay}>Images</div>
-        </Grid>
-        <Grid item xs={10}>
-          <Paper elevation={6} className={classes.nameHeader}>
-            <Box p={3}>
-              <Typography align="left" variant="h3">
-                {restaurantCtx.chosenRestaurant?.name}
-              </Typography>
-              <Typography align="left" variant="h5">
-                {restaurantCtx.chosenRestaurant?.description}
-              </Typography>
-            </Box>
-          </Paper>
-        </Grid>
+            <Paper className={classes.paperContainer} elevation={6}></Paper>
+          </Tooltip>
+        </Link>
+        <div className={classes.overlay}>Images</div>
       </Grid>
-    </Container>
+      <Grid item xs={10}>
+        <Paper elevation={6} className={classes.nameHeader}>
+          <Box p={3}>
+            <Typography align="left" variant="h3">
+              {restaurantCtx.chosenRestaurant?.name}
+            </Typography>
+            <Typography align="left" variant="h5">
+              {restaurantCtx.chosenRestaurant?.description}
+            </Typography>
+          </Box>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 
