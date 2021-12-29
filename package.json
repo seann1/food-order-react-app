@@ -13,6 +13,7 @@
     "@mui/material": "^5.2.5",
     "@mui/styles": "^5.2.3",
     "@mui/x-data-grid": "^4.0.2",
+    "@react-google-maps/api": "^2.7.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
