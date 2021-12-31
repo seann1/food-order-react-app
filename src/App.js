@@ -169,12 +169,12 @@ function App() {
                     </Grid>
                     <Box mt={2}>
                       <RestaurantMap
-                        containerElement={
-                          <div style={{ height: "50vh", width: "100%" }}></div>
-                        }
-                        mapElement={
-                          <div style={{ height: "50vh", width: "100%" }}></div>
-                        }
+                        // containerElement={
+                        //   <div style={{ height: "50vh", width: "100%" }}></div>
+                        // }
+                        // mapElement={
+                        //   <div style={{ height: "50vh", width: "100%" }}></div>
+                        // }
                         restaurantMarkers={restaurantCtx.restaurants}
                       />
                     </Box>
