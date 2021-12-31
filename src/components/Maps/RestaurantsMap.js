@@ -19,7 +19,7 @@ import Box from "@mui/material/Box";
 
 const RestaurantMap = (props) => {
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyCk0CAm6xsSqaqUBXRJhtM01UHRdcRlUAU", // ,
+    googleMapsApiKey: process.env.REACT_APP_API_KEY, // ,
     // ...otherOptions
   });
   const history = useHistory();
