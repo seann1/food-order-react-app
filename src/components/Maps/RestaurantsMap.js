@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   GoogleMap,
+  LoadScript,
   useJsApiLoader,
   Marker,
+  InfoBox,
   InfoWindow,
 } from "@react-google-maps/api";
 import { useHistory } from "react-router-dom";
@@ -10,23 +12,23 @@ import Typography from "@mui/material/Typography";
 import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 
-// const options = {
-//   zoomControlOptions: {
-//     position: google.maps.ControlPosition.RIGHT_CENTER, // 'right-center' ,
-//     // ...otherOptions
-//   },
-// };
-
 const RestaurantMap = (props) => {
-  const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_API_KEY, // ,
-    // ...otherOptions
-  });
-  const history = useHistory();
+  const mapRef = useRef(null);
 
-  const handleClick = (id) => {
-    history.push(`/${id}`);
+  // Fit bounds function
+  const fitBounds = () => {
+    const bounds = new window.google.maps.LatLngBounds();
+    props.restaurantMarkers.map((item) => {
+      bounds.extend(item.location.coordinates);
+      return item.id;
+    });
+    mapRef.current.fitBounds(bounds);
   };
+
+  // Fit bounds on mount, and when the markers change
+  useEffect(() => {
+    fitBounds();
+  }, [props.restaurantMarkers]);
 
   const containerStyle = {
     width: "100%",
@@ -34,71 +36,56 @@ const RestaurantMap = (props) => {
   };
 
   const center = {
-    lat: -3.745,
-    lng: -38.523,
+    lat: 0,
+    lng: -180,
+  };
+  const position = {
+    lat: 37.772,
+    lng: -122.214,
   };
 
-  const renderMap = () => {
-    // wrapping to a function is useful in case you want to access `window.google`
-    // to eg. setup options or create latLng object, it won't be available otherwise
-    // feel free to render directly if you don't need that
-    // const onLoad = React.useCallback(function onLoad(mapInstance) {
-    //   // do something with map Instance
-    // });
-    return (
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
-        {props.restaurantMarkers.map((marker, index) => {
-          return (
+  return (
+    // <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY}>
+    <GoogleMap mapContainerStyle={containerStyle} ref={mapRef}>
+      {props.restaurantMarkers.map((marker, index) => {
+        return (
+          <>
             <Marker
               key={index}
               position={{
                 lat: marker.location.coordinates.lat,
                 lng: marker.location.coordinates.lng,
               }}
-              onClick={() => handleClick(marker.id)}
+              // onClick={() => handleClick(marker.id)}
             >
-              <InfoWindow>
+              {/* <InfoWindow>
                 <Typography variant="body">{marker.name}</Typography>
-              </InfoWindow>
+              </InfoWindow> */}
+              <InfoBox
+                position={{
+                  lat: marker.location.coordinates.lat,
+                  lng: marker.location.coordinates.lng,
+                }}
+              >
+                <div
+                  style={{
+                    backgroundColor: "yellow",
+                    opacity: 0.75,
+                    padding: 12,
+                  }}
+                >
+                  <div style={{ fontSize: 16, fontColor: `#08233B` }}>
+                    Hello, World!
+                  </div>
+                </div>
+              </InfoBox>
             </Marker>
-          );
-        })}
-      </GoogleMap>
-    );
-  };
-
-  if (loadError) {
-    return <div>Map cannot be loaded right now, sorry.</div>;
-  }
-  // const markerBounds = new google.maps.Map.LatLngBounds();
-  // props.restaurantMarkers.map((marker) => {
-  //   return markerBounds.extend(marker.location.coordinates);
-  // });
-  return isLoaded ? renderMap() : <CircularProgress />;
-  // return (
-  //   <Box m={2}>
-  //     <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY}>
-  // <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
-  //   {props.restaurantMarkers.map((marker, index) => {
-  //     return (
-  //       <Marker
-  //         key={index}
-  //         position={{
-  //           lat: marker.location.coordinates.lat,
-  //           lng: marker.location.coordinates.lng,
-  //         }}
-  //         onClick={() => handleClick(marker.id)}
-  //       >
-  //         <InfoWindow>
-  //           <Typography variant="body">{marker.name}</Typography>
-  //         </InfoWindow>
-  //       </Marker>
-  //     );
-  //   })}
-  // </GoogleMap>
-  //     </LoadScript>
-  //   </Box>
-  // );
+          </>
+        );
+      })}
+    </GoogleMap>
+    // </LoadScript>
+  );
 };
 
 export default RestaurantMap;
