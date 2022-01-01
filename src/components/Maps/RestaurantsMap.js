@@ -1,52 +1,34 @@
-import React, { useRef, useEffect } from "react";
-import {
-  GoogleMap,
-  LoadScript,
-  useJsApiLoader,
-  Marker,
-  InfoBox,
-  InfoWindow,
-} from "@react-google-maps/api";
+import React from "react";
+import { GoogleMap, Marker, InfoBox, InfoWindow } from "@react-google-maps/api";
 import { useHistory } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import { CircularProgress } from "@mui/material";
-import Box from "@mui/material/Box";
+// import { CircularProgress } from "@mui/material";
+// import Box from "@mui/material/Box";
 
 const RestaurantMap = (props) => {
-  const mapRef = useRef(null);
+  const history = useHistory();
 
-  // Fit bounds function
-  const fitBounds = () => {
-    const bounds = new window.google.maps.LatLngBounds();
-    props.restaurantMarkers.map((item) => {
-      bounds.extend(item.location.coordinates);
-      return item.id;
-    });
-    mapRef.current.fitBounds(bounds);
+  const handleClick = (id) => {
+    history.push(`/${id}`);
   };
-
-  // Fit bounds on mount, and when the markers change
-  useEffect(() => {
-    fitBounds();
-  }, [props.restaurantMarkers]);
+  const markerBounds = new window.google.maps.LatLngBounds();
+  props.restaurantMarkers.map((marker) => {
+    return markerBounds.extend(marker.location.coordinates);
+  });
 
   const containerStyle = {
     width: "100%",
     height: "50vh",
-  };
-
-  const center = {
-    lat: 0,
-    lng: -180,
-  };
-  const position = {
-    lat: 37.772,
-    lng: -122.214,
+    borderRadius: "4px",
   };
 
   return (
-    // <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY}>
-    <GoogleMap mapContainerStyle={containerStyle} ref={mapRef}>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      onLoad={(map) => {
+        map.fitBounds(markerBounds);
+      }}
+    >
       {props.restaurantMarkers.map((marker, index) => {
         return (
           <>
@@ -56,7 +38,7 @@ const RestaurantMap = (props) => {
                 lat: marker.location.coordinates.lat,
                 lng: marker.location.coordinates.lng,
               }}
-              // onClick={() => handleClick(marker.id)}
+              onClick={() => handleClick(marker.id)}
             >
               {/* <InfoWindow>
                 <Typography variant="body">{marker.name}</Typography>
@@ -75,7 +57,7 @@ const RestaurantMap = (props) => {
                   }}
                 >
                   <div style={{ fontSize: 16, fontColor: `#08233B` }}>
-                    Hello, World!
+                    <Typography variant="body">{marker.name}</Typography>
                   </div>
                 </div>
               </InfoBox>
@@ -84,7 +66,6 @@ const RestaurantMap = (props) => {
         );
       })}
     </GoogleMap>
-    // </LoadScript>
   );
 };
 
