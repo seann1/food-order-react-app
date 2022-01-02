@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "food-order-app-d078d"
-  }
+    "default": "food-order-app-d078d",
+    "test": "food-order-test-b62b6"
+  },
+  "targets": {}
 }

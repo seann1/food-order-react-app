@@ -7,7 +7,8 @@ import Typography from "@mui/material/Typography";
 
 const RestaurantMap = (props) => {
   const history = useHistory();
-
+  const MVC = new window.google.maps.MVCObject();
+  console.log(MVC);
   const handleClick = (id) => {
     history.push(`/${id}`);
   };
@@ -26,6 +27,7 @@ const RestaurantMap = (props) => {
     <GoogleMap
       mapContainerStyle={containerStyle}
       onLoad={(map) => {
+        console.log(map);
         map.fitBounds(markerBounds);
       }}
     >
@@ -39,29 +41,19 @@ const RestaurantMap = (props) => {
                 lng: marker.location.coordinates.lng,
               }}
               onClick={() => handleClick(marker.id)}
+            ></Marker>
+            <InfoWindow
+            // position={{
+            //   lat: marker.location.coordinates.lat,
+            //   lng: marker.location.coordinates.lng,
+            // }}
+            // anchor={{
+            //   lat: marker.location.coordinates.lat,
+            //   lng: marker.location.coordinates.lng,
+            // }}
             >
-              {/* <InfoWindow>
-                <Typography variant="body">{marker.name}</Typography>
-              </InfoWindow> */}
-              <InfoBox
-                position={{
-                  lat: marker.location.coordinates.lat,
-                  lng: marker.location.coordinates.lng,
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor: "yellow",
-                    opacity: 0.75,
-                    padding: 12,
-                  }}
-                >
-                  <div style={{ fontSize: 16, fontColor: `#08233B` }}>
-                    <Typography variant="body">{marker.name}</Typography>
-                  </div>
-                </div>
-              </InfoBox>
-            </Marker>
+              <Typography variant="body">{marker.name}</Typography>
+            </InfoWindow>
           </>
         );
       })}
