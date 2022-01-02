@@ -8,6 +8,32 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import AuthContext from "../../../store/auth-context";
 import classes from "./MealItem.module.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { grey } from "@mui/material/colors";
+
+const theme = createTheme();
+
+theme.typography.h4 = {
+  fontSize: "1.4rem",
+  color: grey[800],
+  "@media (min-width:600px)": {
+    fontSize: "1.5rem",
+  },
+  [theme.breakpoints.up("md")]: {
+    fontSize: "2rem",
+  },
+};
+
+theme.typography.h6 = {
+  fontSize: "1.2rem",
+  color: grey[800],
+  "@media (min-width:600px)": {
+    fontSize: "1.5rem",
+  },
+  [theme.breakpoints.up("md")]: {
+    fontSize: "2rem",
+  },
+};
 
 const MealItem = (props) => {
   const cartCtx = useContext(CartContext);
@@ -25,26 +51,28 @@ const MealItem = (props) => {
     });
   };
   return (
-    <Paper elevation={3}>
-      <Box m={2} p={2}>
-        <Grid container>
-          <Grid item xs={9}>
-            <Typography variant="h4">{props.name}</Typography>
-            <Typography variant="body1" className={classes.description}>
-              {props.description}
-            </Typography>
+    <ThemeProvider theme={theme}>
+      <Paper elevation={3}>
+        <Box m={2} p={2}>
+          <Grid container>
+            <Grid item xs={9}>
+              <Typography variant="h4">{props.name}</Typography>
+              <Typography variant="body1" className={classes.description}>
+                {props.description}
+              </Typography>
+            </Grid>
+            <Grid item xs={3} justify="flex-end">
+              <Typography variant="h6" align="right" className={classes.price}>
+                {price}
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={3} justify="flex-end">
-            <Typography variant="h4" align="right" className={classes.price}>
-              {price}
-            </Typography>
-          </Grid>
-        </Grid>
-        {authCtx.token && (
-          <MealItemForm id={props.id} onAddToCart={addToCartHandler} />
-        )}
-      </Box>
-    </Paper>
+          {authCtx.token && (
+            <MealItemForm id={props.id} onAddToCart={addToCartHandler} />
+          )}
+        </Box>
+      </Paper>
+    </ThemeProvider>
   );
 };
 export default MealItem;

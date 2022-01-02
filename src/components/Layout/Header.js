@@ -102,7 +102,7 @@ const Header = (props) => {
       </Box>
       {!authCtx.isLoggedIn && (
         <Container maxWidth="lg">
-          <Box m={2}>
+          <Box mt={2}>
             <Alert severity="info">
               Login with email: <strong>admin@admin.com</strong> Password:
               <strong> password</strong> to place an order

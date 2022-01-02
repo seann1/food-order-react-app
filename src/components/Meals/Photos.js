@@ -89,7 +89,7 @@ const Photos = () => {
       <Grid container spacing={2} mt={1} mb={2}>
         {Object.keys(images).map((image, index) => {
           return (
-            <Grid item xs={4} key={index}>
+            <Grid item xs={12} sm={6} md={4} key={index}>
               <Paper
                 className={classes.paperContainer}
                 style={{

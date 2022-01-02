@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleMap, Marker, InfoBox, InfoWindow } from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import { useHistory } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 // import { CircularProgress } from "@mui/material";
@@ -41,19 +41,20 @@ const RestaurantMap = (props) => {
                 lng: marker.location.coordinates.lng,
               }}
               onClick={() => handleClick(marker.id)}
-            ></Marker>
-            <InfoWindow
-            // position={{
-            //   lat: marker.location.coordinates.lat,
-            //   lng: marker.location.coordinates.lng,
-            // }}
-            // anchor={{
-            //   lat: marker.location.coordinates.lat,
-            //   lng: marker.location.coordinates.lng,
-            // }}
             >
-              <Typography variant="body">{marker.name}</Typography>
-            </InfoWindow>
+              <InfoWindow
+                position={{
+                  lat: marker.location.coordinates.lat,
+                  lng: marker.location.coordinates.lng,
+                }}
+                // anchor={{
+                //   lat: marker.location.coordinates.lat,
+                //   lng: marker.location.coordinates.lng,
+                // }}
+              >
+                <Typography variant="body">{marker.name}</Typography>
+              </InfoWindow>
+            </Marker>
           </>
         );
       })}
