@@ -18,5 +18,6 @@ To login to the app use the following credentials:
 - [Material UI](https://mui.com/)
 - [Formik](https://formik.org/)
 - [Yup](https://github.com/jquense/yup)
-- [Rreact Router](https://reactrouter.com/)
+- [React Router](https://reactrouter.com/)
 - [Firebase](https://firebase.google.com/)
+- [Google Maps API](https://developers.google.com/maps)
