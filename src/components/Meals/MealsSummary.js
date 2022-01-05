@@ -33,58 +33,9 @@ theme.typography.h5 = {
 };
 
 const MealsSummary = (props) => {
-  // const [error, setError] = useState(null);
-  // const [restaurants, setRestaurants] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const restaurantCtx = useContext(RestaurantContext);
-
   let match = useRouteMatch();
 
-  //const restaurants = restaurantCtx.restaurants;
-  // const [chosenRestaurant, setChosenRestaurant] = useState({});
   let urlParams = useParams();
-
-  // useEffect(() => {
-  //   let isMounted = true;
-
-  //   (async () => {
-  //     if (isMounted) setIsLoading(true);
-  //     if (isMounted) setError(null);
-  //     try {
-  //       const response = await fetch(
-  //         "https://food-order-app-d078d-default-rtdb.firebaseio.com/restaurants.json"
-  //       );
-  //       if (!response.ok) {
-  //         throw new Error("Something went wrong!");
-  //       }
-  //       const data = await response.json();
-
-  //       const restaurantsArray = [];
-  //       for (const property in data) {
-  //         restaurantsArray.push({
-  //           id: data[property].id,
-  //           name: data[property].name,
-  //           description: data[property].description,
-  //         });
-  //       }
-
-  //       const filteredRestaurantsArray = restaurantsArray.filter(
-  //         (restaurant) => restaurant.id === `r${urlParams.id}`
-  //       )[0];
-
-  //       if (isMounted) {
-  //         setRestaurants(filteredRestaurantsArray);
-  //       }
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //     if (isMounted) setIsLoading(false);
-  //     // fetchMealsHandler();
-  //   })();
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, [urlParams.id]);
 
   const useStyles = makeStyles({
     paperContainer: {
@@ -117,7 +68,7 @@ const MealsSummary = (props) => {
   });
 
   const classes = useStyles();
-  ///r${urlParams.id}
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container spacing={2}>
