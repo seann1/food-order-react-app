@@ -5,14 +5,14 @@ import AvailableMeals from "./AvailableMeals";
 
 const Meals = (props) => {
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
   let urlParams = useParams();
   useEffect(() => {
     let isMounted = true;
 
     (async () => {
-      if (isMounted) setIsLoading(true);
+      // if (isMounted) setIsLoading(true);
       if (isMounted) setError(null);
       try {
         const response = await fetch(
@@ -42,16 +42,16 @@ const Meals = (props) => {
             JSON.stringify(filteredRestaurantsArray)
           );
         }
-      } catch (error) {
-        setError(error.message);
+      } catch (e) {
+        setError(e.message);
+        alert(error);
       }
-      if (isMounted) setIsLoading(false);
-      // fetchMealsHandler();
+      // if (isMounted) setIsLoading(false);
     })();
     return () => {
       isMounted = false;
     };
-  }, [urlParams.id]);
+  }, [urlParams.id, error]);
 
   return (
     <>

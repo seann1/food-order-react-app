@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import classes from "./Input.module.css";
 const theme = createTheme();
 theme.typography.body1 = {

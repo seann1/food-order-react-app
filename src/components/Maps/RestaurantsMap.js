@@ -1,13 +1,11 @@
 import React from "react";
-import { GoogleMap, Marker, InfoWindow, InfoBox } from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoBox } from "@react-google-maps/api";
 import { useHistory } from "react-router-dom";
-import { Typography, Paper } from "@mui/material";
-// import { CircularProgress } from "@mui/material";
-// import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 
 const RestaurantMap = (props) => {
   const history = useHistory();
-  const MVC = new window.google.maps.MVCObject();
+  // const MVC = new window.google.maps.MVCObject();
 
   const handleClick = (id) => {
     history.push(`/${id}`);
