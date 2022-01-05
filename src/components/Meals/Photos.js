@@ -4,13 +4,8 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Chip from "@mui/material/Chip";
-//import Typography from "@mui/material/Typography";
-//import { Link } from "react-router-dom";
-import {
-  makeStyles,
-  //createMuiTheme,
-  //ThemeProvider,
-} from "@mui/styles";
+
+import { makeStyles } from "@mui/styles";
 
 import { SimpleFileUpload } from "formik-material-ui";
 import Button from "@mui/material/Button";
@@ -25,7 +20,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-const Photos = () => {
+const Photos = (props) => {
   const [showForm, setShowForm] = useState(false);
 
   const restaurantCtx = useContext(RestaurantContext);
@@ -64,6 +59,10 @@ const Photos = () => {
     },
   });
   const classes = useStyles();
+  const restaurantPhotos = JSON.parse(
+    window.localStorage.getItem("chosenRestaurant")
+  ).images;
+  console.log(restaurantPhotos);
 
   const uploadImageHandler = async (value) => {
     const imageUrl = `restaurants/${restaurantCtx.chosenRestaurant.id}/${
@@ -79,7 +78,7 @@ const Photos = () => {
     );
     restaurantCtx.addImage(restaurantCtx.chosenRestaurant.id, URLforImage);
   };
-  const images = restaurantCtx.chosenRestaurant.images;
+  // const images = restaurantCtx.chosenRestaurant.images;
   let usersRestaurant =
     authCtx.isLoggedIn &&
     auth?.currentUser?.uid === restaurantCtx.chosenRestaurant.user;
@@ -87,13 +86,13 @@ const Photos = () => {
   return (
     <>
       <Grid container spacing={2} mt={1} mb={2}>
-        {Object.keys(images).map((image, index) => {
+        {Object.keys(restaurantPhotos).map((image, index) => {
           return (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Paper
                 className={classes.paperContainer}
                 style={{
-                  backgroundImage: `url(${images[image]})`,
+                  backgroundImage: `url(${restaurantPhotos[image]})`,
                 }}
                 elevation={6}
                 key={index}

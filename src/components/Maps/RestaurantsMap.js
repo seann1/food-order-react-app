@@ -1,14 +1,14 @@
 import React from "react";
-import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow, InfoBox } from "@react-google-maps/api";
 import { useHistory } from "react-router-dom";
-import Typography from "@mui/material/Typography";
+import { Typography, Paper } from "@mui/material";
 // import { CircularProgress } from "@mui/material";
 // import Box from "@mui/material/Box";
 
 const RestaurantMap = (props) => {
   const history = useHistory();
   const MVC = new window.google.maps.MVCObject();
-  console.log(MVC);
+
   const handleClick = (id) => {
     history.push(`/${id}`);
   };
@@ -27,7 +27,6 @@ const RestaurantMap = (props) => {
     <GoogleMap
       mapContainerStyle={containerStyle}
       onLoad={(map) => {
-        console.log(map);
         map.fitBounds(markerBounds);
       }}
     >
@@ -42,18 +41,37 @@ const RestaurantMap = (props) => {
               }}
               onClick={() => handleClick(marker.id)}
             >
-              <InfoWindow
+              {/* <InfoWindow
                 position={{
                   lat: marker.location.coordinates.lat,
                   lng: marker.location.coordinates.lng,
                 }}
-                // anchor={{
-                //   lat: marker.location.coordinates.lat,
-                //   lng: marker.location.coordinates.lng,
-                // }}
+                anchor={{
+                  lat: marker.location.coordinates.lat,
+                  lng: marker.location.coordinates.lng,
+                }}
               >
                 <Typography variant="body">{marker.name}</Typography>
-              </InfoWindow>
+              </InfoWindow> */}
+              <InfoBox
+                position={{
+                  lat: marker.location.coordinates.lat,
+                  lng: marker.location.coordinates.lng,
+                }}
+              >
+                <div
+                  style={{
+                    "background-color": "white",
+                    padding: "3px",
+                    "border-radius": "4px",
+                    opacity: "0.75",
+                    "min-width": "60px",
+                    "min-height": "40px",
+                  }}
+                >
+                  <Typography variant="body">{marker.name}</Typography>
+                </div>
+              </InfoBox>
             </Marker>
           </>
         );

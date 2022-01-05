@@ -55,21 +55,28 @@ const MealItem = (props) => {
       <Paper elevation={3}>
         <Box m={2} p={2}>
           <Grid container>
-            <Grid item xs={9}>
-              <Typography variant="h4">{props.name}</Typography>
+            <Grid item xs={12} sm={9}>
+              <Typography variant="h4" gutterBottom={true}>
+                {props.name}
+              </Typography>
               <Typography variant="body1" className={classes.description}>
                 {props.description}
               </Typography>
             </Grid>
-            <Grid item xs={3} justify="flex-end">
-              <Typography variant="h6" align="right" className={classes.price}>
+            <Grid item xs={12} sm={3} justify="flex-end">
+              <Typography
+                variant="h6"
+                gutterBottom={true}
+                align="right"
+                className={classes.price}
+              >
                 {price}
               </Typography>
+              {authCtx.token && (
+                <MealItemForm id={props.id} onAddToCart={addToCartHandler} />
+              )}
             </Grid>
           </Grid>
-          {authCtx.token && (
-            <MealItemForm id={props.id} onAddToCart={addToCartHandler} />
-          )}
         </Box>
       </Paper>
     </ThemeProvider>

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 const Reviews = (props) => {
-  console.log(props);
   const restaurantAddress = props.restaurant[0].location.address
     .split(",")
     .map((item) => item.trim());

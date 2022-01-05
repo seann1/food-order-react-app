@@ -121,9 +121,11 @@ function App() {
       <main>
         <>
           {isLoading ? (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <CircularProgress />
-            </div>
+            <Box m={2}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <CircularProgress />
+              </div>
+            </Box>
           ) : (
             <Switch>
               <Route path={[`/r:id`, `/r:id/photos`]} exact>

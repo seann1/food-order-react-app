@@ -70,9 +70,7 @@ const NewRestaurant = (props) => {
       user: auth.currentUser.uid,
     };
     if (imageUrl !== null) {
-      await uploadBytes(pathReference, values.file).then((snapshot) => {
-        //console.log(pathReference);
-      });
+      await uploadBytes(pathReference, values.file).then((snapshot) => {});
 
       await getDownloadURL(pathReference).then((url) => {
         return (newRestaurant = {

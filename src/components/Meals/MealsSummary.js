@@ -1,6 +1,3 @@
-//import classes from "./MealsSummary.module.css";
-import { useContext } from "react";
-import RestaurantContext from "../../store/restaurant-context";
 import Paper from "@mui/material/Paper";
 
 import Typography from "@mui/material/Typography";
@@ -35,8 +32,12 @@ theme.typography.h5 = {
   },
 };
 
-const MealsSummary = () => {
-  const restaurantCtx = useContext(RestaurantContext);
+const MealsSummary = (props) => {
+  // const [error, setError] = useState(null);
+  // const [restaurants, setRestaurants] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const restaurantCtx = useContext(RestaurantContext);
+
   let match = useRouteMatch();
 
   //const restaurants = restaurantCtx.restaurants;
@@ -44,18 +45,46 @@ const MealsSummary = () => {
   let urlParams = useParams();
 
   // useEffect(() => {
-  //   // if (restaurantCtx.chosenRestaurant === "") {
+  //   let isMounted = true;
 
-  //   //   restaurantCtx.setChosenRestaurant({
-  //   //     restaurants: restaurants,
-  //   //     urlParams: urlParams,
-  //   //   });
-  //   // }
-  //   const filteredContext = restaurantCtx.restaurants.filter(
-  //     (restaurant) => restaurant.id === `r${urlParams.id}`
-  //   );
-  //   setChosenRestaurant(filteredContext[0]);
-  // }, [restaurantCtx.restaurants, urlParams.id]);
+  //   (async () => {
+  //     if (isMounted) setIsLoading(true);
+  //     if (isMounted) setError(null);
+  //     try {
+  //       const response = await fetch(
+  //         "https://food-order-app-d078d-default-rtdb.firebaseio.com/restaurants.json"
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error("Something went wrong!");
+  //       }
+  //       const data = await response.json();
+
+  //       const restaurantsArray = [];
+  //       for (const property in data) {
+  //         restaurantsArray.push({
+  //           id: data[property].id,
+  //           name: data[property].name,
+  //           description: data[property].description,
+  //         });
+  //       }
+
+  //       const filteredRestaurantsArray = restaurantsArray.filter(
+  //         (restaurant) => restaurant.id === `r${urlParams.id}`
+  //       )[0];
+
+  //       if (isMounted) {
+  //         setRestaurants(filteredRestaurantsArray);
+  //       }
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //     if (isMounted) setIsLoading(false);
+  //     // fetchMealsHandler();
+  //   })();
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [urlParams.id]);
 
   const useStyles = makeStyles({
     paperContainer: {
@@ -63,7 +92,7 @@ const MealsSummary = () => {
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundColor: "red",
-      backgroundImage: `url(${restaurantCtx.chosenRestaurant.profileImage})`,
+      backgroundImage: `url(${props.chosenRestaurant.profileImage})`,
       "&:hover": {
         backgroundColor: "white",
       },
@@ -111,12 +140,12 @@ const MealsSummary = () => {
         </Grid>
         <Grid item xs={12} sm={8} md={10}>
           <Paper elevation={6} className={classes.nameHeader}>
-            <Box p={3}>
+            <Box pb={3} pl={3} pr={3}>
               <Typography align="left" variant="h3">
-                {restaurantCtx.chosenRestaurant?.name}
+                {props.chosenRestaurant.name}
               </Typography>
               <Typography align="left" variant="h5">
-                {restaurantCtx.chosenRestaurant?.description}
+                {props.chosenRestaurant.description}
               </Typography>
             </Box>
           </Paper>

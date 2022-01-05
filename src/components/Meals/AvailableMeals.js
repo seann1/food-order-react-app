@@ -1,18 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 
 import MealItem from "./MealItem/MealItem";
-//import Reviews from "./Reviews";
+
 import Photos from "./Photos";
 import CircularProgress from "@mui/material/CircularProgress";
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import MapComponent from "../Maps/GoogleMap";
 import Grid from "@mui/material/Grid";
 import { useParams, Route } from "react-router-dom";
 import RestaurantContext from "../../store/restaurant-context";
-// import { ClassNames } from "@emotion/react";
-// import Typography from "@mui/material/Typography";
-// import classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = (props) => {
   const [error, setError] = useState(null);
@@ -35,7 +31,7 @@ const AvailableMeals = (props) => {
   );
   useEffect(() => {
     let isMounted = true;
-    //const fetchMealsHandler =
+
     (async () => {
       if (isMounted) setIsLoading(true);
       if (isMounted) setError(null);
@@ -67,7 +63,6 @@ const AvailableMeals = (props) => {
         setError(error.message);
       }
       if (isMounted) setIsLoading(false);
-      // fetchMealsHandler();
     })();
     return () => {
       isMounted = false;
@@ -103,12 +98,9 @@ const AvailableMeals = (props) => {
   }
 
   return (
-    // <section className={classes.meals}>
-    //   <Card>{content}</Card>
-    // </section>
     <>
       <Route path="/r:id/photos">
-        <Photos chosenRestaurant={chosenRestaurant} />
+        <Photos chosenRestaurant={props.chosenRestaurant} />
       </Route>
       <Route path="/r:id" exact>
         {content}

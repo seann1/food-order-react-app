@@ -36,7 +36,6 @@ class FormikPlacesAutoComplete extends Component {
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
         this.setState(() => {
-          console.log({ value: address, address, coordinates: latLng });
           this.props.form.setFieldValue(this.state.name, {
             value: address,
             address,

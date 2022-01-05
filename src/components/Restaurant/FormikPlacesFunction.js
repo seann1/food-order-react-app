@@ -39,7 +39,6 @@ export default function FormikPlacesFunction(props) {
   //const [name, setName] = useState(props.field.name);
   //const [address, setAddress] = useState(props.value || "");
   const handleChange = (value) => {
-    console.log(value);
     setAddress(value);
     props.form.setFieldTouched(`${props.field.name}.value`);
     props.form.setFieldTouched(`${props.field.name}.address`);
@@ -48,7 +47,7 @@ export default function FormikPlacesFunction(props) {
   const handleSelect = async (address) => {
     const results = await geocodeByAddress(address);
     const latLng = await getLatLng(results[0]);
-    console.log(address);
+
     setAddress(address);
     props.form.setFieldValue(props.field.name, {
       value: address,
