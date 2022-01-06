@@ -40,10 +40,14 @@ To login to the app use the following credentials:
 4. Create .env.development and .env.production in root of repo
 
 5. Add this env var to .env.development and .env.production
+
    ```js
    REACT_APP_API_KEY = YOUR_API_KEY;
    ```
-6. run npm start in terminal:
+
+6. Create a new project in Google Firebase at [https://console.firebase.google.com/](https://console.firebase.google.com/)
+
+7. run npm start in terminal:
    ```sh
    npm start
    ```
