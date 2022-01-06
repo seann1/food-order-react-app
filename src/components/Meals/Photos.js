@@ -62,7 +62,6 @@ const Photos = (props) => {
   const restaurantPhotos = JSON.parse(
     window.localStorage.getItem("chosenRestaurant")
   ).images;
-  console.log(restaurantPhotos);
 
   const uploadImageHandler = async (value) => {
     const imageUrl = `restaurants/${restaurantCtx.chosenRestaurant.id}/${
@@ -87,6 +86,8 @@ const Photos = (props) => {
     <>
       <Grid container spacing={2} mt={1} mb={2}>
         {Object.keys(restaurantPhotos).map((image, index) => {
+          console.log(restaurantPhotos[image]);
+
           return (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Paper
