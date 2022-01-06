@@ -107,7 +107,7 @@ const AvailableMeals = (props) => {
       </Route>
       <Route path={["/r:id", "/r:id/photos"]} exact>
         <Grid container spacing={2}>
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={8}>
             <MapComponent
               chosenRestaurant={chosenRestaurant}
               containerElement={
