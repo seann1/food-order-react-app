@@ -21,3 +21,25 @@ To login to the app use the following credentials:
 - [React Router](https://reactrouter.com/)
 - [Firebase](https://firebase.google.com/)
 - [Google Maps API](https://developers.google.com/maps)
+
+### Installation
+
+1. Get a google API key at [developers.google.com](https://developers.google.com/maps/documentation/javascript/get-api-key)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/seann1/food-order-react-app.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Create .env.development and .env.production in root of repo
+
+5. Add this env var to .env.development and .env.production
+   ```js
+   REACT_APP_API_KEY = YOUR_API_KEY;
+   ```
+6. run npm start in terminal:
+   ```sh
+   npm start
+   ```
