@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 import Chip from "@mui/material/Chip";
 
 import { makeStyles } from "@mui/styles";
-import uuid from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { SimpleFileUpload } from "formik-material-ui";
 import Button from "@mui/material/Button";
 import RestaurantContext from "../../store/restaurant-context";
@@ -66,7 +66,8 @@ const Photos = (props) => {
   const uploadImageHandler = async (value) => {
     const imageUrl = `restaurants/${restaurantCtx.chosenRestaurant.id}/${
       restaurantCtx.chosenRestaurant.id
-    }-${Object.keys(restaurantCtx.chosenRestaurant.images).length + 1}.jpg`;
+    }-${uuidv4()}.jpg`;
+    //Object.keys(restaurantCtx.chosenRestaurant.images).length + 1
     const pathReference = storageRef(storage, imageUrl);
     await uploadBytes(pathReference, value.file).then((snapshot) => {});
 
