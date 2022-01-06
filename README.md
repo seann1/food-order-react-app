@@ -45,9 +45,7 @@ To login to the app use the following credentials:
    REACT_APP_API_KEY = YOUR_API_KEY;
    ```
 
-6. Create a new project in Google Firebase at [https://console.firebase.google.com/](https://console.firebase.google.com/)
-
-7. run npm start in terminal:
+6. run npm start in terminal:
    ```sh
    npm start
    ```
