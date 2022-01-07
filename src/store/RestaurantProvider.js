@@ -45,27 +45,53 @@ const restaurantReducer = (state, action) => {
     };
   }
   if (action.type === "ADD_IMAGE") {
-    const restaurant = state.restaurants.find(
-      (restaurant) => restaurant.id === action.newImageObject.restaurantId
-    );
-    const updatedImagesArray = state.restaurants
-      .find((restaurant) => {
-        return restaurant.id === action.newImageObject.restaurantId;
-      })
-      .images.concat(action.newImageObject.imageUrl);
+    // const restaurant = state.restaurants.find(
+    //   (restaurant) => restaurant.id === action.newImageObject.restaurantId
+    // );
 
-    restaurant.images = updatedImagesArray;
+    const updatedRestaurant = state.restaurants.find((restaurant) => {
+      return restaurant.id === action.newImageObject.restaurantId;
+    });
+    console.log(action.newImageObject.imageUrl);
+
+    //const imageUuid = uuidv4();
+    updatedRestaurant.images[action.newImageObject.imageUuid] =
+      action.newImageObject.imageUrl;
 
     const filteredRestaurants = state.restaurants.filter(
       (obj) => obj.id !== action.newImageObject.restaurantId
     );
 
-    const updatedRestaurants = filteredRestaurants.concat(restaurant);
-
+    const updatedRestaurants = filteredRestaurants.concat(updatedRestaurant);
+    window.localStorage.setItem(
+      "chosenRestaurant",
+      JSON.stringify(updatedRestaurant)
+    );
     return {
-      chosenRestaurant: state.chosenRestaurant,
+      chosenRestaurant: updatedRestaurant,
       restaurants: updatedRestaurants,
       restaurantCount: state.restaurantCount,
+    };
+  }
+  if (action.type === "DELETE_IMAGE") {
+    const chosenRestaurant = state.restaurants.find((restaurant) => {
+      return restaurant.id === action.deleteImageObject.restaurantId;
+    });
+    console.log(action);
+    delete chosenRestaurant.images[action.deleteImageObject.image];
+    console.log(chosenRestaurant.images);
+    window.localStorage.setItem(
+      "chosenRestaurant",
+      JSON.stringify(chosenRestaurant)
+    );
+    const filteredRestaurants = state.restaurants.filter(
+      (obj) => obj.id !== action.deleteImageObject.restaurantId
+    );
+    const updatedRestaurants = filteredRestaurants.concat(chosenRestaurant);
+
+    return {
+      chosenRestaurant: chosenRestaurant,
+      restaurants: updatedRestaurants,
     };
   }
 };
@@ -93,11 +119,19 @@ const RestaurantProvider = (props) => {
     });
   };
 
-  const addImageHandler = (restaurantId, imageUrl) => {
-    const newImageObject = { restaurantId, imageUrl };
+  const addImageHandler = (restaurantId, imageUrl, imageUuid) => {
+    const newImageObject = { restaurantId, imageUrl, imageUuid };
     dispatchRestaurantAction({
       type: "ADD_IMAGE",
       newImageObject,
+    });
+  };
+
+  const deleteImageHandler = (restaurantId, image, url) => {
+    const deleteImageObject = { restaurantId, image, url };
+    dispatchRestaurantAction({
+      type: "DELETE_IMAGE",
+      deleteImageObject,
     });
   };
 
@@ -112,6 +146,7 @@ const RestaurantProvider = (props) => {
     clearRestaurants: clearRestaurantsHandler,
     setChosenRestaurant: chooseRestaurantHandler,
     addImage: addImageHandler,
+    deleteImage: deleteImageHandler,
     chosenRestaurant: restaurantState.chosenRestaurant,
   };
 

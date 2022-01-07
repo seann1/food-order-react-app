@@ -63,10 +63,16 @@ const Photos = (props) => {
     window.localStorage.getItem("chosenRestaurant")
   ).images;
 
+  // ${
+  //   restaurantCtx.chosenRestaurant.id
+  // }-
+
+  const deleteImageHandler = (restaurantId, image, url) => {
+    restaurantCtx.deleteImage(restaurantId, image, url);
+  };
   const uploadImageHandler = async (value) => {
-    const imageUrl = `restaurants/${restaurantCtx.chosenRestaurant.id}/${
-      restaurantCtx.chosenRestaurant.id
-    }-${uuidv4()}.jpg`;
+    const imageUuid = uuidv4();
+    const imageUrl = `restaurants/${restaurantCtx.chosenRestaurant.id}/${imageUuid}.jpg`;
     //Object.keys(restaurantCtx.chosenRestaurant.images).length + 1
     const pathReference = storageRef(storage, imageUrl);
     await uploadBytes(pathReference, value.file).then((snapshot) => {});
@@ -76,19 +82,24 @@ const Photos = (props) => {
       ref(db, `restaurants/${restaurantCtx.chosenRestaurant.id}/images`),
       URLforImage
     );
-    restaurantCtx.addImage(restaurantCtx.chosenRestaurant.id, URLforImage);
+    //restaurantCtx.chosenRestaurant.id
+    console.log(JSON.parse(window.localStorage.getItem("chosenRestaurant")).id);
+    restaurantCtx.addImage(
+      JSON.parse(window.localStorage.getItem("chosenRestaurant")).id,
+      URLforImage,
+      imageUuid
+    );
   };
   // const images = restaurantCtx.chosenRestaurant.images;
   let usersRestaurant =
     authCtx.isLoggedIn &&
-    auth?.currentUser?.uid === restaurantCtx.chosenRestaurant.user;
+    auth?.currentUser?.uid ===
+      JSON.parse(window.localStorage.getItem("chosenRestaurant")).user;
 
   return (
     <>
       <Grid container spacing={2} mt={1} mb={2}>
         {Object.keys(restaurantPhotos).map((image, index) => {
-          console.log(restaurantPhotos[image]);
-
           return (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Paper
@@ -101,7 +112,20 @@ const Photos = (props) => {
               >
                 <Box p={1}>
                   {usersRestaurant && (
-                    <Chip label="Delete" color="error" size="small"></Chip>
+                    <Chip
+                      label="Delete"
+                      color="error"
+                      size="small"
+                      onClick={() =>
+                        deleteImageHandler(
+                          JSON.parse(
+                            window.localStorage.getItem("chosenRestaurant")
+                          ).id,
+                          image,
+                          restaurantPhotos[image]
+                        )
+                      }
+                    ></Chip>
                   )}
                 </Box>
               </Paper>
