@@ -39,6 +39,7 @@ export default function FormikPlacesFunction(props) {
   //const [name, setName] = useState(props.field.name);
   //const [address, setAddress] = useState(props.value || "");
   const handleChange = (value) => {
+    console.log(value);
     setAddress(value);
     props.form.setFieldTouched(`${props.field.name}.value`);
     props.form.setFieldTouched(`${props.field.name}.address`);
@@ -81,12 +82,13 @@ export default function FormikPlacesFunction(props) {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
+            {console.log(arguments)}
             {/* <p>Latitude: {coordinates.lat}</p>
             <p>Longitude: {coordinates.lng}</p> */}
             <TextField
               label="Address"
               fullWidth
-              //name="location"
+              // name="location"
               className={classes.textField}
               {...getInputProps({ placeholder: "Type address" })}
             />
@@ -94,6 +96,7 @@ export default function FormikPlacesFunction(props) {
             <div>
               {loading ? <div>...loading</div> : null}
               {suggestions.map((suggestion, index) => {
+                console.log(suggestion);
                 const style = suggestion.active
                   ? { backgroundColor: "#fafafa", cursor: "pointer" }
                   : { backgroundColor: "#ffffff", cursor: "pointer" };
@@ -107,12 +110,12 @@ export default function FormikPlacesFunction(props) {
                 );
               })}
             </div>
-            {/* {props.form.errors.location && (
+            {props.form.errors.location && (
               <>
                 <div>{props.form.errors.location.value}</div>
                 <div>{props.form.errors.location.address}</div>
               </>
-            )} */}
+            )}
           </div>
         )}
       </PlacesAutocomplete>

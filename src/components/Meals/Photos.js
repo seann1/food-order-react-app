@@ -11,7 +11,7 @@ import { SimpleFileUpload } from "formik-material-ui";
 import Button from "@mui/material/Button";
 import RestaurantContext from "../../store/restaurant-context";
 import AuthContext from "../../store/auth-context";
-import { getDatabase, ref, push } from "firebase/database";
+import { getDatabase, ref, push, remove } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import {
   getStorage,
@@ -67,8 +67,16 @@ const Photos = (props) => {
   //   restaurantCtx.chosenRestaurant.id
   // }-
 
-  const deleteImageHandler = (restaurantId, image, url) => {
+  const deleteImageHandler = async (restaurantId, image, url) => {
     restaurantCtx.deleteImage(restaurantId, image, url);
+    //const imageUrl = `restaurants/${restaurantCtx.chosenRestaurant.id}/${image}.jpg`;
+    //const pathReference = storageRef(storage, imageUrl);
+    await remove(
+      ref(
+        db,
+        `restaurants/${restaurantCtx.chosenRestaurant.id}/images/` + image
+      )
+    );
   };
   const uploadImageHandler = async (value) => {
     const imageUuid = uuidv4();
