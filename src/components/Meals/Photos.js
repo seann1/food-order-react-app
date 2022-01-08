@@ -62,7 +62,6 @@ const Photos = (props) => {
   const restaurantPhotos = JSON.parse(
     window.localStorage.getItem("chosenRestaurant")
   ).images;
-
   // ${
   //   restaurantCtx.chosenRestaurant.id
   // }-

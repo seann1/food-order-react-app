@@ -30,9 +30,9 @@ const Reviews = (props) => {
     });
   }, []);
 
-  console.log(
-    props.restaurant[0].location.address.split(",").map((item) => item.trim())
-  );
+  // console.log(
+  //   props.restaurant[0].location.address.split(",").map((item) => item.trim())
+  // );
   return (
     <Paper>
       <Typography p={2} gutterBottom>

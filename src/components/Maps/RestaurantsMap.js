@@ -30,16 +30,16 @@ const RestaurantMap = (props) => {
     >
       {props.restaurantMarkers.map((marker, index) => {
         return (
-          <>
-            <Marker
+          <Marker
+            key={marker.id}
+            position={{
+              lat: marker.location.coordinates.lat,
+              lng: marker.location.coordinates.lng,
+            }}
+            onClick={() => handleClick(marker.id)}
+          >
+            {/* <InfoWindow
               key={index}
-              position={{
-                lat: marker.location.coordinates.lat,
-                lng: marker.location.coordinates.lng,
-              }}
-              onClick={() => handleClick(marker.id)}
-            >
-              {/* <InfoWindow
                 position={{
                   lat: marker.location.coordinates.lat,
                   lng: marker.location.coordinates.lng,
@@ -51,27 +51,26 @@ const RestaurantMap = (props) => {
               >
                 <Typography variant="body">{marker.name}</Typography>
               </InfoWindow> */}
-              <InfoBox
-                position={{
-                  lat: marker.location.coordinates.lat,
-                  lng: marker.location.coordinates.lng,
+            <InfoBox
+              position={{
+                lat: marker.location.coordinates.lat,
+                lng: marker.location.coordinates.lng,
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: "white",
+                  padding: "3px",
+                  borderRadius: "4px",
+                  opacity: "0.75",
+                  minWidth: "60px",
+                  minHeight: "40px",
                 }}
               >
-                <div
-                  style={{
-                    "background-color": "white",
-                    padding: "3px",
-                    "border-radius": "4px",
-                    opacity: "0.75",
-                    "min-width": "60px",
-                    "min-height": "40px",
-                  }}
-                >
-                  <Typography variant="body">{marker.name}</Typography>
-                </div>
-              </InfoBox>
-            </Marker>
-          </>
+                <Typography variant="body">{marker.name}</Typography>
+              </div>
+            </InfoBox>
+          </Marker>
         );
       })}
     </GoogleMap>

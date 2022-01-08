@@ -42,11 +42,11 @@ const Header = (props) => {
           <Toolbar>
             {currentLocation !== "/" ? (
               <>
-                <Tooltip
-                  title="Back to Restaurant selection"
-                  placement="bottom-start"
-                >
-                  <ThemeProvider theme={theme}>
+                <ThemeProvider theme={theme}>
+                  <Tooltip
+                    title="Back to Restaurant selection"
+                    placement="bottom-start"
+                  >
                     <Typography
                       variant="h3"
                       //component="div"
@@ -58,8 +58,8 @@ const Header = (props) => {
                     >
                       ReactMeals
                     </Typography>
-                  </ThemeProvider>
-                </Tooltip>
+                  </Tooltip>
+                </ThemeProvider>
               </>
             ) : (
               <ThemeProvider theme={theme}>

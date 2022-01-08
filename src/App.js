@@ -53,13 +53,14 @@ function App() {
           restaurantsArray.push(data[restaurant]);
           restaurantCtx.addRestaurant(data[restaurant]);
         }
-
-        //setRestaurants(restaurantsArray);
       }
       setIsLoading(false);
       restaurantData.current = data;
-    } catch (error) {}
+    } catch (error) {
+      throw new Error("Something went wrong!");
+    }
   }, [restaurantCtx]);
+  //restaurantCtx
   useEffect(() => {
     fetchRandMHandler();
   }, [fetchRandMHandler]);
