@@ -72,7 +72,7 @@ const Photos = () => {
       (photo) => photo !== url
     );
     restaurantPhotos.images = filteredImages;
-    console.log(restaurantPhotos);
+
     setImages(filteredImages);
     window.localStorage.setItem(
       "chosenRestaurant",
