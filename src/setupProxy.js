@@ -5,7 +5,7 @@ module.exports = function (app) {
   app.use(
     "/v3",
     createProxyMiddleware({
-      target: "http://api.yelp.com",
+      target: "https://api.yelp.com/*",
       changeOrigin: true,
     })
   );

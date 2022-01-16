@@ -1,3 +1,4 @@
+import React from "react";
 import { makeStyles } from "@mui/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -9,7 +10,7 @@ import defaultImage from "../../assets/default-image.jpg";
 
 import { red } from "@mui/material/colors";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 345,
     cursor: "pointer",

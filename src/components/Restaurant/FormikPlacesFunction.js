@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 
 import { makeStyles } from "@mui/styles";
@@ -82,9 +82,6 @@ export default function FormikPlacesFunction(props) {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-            {console.log(arguments)}
-            {/* <p>Latitude: {coordinates.lat}</p>
-            <p>Longitude: {coordinates.lng}</p> */}
             <TextField
               label="Address"
               fullWidth
@@ -96,7 +93,6 @@ export default function FormikPlacesFunction(props) {
             <div>
               {loading ? <div>...loading</div> : null}
               {suggestions.map((suggestion, index) => {
-                console.log(suggestion);
                 const style = suggestion.active
                   ? { backgroundColor: "#fafafa", cursor: "pointer" }
                   : { backgroundColor: "#ffffff", cursor: "pointer" };
@@ -110,12 +106,12 @@ export default function FormikPlacesFunction(props) {
                 );
               })}
             </div>
-            {props.form.errors.location && (
+            {/* {props.form.errors.location && (
               <>
                 <div>{props.form.errors.location.value}</div>
                 <div>{props.form.errors.location.address}</div>
               </>
-            )}
+            )} */}
           </div>
         )}
       </PlacesAutocomplete>

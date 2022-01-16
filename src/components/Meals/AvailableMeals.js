@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import MealItem from "./MealItem/MealItem";
-import Reviews from "./Reviews";
+//import Reviews from "./Reviews";
 import Photos from "./Photos";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -117,7 +117,7 @@ const AvailableMeals = (props) => {
             ></MapComponent>
           </Grid>
           <Grid item xs={4}>
-            <Reviews restaurant={chosenRestaurant} />
+            {/* <Reviews restaurant={chosenRestaurant} /> */}
           </Grid>
         </Grid>
       </Route>

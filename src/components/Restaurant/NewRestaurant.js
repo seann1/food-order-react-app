@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 
 //import classes from "./NewRestaurant.module.css";
 
-const NewRestaurant = (props) => {
+const NewRestaurant = () => {
   const classes = useStyles();
   const restaurantCtx = useContext(RestaurantContext);
 
@@ -70,7 +70,7 @@ const NewRestaurant = (props) => {
       user: auth.currentUser.uid,
     };
     if (imageUrl !== null) {
-      await uploadBytes(pathReference, values.file).then((snapshot) => {});
+      await uploadBytes(pathReference, values.file).then(() => {});
 
       await getDownloadURL(pathReference).then((url) => {
         return (newRestaurant = {

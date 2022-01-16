@@ -1,4 +1,10 @@
-import { useState, useEffect, useContext, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+} from "react";
 
 import RestaurantContext from "./store/restaurant-context";
 import RestaurantMap from "./components/Maps/RestaurantsMap";
@@ -48,6 +54,7 @@ function App() {
         let restaurantsArray = [];
         restaurantCtx.clearRestaurants();
         for (let restaurant in data) {
+          if (!restaurant) continue;
           data[restaurant].id = restaurant;
 
           restaurantsArray.push(data[restaurant]);
@@ -80,7 +87,7 @@ function App() {
     //setCartIsShown(true);
   };
 
-  const hideOrderFormHandler = (submit) => {
+  const hideOrderFormHandler = () => {
     setOrderFormIsShown(false);
     //setCartIsShown(true);
   };

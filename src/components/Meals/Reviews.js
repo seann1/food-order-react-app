@@ -18,7 +18,9 @@ const Reviews = (props) => {
       }&country=${restaurantAddress[3].substring(0, 2)}`,
       {
         headers: {
+          mode: "no-cors",
           Authorization: `Bearer ${process.env.REACT_APP_YELP_API_KEY}`,
+          accessControlAllowOrigin: "https://api.yelp.com/v3/*",
           //Origin: "localhost",
           withCredentials: true,
           "Content-Type": "application/json",

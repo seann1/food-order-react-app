@@ -79,11 +79,7 @@ const restaurantReducer = (state, action) => {
     });
     console.log(action);
     delete chosenRestaurant.images[action.deleteImageObject.image];
-    console.log(chosenRestaurant.images);
-    window.localStorage.setItem(
-      "chosenRestaurant",
-      JSON.stringify(chosenRestaurant)
-    );
+
     const filteredRestaurants = state.restaurants.filter(
       (obj) => obj.id !== action.deleteImageObject.restaurantId
     );

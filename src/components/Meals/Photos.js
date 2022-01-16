@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Formik, Form, Field } from "formik";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -20,9 +20,9 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-const Photos = (props) => {
+const Photos = () => {
   const [showForm, setShowForm] = useState(false);
-
+  const [images, setImages] = useState("");
   const restaurantCtx = useContext(RestaurantContext);
   const authCtx = useContext(AuthContext);
 
@@ -59,37 +59,48 @@ const Photos = (props) => {
     },
   });
   const classes = useStyles();
-  const restaurantPhotos = JSON.parse(
-    window.localStorage.getItem("chosenRestaurant")
-  ).images;
-  // ${
-  //   restaurantCtx.chosenRestaurant.id
-  // }-
+  useEffect(() => {
+    setImages(JSON.parse(localStorage.getItem("chosenRestaurant")).images);
+  }, []);
 
   const deleteImageHandler = async (restaurantId, image, url) => {
+    let restaurantPhotos = JSON.parse(
+      window.localStorage.getItem("chosenRestaurant")
+    );
+
+    const filteredImages = restaurantPhotos.images.filter(
+      (photo) => photo !== url
+    );
+    restaurantPhotos.images = filteredImages;
+    console.log(restaurantPhotos);
+    setImages(filteredImages);
+    window.localStorage.setItem(
+      "chosenRestaurant",
+      JSON.stringify(restaurantPhotos)
+    );
+
     restaurantCtx.deleteImage(restaurantId, image, url);
-    //const imageUrl = `restaurants/${restaurantCtx.chosenRestaurant.id}/${image}.jpg`;
-    //const pathReference = storageRef(storage, imageUrl);
+
     await remove(
       ref(
         db,
-        `restaurants/${restaurantCtx.chosenRestaurant.id}/images/` + image
+        `restaurants/${restaurantCtx.chosenRestaurant.id}/images/${image}`
       )
     );
   };
   const uploadImageHandler = async (value) => {
     const imageUuid = uuidv4();
     const imageUrl = `restaurants/${restaurantCtx.chosenRestaurant.id}/${imageUuid}.jpg`;
-    //Object.keys(restaurantCtx.chosenRestaurant.images).length + 1
+
     const pathReference = storageRef(storage, imageUrl);
-    await uploadBytes(pathReference, value.file).then((snapshot) => {});
+    await uploadBytes(pathReference, value.file).then(() => {});
 
     const URLforImage = await getDownloadURL(pathReference);
     await push(
       ref(db, `restaurants/${restaurantCtx.chosenRestaurant.id}/images`),
       URLforImage
     );
-    //restaurantCtx.chosenRestaurant.id
+
     console.log(JSON.parse(window.localStorage.getItem("chosenRestaurant")).id);
     restaurantCtx.addImage(
       JSON.parse(window.localStorage.getItem("chosenRestaurant")).id,
@@ -97,7 +108,7 @@ const Photos = (props) => {
       imageUuid
     );
   };
-  // const images = restaurantCtx.chosenRestaurant.images;
+
   let usersRestaurant =
     authCtx.isLoggedIn &&
     auth?.currentUser?.uid ===
@@ -106,13 +117,13 @@ const Photos = (props) => {
   return (
     <>
       <Grid container spacing={2} mt={1} mb={2}>
-        {Object.keys(restaurantPhotos).map((image, index) => {
+        {Object.keys(images).map((image, index) => {
           return (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Paper
                 className={classes.paperContainer}
                 style={{
-                  backgroundImage: `url(${restaurantPhotos[image]})`,
+                  backgroundImage: `url(${images[image]})`,
                 }}
                 elevation={6}
                 key={index}
@@ -129,7 +140,7 @@ const Photos = (props) => {
                             window.localStorage.getItem("chosenRestaurant")
                           ).id,
                           image,
-                          restaurantPhotos[image]
+                          images[image]
                         )
                       }
                     ></Chip>

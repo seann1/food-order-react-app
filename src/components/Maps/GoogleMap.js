@@ -1,4 +1,5 @@
 //import { useState } from "react";
+import React from "react";
 import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
 
 const MapComponent = withGoogleMap((props) => {
