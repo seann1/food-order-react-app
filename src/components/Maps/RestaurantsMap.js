@@ -14,6 +14,7 @@ const RestaurantMap = (props) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
+    libraries: ["places"],
   });
 
   const history = useHistory();
