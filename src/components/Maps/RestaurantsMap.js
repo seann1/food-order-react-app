@@ -1,19 +1,42 @@
-import React from "react";
-import { GoogleMap, Marker, InfoBox } from "@react-google-maps/api";
+import React, { useState } from "react";
+import {
+  GoogleMap,
+  Marker,
+  InfoBox,
+  useJsApiLoader,
+} from "@react-google-maps/api";
 import { useHistory } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 const RestaurantMap = (props) => {
+  const [map, setMap] = React.useState(null);
+  const [mapCenter, setMapCenter] = useState(null);
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_API_KEY,
+  });
+
   const history = useHistory();
-  // const MVC = new window.google.maps.MVCObject();
 
   const handleClick = (id) => {
     history.push(`/${id}`);
   };
-  const markerBounds = new window.google.maps.LatLngBounds();
-  props.restaurantMarkers.map((marker) => {
-    return markerBounds.extend(marker.location.coordinates);
-  });
+
+  const onLoad = React.useCallback(function callback(map) {
+    const markerBounds = new window.google.maps.LatLngBounds();
+    props.restaurantMarkers.map((marker) => {
+      return markerBounds.extend(marker.location.coordinates);
+    });
+    setMapCenter(markerBounds.getCenter());
+    map.fitBounds(markerBounds);
+    setMap(map);
+  }, []);
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null);
+  }, []);
+
+  console.log(props);
 
   const containerStyle = {
     width: "100%",
@@ -21,12 +44,13 @@ const RestaurantMap = (props) => {
     borderRadius: "4px",
   };
 
-  return (
+  return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      onLoad={(map) => {
-        map.fitBounds(markerBounds);
-      }}
+      onLoad={onLoad}
+      center={mapCenter}
+      zoom={12}
+      onUnmount={onUnmount}
     >
       {props.restaurantMarkers.map((marker, index) => {
         return (
@@ -38,19 +62,6 @@ const RestaurantMap = (props) => {
             }}
             onClick={() => handleClick(marker.id)}
           >
-            {/* <InfoWindow
-              key={index}
-                position={{
-                  lat: marker.location.coordinates.lat,
-                  lng: marker.location.coordinates.lng,
-                }}
-                anchor={{
-                  lat: marker.location.coordinates.lat,
-                  lng: marker.location.coordinates.lng,
-                }}
-              >
-                <Typography variant="body">{marker.name}</Typography>
-              </InfoWindow> */}
             <InfoBox
               position={{
                 lat: marker.location.coordinates.lat,
@@ -74,7 +85,9 @@ const RestaurantMap = (props) => {
         );
       })}
     </GoogleMap>
+  ) : (
+    <></>
   );
 };
 
-export default RestaurantMap;
+export default React.memo(RestaurantMap);

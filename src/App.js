@@ -67,7 +67,7 @@ function App() {
       throw new Error("Something went wrong!");
     }
   }, [restaurantCtx]);
-  //restaurantCtx
+
   useEffect(() => {
     fetchRandMHandler();
   }, [fetchRandMHandler]);

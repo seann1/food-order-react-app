@@ -11,9 +11,9 @@ ReactDOM.render(
   <RestaurantContextProvider>
     <AuthContextProvider>
       <BrowserRouter>
-        <Wrapper apiKey={process.env.REACT_APP_API_KEY} libraries={["places"]}>
-          <App />
-        </Wrapper>
+        {/* <Wrapper apiKey={process.env.REACT_APP_API_KEY} libraries={["places"]}>
+        </Wrapper> */}
+        <App />
       </BrowserRouter>
     </AuthContextProvider>
   </RestaurantContextProvider>,
