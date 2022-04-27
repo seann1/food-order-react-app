@@ -20,22 +20,27 @@ import Container from "@mui/material/Container";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { Route, Switch, useHistory, Link } from "react-router-dom";
+import { useGoogleMaps } from "./store/GoogleMapsProvider";
+
 import equal from "fast-deep-equal";
 
-//import { Wrapper } from "@googlemaps/react-wrapper";
-//import CartContext from "./store/cart-context";
-
+const libraries = ["places"];
 function App() {
-  //const [cartIsShown, setCartIsShown] = useState(false);
+  // const { isLoaded } = useJsApiLoader({
+  //   id: "google-map-script",
+  //   googleMapsApiKey: process.env.REACT_APP_API_KEY,
+  //   libraries: libraries,
+  // });
+
+  const { isLoaded } = useGoogleMaps();
+
   const [orderFormIsShown, setOrderFormIsShown] = useState(false);
   const [restaurantId, setRestaurantId] = useState("");
-  //const [restaurants, setRestaurants] = useState([]);
 
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const restaurantCtx = useContext(RestaurantContext);
   const restaurantData = useRef(null);
-  //let urlParams = useLocation();
 
   let history = useHistory();
   const fetchRandMHandler = useCallback(async () => {
@@ -74,13 +79,10 @@ function App() {
 
   const showOrderFormHandler = () => {
     setOrderFormIsShown(true);
-    //setCartIsShown(false);
   };
 
   const hideCartHandler = () => {
-    //history.push("/");
     history.goBack();
-    //setCartIsShown(false);
   };
 
   const showCartHandler = () => {
@@ -89,12 +91,11 @@ function App() {
 
   const hideOrderFormHandler = () => {
     setOrderFormIsShown(false);
-    //setCartIsShown(true);
   };
 
   const closeModal = () => {
     setOrderFormIsShown(false);
-    //setCartIsShown(false);
+
     setRestaurantId("");
   };
 
@@ -185,6 +186,7 @@ function App() {
                         // mapElement={
                         //   <div style={{ height: "50vh", width: "100%" }}></div>
                         // }
+                        isLoaded={isLoaded}
                         restaurantMarkers={restaurantCtx.restaurants}
                       />
                     </Box>

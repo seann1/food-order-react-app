@@ -1,22 +1,13 @@
 import React, { useState } from "react";
-import {
-  GoogleMap,
-  Marker,
-  InfoBox,
-  useJsApiLoader,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
+import { useGoogleMaps } from "../../store/GoogleMapsProvider";
 import { useHistory } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 const RestaurantMap = (props) => {
   const [map, setMap] = React.useState(null);
   const [mapCenter, setMapCenter] = useState(null);
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: process.env.REACT_APP_API_KEY,
-    libraries: ["places"],
-  });
-
+  const { isLoaded } = useGoogleMaps();
   const history = useHistory();
 
   const handleClick = (id) => {
@@ -30,14 +21,13 @@ const RestaurantMap = (props) => {
     });
     setMapCenter(markerBounds.getCenter());
     map.fitBounds(markerBounds);
+
     setMap(map);
   }, []);
 
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null);
   }, []);
-
-  console.log(props);
 
   const containerStyle = {
     width: "100%",
@@ -50,7 +40,6 @@ const RestaurantMap = (props) => {
       mapContainerStyle={containerStyle}
       onLoad={onLoad}
       center={mapCenter}
-      zoom={12}
       onUnmount={onUnmount}
     >
       {props.restaurantMarkers.map((marker, index) => {
@@ -63,25 +52,11 @@ const RestaurantMap = (props) => {
             }}
             onClick={() => handleClick(marker.id)}
           >
-            <InfoBox
-              position={{
-                lat: marker.location.coordinates.lat,
-                lng: marker.location.coordinates.lng,
-              }}
-            >
-              <div
-                style={{
-                  backgroundColor: "white",
-                  padding: "3px",
-                  borderRadius: "4px",
-                  opacity: "0.75",
-                  minWidth: "60px",
-                  minHeight: "40px",
-                }}
-              >
+            <InfoWindow options={{ maxWidth: 320 }}>
+              <div>
                 <Typography variant="body">{marker.name}</Typography>
               </div>
-            </InfoBox>
+            </InfoWindow>
           </Marker>
         );
       })}
@@ -90,5 +65,27 @@ const RestaurantMap = (props) => {
     <></>
   );
 };
+
+{
+  /* <InfoBox
+position={{
+  lat: marker.location.coordinates.lat,
+  lng: marker.location.coordinates.lng,
+}}
+>
+<div
+  style={{
+    backgroundColor: "white",
+    padding: "3px",
+    borderRadius: "4px",
+    opacity: "0.75",
+    minWidth: "60px",
+    minHeight: "40px",
+  }}
+>
+  <Typography variant="body">{marker.name}</Typography>
+</div>
+</InfoBox> */
+}
 
 export default React.memo(RestaurantMap);
