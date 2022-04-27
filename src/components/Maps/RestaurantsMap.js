@@ -66,26 +66,4 @@ const RestaurantMap = (props) => {
   );
 };
 
-{
-  /* <InfoBox
-position={{
-  lat: marker.location.coordinates.lat,
-  lng: marker.location.coordinates.lng,
-}}
->
-<div
-  style={{
-    backgroundColor: "white",
-    padding: "3px",
-    borderRadius: "4px",
-    opacity: "0.75",
-    minWidth: "60px",
-    minHeight: "40px",
-  }}
->
-  <Typography variant="body">{marker.name}</Typography>
-</div>
-</InfoBox> */
-}
-
 export default React.memo(RestaurantMap);
